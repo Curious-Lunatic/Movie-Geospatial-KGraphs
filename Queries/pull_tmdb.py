@@ -30,9 +30,9 @@ def get(path, **params):
   return None
 
 
-# Step A: collect all Hindi movie IDs, year by year
+# Step A: collect all Hindi movie IDs from 1950 onwards
 ids = {}
-for y in range(1913, 2027):
+for y in range(2005, 2027):
   page = 1
   while True:
     d = get(
