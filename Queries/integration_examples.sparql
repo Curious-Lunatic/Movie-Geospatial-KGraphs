@@ -1,0 +1,13 @@
+# Run with: python Queries/validate_integrated_graph.py
+# Basic SPARQL 1.1; does not require a GeoSPARQL extension.
+PREFIX gwm: <https://w3id.org/gwm/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+SELECT DISTINCT ?title ?year ?place ?source ?sourceRow WHERE {
+  ?film a gwm:Film ; rdfs:label ?title ; gwm:releaseYear ?year ; gwm:filmedAt ?location .
+  ?location rdfs:label ?place .
+  ?assertion a rdf:Statement ; rdf:subject ?film ; rdf:predicate gwm:filmedAt ;
+             rdf:object ?location ; prov:wasDerivedFrom ?source ; gwm:sourceRow ?sourceRow .
+  FILTER(?title = "Jodhaa Akbar")
+} ORDER BY ?place ?source ?sourceRow

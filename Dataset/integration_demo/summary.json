@@ -1,0 +1,94 @@
+{
+  "year_range": [
+    2000,
+    2025
+  ],
+  "heritage_inscribed_by": 2025,
+  "films": 6182,
+  "songs": 5378,
+  "people": 15063,
+  "places": 8572,
+  "heritage_properties": 1248,
+  "heritage_components": 5645,
+  "claims": 57589,
+  "location_claims": 11469,
+  "source_attributes": 196132,
+  "films_with_filming_locations": 1366,
+  "films_with_narrative_locations": 1301,
+  "geocoded_places": 7330,
+  "review_only_location_claims": 4983,
+  "issue_counts": {
+    "ambiguous_title_year": 24,
+    "identifier_conflict": 20,
+    "release_year_disagreement": 424,
+    "song_location_needs_review": 14,
+    "standalone_song_needs_mapping": 26,
+    "unresolved_song_film": 124
+  },
+  "sources": {
+    "enriched/films_enriched.csv": {
+      "rows": 6069,
+      "sha256": "2d37e7ed7842b116187897302ed34d60eac433d3f0a2cb20c40ab6a94586eec7"
+    },
+    "tmdb_movies.csv": {
+      "rows": 9611,
+      "sha256": "970cdbe630c7a06217dd3ac96d964c5f8181889a0f3b01274b2ce42032bbe14d"
+    },
+    "wikidata_movies.csv": {
+      "rows": 3171,
+      "sha256": "7888d75df9b94c5d4f71cb2afed12a4ae408d690542bfe01dd178c8af8ca952d"
+    },
+    "bf_2K-25.csv": {
+      "rows": 3216,
+      "sha256": "fed9358805d2b32eda2410787dba6f85c06c9c9c2e46dd1546ef367b95bce865"
+    },
+    "bollywood_films_1970_2000.csv": {
+      "rows": 2960,
+      "sha256": "f3143a73d74694f0e0a499154d9700b0cbb4b44605e4a837e8d7648a69a36a37"
+    },
+    "movies_with_locations.csv": {
+      "rows": 9611,
+      "sha256": "35d7b00b468a2c5f853b9131ceec92fb9388ca2b4c3e7d3ef2001223d799b844"
+    },
+    "filmapia_film_locations.csv": {
+      "rows": 240,
+      "sha256": "c8c55dedecc0711a539c6509933bc93d71c9144a032bc1d53b5c0570c3a51717"
+    },
+    "whc001.csv": {
+      "rows": 1273,
+      "sha256": "24d4d1c64b09e9615b32bd5fd3e7b59a9c278cac9fe8aa7babbd7e5f1a2587b5"
+    },
+    "enriched/places.csv": {
+      "rows": 494,
+      "sha256": "fbcbb00b44c796621a8f19dbe61110ea7f6b932d80d7206b897602337b0568b9"
+    },
+    "enriched/location_assertions.csv": {
+      "rows": 14835,
+      "sha256": "0af5288df7cb3b7baa24fdee5d7d9de0222526d6c4de5f8a1a67282b91a4712e"
+    },
+    "wikidata_cache.json": {
+      "rows": 6244,
+      "sha256": "9aeba3a272c3694c8be1454b18ef4f95812b955c95ea46946ad3791a0c2ea61b"
+    },
+    "tmdb_cast.csv": {
+      "rows": 70142,
+      "sha256": "0c7adef36ee51c2a5ca82947504ec243bff6aa4e4ffa2a938c0a524662137956"
+    },
+    "tmdb_directors.csv": {
+      "rows": 9237,
+      "sha256": "7b3eb7d9ce4d893b8c6e1ca826b0c4170bc1913416c41a424d5b2a62d02a23df"
+    },
+    "songs_2000_2004.csv": {
+      "rows": 2775,
+      "sha256": "2e813644b03863d99e9a8862b84fba4985bb040f1df8adb5f5b650be097cd6af"
+    },
+    "songs_2005_2009.csv": {
+      "rows": 2727,
+      "sha256": "62072192da9659ab474a4b4c5a700f1b90ed0777d2983f2039d25aa240c5c27a"
+    },
+    "bollywood_songs_1970_2026.csv": {
+      "rows": 28,
+      "sha256": "b23a16963d2edc95a8af8895569b1c93ba0de1fc6482308ce582b2d78c21817f"
+    }
+  }
+}

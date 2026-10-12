@@ -1,2 +1,10 @@
 __pycache__/
 *.py[cod]
+.validation-deps/
+node_modules/
+Dataset/integrated/
+outputs/
+*.gpkg-shm
+*.gpkg-wal
+*.qgz~
+*.qgs~
