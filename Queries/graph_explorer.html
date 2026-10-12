@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bollywood · Places & Stories</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f3ee;color:#213437;font:15px system-ui,sans-serif}header{padding:28px 36px;background:#173e40;color:#fff}h1{font:34px Georgia,serif;margin:3px 0 10px}header p{color:#bcd3cf;margin:0;max-width:960px;line-height:1.5}.eyebrow{letter-spacing:.18em;font-size:11px;text-transform:uppercase;color:#96c5b5}nav{display:flex;gap:8px;padding:15px 36px;border-bottom:1px solid #d8dcd4}button,select,input{font:inherit;border:1px solid #bdcbc5;border-radius:7px;padding:9px 12px;background:white;color:#213437}button{cursor:pointer}button.active{background:#173e40;color:white}.metrics{display:flex;flex-wrap:wrap;gap:28px;margin:22px 36px}.metrics strong{font-size:25px;display:block}.metrics span{font-size:12px;color:#627572}.workspace{display:grid;grid-template-columns:270px minmax(400px,1fr) 295px;gap:16px;margin:20px 24px}.panel{background:white;border:1px solid #dce1d8;border-radius:12px;padding:18px}input,select{width:100%}#matches{height:540px;overflow:auto;margin-top:12px}#matches button{text-align:left;display:block;width:100%;border:0;border-bottom:1px solid #eee;border-radius:0;font-size:13px}#matches button.selected{background:#e6efea;color:#0b5b45}h2{font-size:19px;margin:0 0 12px}h3{font-size:14px;margin:18px 0 8px}.muted{color:#687b77;font-size:12px;line-height:1.5}svg{width:100%;min-height:600px}svg text{font-family:system-ui,sans-serif;font-size:13px}.node{cursor:pointer}.node:hover rect{stroke:#163e40;stroke-width:2}.edge{stroke:#b8c6c2;stroke-width:1.2;cursor:pointer;opacity:.55}.edge:hover{stroke:#173e40;stroke-width:4;opacity:1}#details{overflow-wrap:anywhere;font-size:13px;line-height:1.6}#details button{font-size:12px;text-align:left;margin:3px 0;display:block}#details a{color:#087661}.legend{display:flex;gap:15px;flex-wrap:wrap;font-size:11px;margin-top:9px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}.query{display:none;margin:24px 36px;max-width:1100px}.query p{line-height:1.6}table{border-collapse:collapse;width:100%;background:white;font-size:13px}td,th{padding:12px;text-align:left;border-bottom:1px solid #e1e5de}th{background:#e6efea}a{color:#126b5e}.empty{padding:45px;color:#667b74}footer{padding:20px 36px;color:#657871;font-size:12px}.search-wrap{position:relative}.search-wrap input{padding-right:32px}.clear-btn{position:absolute;right:4px;top:50%;transform:translateY(-50%);border:none;background:none;color:#687b77;font-size:16px;padding:4px 8px;cursor:pointer;border-radius:4px}.clear-btn:hover{background:#e6efea;color:#213437}#matches button:hover{background:#f0f5f2}#matches button .year{color:#687b77;font-size:11px}@media(max-width:1050px){.workspace{grid-template-columns:220px 1fr}#detailPanel{grid-column:1/-1}#matches{height:450px}}@media(max-width:700px){.workspace{display:block}.panel{margin-bottom:12px}#matches{height:150px}nav{padding:12px;flex-wrap:wrap}header{padding:24px}svg{min-height:400px}}
+</style></head><body>
+<header><div class="eyebrow">Indian cinema · Geospatial knowledge graph</div><h1>Places & Stories</h1><p>Explore films, songs, performers, credited characters and the places connected to them. Every relationship comes from a supplied source. Select a film, then a node or connecting line to inspect its evidence.</p></header>
+<div class="metrics" id="metrics"></div>
+<nav><button class="active" data-tab="explore">Explore the graph</button><button data-tab="romance">Places in romance films</button><button data-tab="heritage">Heritage across genres</button><button data-tab="method">What this graph means</button></nav>
+<main id="explore" class="workspace">
+<section class="panel"><h2>Find a film</h2><div class="search-wrap"><input id="search" type="search" aria-label="Search films" placeholder="Try Jodhaa Akbar, Dhoom…" autocomplete="off"><button id="clearSearch" class="clear-btn" aria-label="Clear search" style="display:none">✕</button></div><p class="muted" id="resultCount"></p><div id="matches"><p class="muted" id="loadingMsg">Loading film data…</p></div></section>
+<section class="panel"><h2 id="filmTitle"></h2><label class="muted" for="filter">Show connections</label><select id="filter"><option value="all">All relationships</option><option value="locations">Places and genres</option><option value="credits">Cast and characters</option><option value="songs">Songs and music credits</option></select><p class="muted" id="scope"></p><svg id="graph" viewBox="0 0 1400 1100" aria-label="Selected film relationship graph" role="img"></svg><div class="legend" id="legend"></div></section>
+<aside class="panel" id="detailPanel"><h2>Evidence & connections</h2><div id="details">Select a node or line.</div></aside></main>
+<section class="query" id="romance"><h2>Which places are linked to romance films?</h2><p>This counts distinct films with a TMDB <strong>Romance</strong> genre. Filming locations and narrative settings are counted separately. This is a genre association, not a measurement of romantic scenes or audience emotion. Place aliases may still be separate entities.</p><div id="romanceTable"></div><p><a href="romance_places.csv" download>Download all results</a></p></section>
+<section class="query" id="heritage"><h2>Which heritage sites occur across genres?</h2><p>Only filming links to identified UNESCO properties or components are included. Components are grouped under their parent property. One film can have multiple genres; compare the film count too. Inclusion does not establish that filming happened after heritage inscription.</p><div id="heritageTable"></div><p><a href="heritage_genres.csv" download>Download all results</a></p></section>
+<section class="query panel" id="method"><h2>A graph of evidence, with explicit gaps</h2><p>Films link to songs, cast members, credited roles, genres, filming places and story settings. Playback singers, composers and lyricists come from song credits. A film's cast is not automatically treated as the cast appearing in each song. A film location is never inherited as a song location.</p><p>TMDB person IDs identify cast and directors. Name-only music credits are scoped to a source and film and may contain credited duos or groups. Character records preserve full role strings, including self appearances and compound roles, without guessing separate fictional identities.</p><p><strong>Events and landscapes have no validated instances in these source files.</strong> The ontology reserves these classes for future evidence. No missing facts are filled by a language model. UNESCO properties without film links remain a reference catalogue, not evidence of cinematic use.</p><p>Coordinates are representative points, often for a city, region or country. Nearby heritage does not imply filming at that site. Review-only extraction candidates are excluded from the graph. Source disagreements and uncertain matches remain in the review tables.</p><p>The corpus includes the union of supplied movie records for the selected years; it is larger than the earlier enriched movie CSV. It is not a verified census of Bollywood. The graph view limits the number of visible nodes to keep a film readable; all accepted relationships remain in the downloadable graph and tables.</p><p><a href="graph.ttl" download>Download RDF knowledge graph</a> · <a href="claims.csv" download>Relationship evidence</a> · <a href="summary.json">Build counts</a></p></section>
+<footer>Offline explorer · No external libraries, accounts or network requests required. The RDF export is the complete graph; the diagram shows a selected neighbourhood.</footer>
+<script>
+try{
+const DATA=/*__GRAPH_DATA__*/;
+if(!DATA||!DATA.nodes){throw new Error('Graph data not loaded. Make sure you are opening the generated file from Dataset/integrated/, not the template.');}
+const N=DATA.nodes,E=DATA.edges,adj=Array.from({length:N.length},()=>[]),colors={Film:'#286f67',Song:'#c39431',Person:'#5979a3',Character:'#9269a5',Genre:'#b77963',Place:'#578e69',Heritage:'#bf6b41'};
+E.forEach((e,i)=>{adj[e[0]].push(i);adj[e[2]].push(i)});
+const $=id=>document.getElementById(id),films=N.map((n,i)=>[n,i]).filter(([n])=>n[2]==='Film').sort((a,b)=>a[0][1].localeCompare(b[0][1]));
+// Pre-build lowercase search index for fast filtering
+const filmSearchIndex=films.map(([n,i])=>[(n[1]+' '+n[3]).toLocaleLowerCase(),n,i]);
+let current=films.find(([n])=>n[1]==='Jodhaa Akbar')?.[1]??films[0]?.[1];
+const label=r=>({filming:'filmed at',narrative:'story set in',cast_member:'cast member',director:'directed by',in_film:'song in film',portrays:'portrays',character_in_film:'character in film',genre:'has genre',performed_by:'performed by',composed_by:'composed by',lyrics_by:'lyrics by',part_of_heritage:'part of heritage'})[r]||r;
+function add(parent,tag,text,cls){const el=document.createElement(tag);el.textContent=text;if(cls)el.className=cls;parent.append(el);return el}
+function listFilms(){
+  const q=$('search').value.toLocaleLowerCase();
+  const clearBtn=$('clearSearch');
+  if(clearBtn)clearBtn.style.display=q?'block':'none';
+  const hits=q?filmSearchIndex.filter(([s])=>s.includes(q)):filmSearchIndex;
+  const matchesEl=$('matches');
+  matchesEl.replaceChildren();
+  $('resultCount').textContent=hits.length.toLocaleString()+' matching films'+(hits.length>150?' · showing first 150':'');
+  const frag=document.createDocumentFragment();
+  hits.slice(0,150).forEach(([s,n,i])=>{
+    const b=document.createElement('button');
+    b.textContent=n[1]+(n[3]?' ('+n[3]+')':'');
+    if(i===current)b.className='selected';
+    b.onclick=()=>{current=i;render();listFilms();details(i)};
+    frag.append(b);
+  });
+  matchesEl.append(frag);
+  if(hits.length===0){
+    add(matchesEl,'p','No films found. Try a different search term.','muted');
+  }
+}
+function evidence(i){const e=E[i],d=$('details');d.replaceChildren();add(d,'h3',N[e[0]][1]+' → '+label(e[1])+' → '+N[e[2]][1]);add(d,'p',e[3]+' source assertion(s). Showing one; claims.csv contains all evidence.');add(d,'p',e[4]);if(e[6])add(d,'p',e[6]);if(/^https?:\/\//.test(e[5])){let a=add(d,'a','Open original source');a.href=e[5];a.target='_blank';a.rel='noopener'} }
+function details(i){const d=$('details');d.replaceChildren();add(d,'h3',N[i][1]);add(d,'p',N[i][2]+(N[i][3]?' · '+N[i][3]:''));if(N[i][4])add(d,'p',N[i][4].replaceAll('_',' '));add(d,'p',adj[i].length+' connected relationships');const ids=adj[i].filter(j=>{const e=E[j];return e[0]===current||e[2]===current||N[i][2]==='Song'||N[i][2]==='Character'});(ids.length?ids:adj[i]).slice(0,35).forEach(j=>{let e=E[j],other=e[0]===i?e[2]:e[0];const b=add(d,'button',label(e[1])+' · '+N[other][1]);b.onclick=()=>evidence(j);if(N[other][2]==='Film'&&other!==current){let go=add(d,'button','Explore '+N[other][1]);go.onclick=()=>{current=other;render();listFilms();details(other)}}})}
+function svg(tag,attrs,parent){const x=document.createElementNS('http://www.w3.org/2000/svg',tag);Object.entries(attrs).forEach(([k,v])=>x.setAttribute(k,v));parent.append(x);return x}
+function render(){if(current===undefined)return;const f=$('filter').value,g=$('graph');g.replaceChildren();$('filmTitle').textContent=N[current][1]+' · '+N[current][3];const selected=new Set([current]);const groups={Song:[],Person:[],Character:[],Genre:[],Place:[],Heritage:[]};
+ const allow=r=>f==='all'||f==='locations'&&['filming','narrative','genre'].includes(r)||f==='credits'&&['cast_member','director','character_in_film'].includes(r)||f==='songs'&&r==='in_film';
+ adj[current].forEach(j=>{const e=E[j];if(!allow(e[1]))return;const other=e[0]===current?e[2]:e[0];const arr=groups[N[other][2]];if(arr&&!arr.includes(other))arr.push(other)});
+ const caps={Song:10,Person:10,Character:10,Genre:6,Place:12,Heritage:8};Object.entries(groups).forEach(([k,v])=>v.slice(0,caps[k]).forEach(i=>selected.add(i)));
+ if(f==='songs'){for(const s of groups.Song.slice(0,10))for(const j of adj[s]){const e=E[j];if(['performed_by','composed_by','lyrics_by'].includes(e[1])&&groups.Person.length<12&&!groups.Person.includes(e[2])){groups.Person.push(e[2]);selected.add(e[2])}}}
+ const positions=new Map([[current,[690,490]]]);const layouts={Song:[170,90],Person:[170,600],Character:[650,630],Genre:[650,90],Heritage:[1120,90],Place:[1120,480]};
+ Object.entries(groups).forEach(([k,v])=>{let shown=v.filter(i=>selected.has(i));let [x,y]=layouts[k];const t=svg('text',{x:x-135,y:y-25,fill:colors[k],'font-weight':'bold'},g);t.textContent=k+' · '+v.length;shown.forEach((i,j)=>positions.set(i,[x,y+j*38]))});
+ const visible=E.filter(e=>selected.has(e[0])&&selected.has(e[2]));visible.forEach(e=>{let [x1,y1]=positions.get(e[0]),[x2,y2]=positions.get(e[2]);let l=svg('line',{x1,y1,x2,y2,class:'edge'},g);svg('title',{},l).textContent=label(e[1]);l.onclick=()=>evidence(E.indexOf(e))});
+ for(const [i,[x,y]]of positions){let n=N[i],group=svg('g',{class:'node',transform:`translate(${x-135},${y-14})`,tabindex:0,role:'button','aria-label':n[1]},g);svg('rect',{width:270,height:29,rx:7,fill:i===current?'#173e40':'#f8faf6',stroke:colors[n[2]],'stroke-width':i===current?3:1},group);svg('circle',{cx:12,cy:14,r:4,fill:colors[n[2]]},group);let t=svg('text',{x:24,y:19,fill:i===current?'white':'#213437'},group);t.textContent=n[1].length>31?n[1].slice(0,29)+'…':n[1];svg('title',{},group).textContent=n[1];group.onclick=()=>details(i);group.onkeydown=e=>{if(e.key==='Enter')details(i)}}
+ $('scope').textContent=(selected.size-1)+' visible neighbours · '+adj[current].length+' direct film relationships. Lines show relationships; click for their type and evidence.';
+}
+function table(id,rows,fields){let t=add($(id),'table',''),head=add(t,'thead',''),tr=add(head,'tr','');fields.forEach(([k,name])=>add(tr,'th',name));let body=add(t,'tbody','');rows.forEach(row=>{let r=add(body,'tr','');fields.forEach(([k])=>add(r,'td',String(row[k])))})}
+for(const [key,title]of [['films','Films'],['songs','Songs'],['characters','Credited characters'],['distinct_relationships','Distinct evidence-backed edges']]){const box=add($('metrics'),'div','');add(box,'strong',DATA.summary[key].toLocaleString());add(box,'span',title)}
+Object.entries(colors).forEach(([k,v])=>{let span=add($('legend'),'span','');let dot=add(span,'i','','dot');dot.style.background=v;span.append(k)});
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x===b));['explore','romance','heritage','method'].forEach(id=>$(id).style.display=id===b.dataset.tab?(id==='explore'?'grid':'block'):'none')});
+table('romanceTable',DATA.romance,[['place','Place'],['relation','Relationship'],['film_count','Distinct films']]);table('heritageTable',DATA.heritage,[['heritage_site','Heritage property'],['film_count','Films'],['genre_count','Genres'],['genres','Genre labels']]);
+// Debounced search: wait 150ms after last keystroke before filtering
+let searchTimer=null;
+function debouncedSearch(){clearTimeout(searchTimer);searchTimer=setTimeout(listFilms,150);}
+$('search').oninput=debouncedSearch;
+$('search').addEventListener('search',listFilms); // handles clear via native search input X
+const clearBtn=$('clearSearch');
+if(clearBtn){clearBtn.onclick=()=>{$('search').value='';clearBtn.style.display='none';listFilms();$('search').focus();};}
+$('filter').onchange=render;
+// Remove loading message and initialize
+const loadMsg=$('loadingMsg');if(loadMsg)loadMsg.remove();
+listFilms();render();details(current);
+}catch(err){
+  // Show error visibly so user knows something went wrong
+  const msg=document.createElement('div');
+  msg.style.cssText='margin:40px;padding:24px;background:#fff3f3;border:2px solid #e55;border-radius:12px;font:15px system-ui,sans-serif;color:#b00;max-width:800px';
+  msg.innerHTML='<h2 style="margin:0 0 12px;color:#900">Graph Explorer Error</h2><p><strong>'+err.message+'</strong></p><p style="color:#666;font-size:13px">If you opened the template file (Queries/graph_explorer.html), open the generated file instead:<br><code>Dataset/integrated/graph_explorer.html</code></p><p style="color:#666;font-size:13px">To regenerate, run: <code>python Queries/build_graph_explorer.py</code></p>';
+  document.body.prepend(msg);
+  console.error('Graph Explorer init error:',err);
+}
+</script></body></html>

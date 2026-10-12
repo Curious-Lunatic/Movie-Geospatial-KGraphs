@@ -1,0 +1,10 @@
+PREFIX gwm: <https://w3id.org/gwm/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT ?filmTitle ?actorName ?characterName WHERE {
+  { SELECT ?film ?filmTitle WHERE {
+    ?film a gwm:Film ; rdfs:label ?filmTitle .
+    FILTER(CONTAINS(LCASE(?filmTitle), "jodhaa"))
+  } }
+  ?actor gwm:portrays ?character ; rdfs:label ?actorName .
+  ?character gwm:characterInFilm ?film ; rdfs:label ?characterName .
+}

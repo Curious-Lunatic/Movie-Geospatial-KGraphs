@@ -1,0 +1,27 @@
+@prefix gwm: <https://w3id.org/gwm/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+
+gwm:Film a rdfs:Class .
+gwm:Song a rdfs:Class .
+gwm:Person a rdfs:Class .
+gwm:Character a rdfs:Class ; rdfs:comment "Film-specific credited role; includes self appearances and unsplit compound roles." .
+gwm:Genre a rdfs:Class .
+gwm:Place a rdfs:Class ; rdfs:subClassOf geo:Feature .
+gwm:HeritageSite a rdfs:Class ; rdfs:subClassOf gwm:Place .
+gwm:HeritageComponent a rdfs:Class ; rdfs:subClassOf gwm:Place .
+gwm:Event a rdfs:Class ; rdfs:comment "Reserved for sourced depicted events. No event instances supplied in this build." .
+gwm:Landscape a rdfs:Class ; rdfs:comment "Reserved for sourced landscape classifications. No landscape instances supplied in this build." .
+gwm:filmedAt a rdf:Property ; rdfs:domain gwm:Film ; rdfs:range gwm:Place .
+gwm:setIn a rdf:Property ; rdfs:domain gwm:Film ; rdfs:range gwm:Place .
+gwm:inFilm a rdf:Property ; rdfs:domain gwm:Song ; rdfs:range gwm:Film .
+gwm:castMember a rdf:Property ; rdfs:domain gwm:Film ; rdfs:range gwm:Person .
+gwm:directedBy a rdf:Property ; rdfs:domain gwm:Film ; rdfs:range gwm:Person .
+gwm:portrays a rdf:Property ; rdfs:domain gwm:Person ; rdfs:range gwm:Character .
+gwm:characterInFilm a rdf:Property ; rdfs:domain gwm:Character ; rdfs:range gwm:Film .
+gwm:hasGenre a rdf:Property ; rdfs:domain gwm:Film ; rdfs:range gwm:Genre .
+gwm:performedBy a rdf:Property ; rdfs:domain gwm:Song ; rdfs:range gwm:Person .
+gwm:composedBy a rdf:Property ; rdfs:domain gwm:Song ; rdfs:range gwm:Person .
+gwm:lyricsBy a rdf:Property ; rdfs:domain gwm:Song ; rdfs:range gwm:Person .
+gwm:partOfHeritage a rdf:Property ; rdfs:domain gwm:HeritageComponent ; rdfs:range gwm:HeritageSite .

@@ -1,5 +1,22 @@
 # Good Will Mapping: dataset integration
 
+## Current knowledge graph
+
+The expanded 1970–2025 cinema graph is documented in
+[KNOWLEDGE_GRAPH.md](Docs/KNOWLEDGE_GRAPH.md). Open
+`Dataset/integrated/graph_explorer.html` for the offline interactive view;
+`Dataset/integrated/graph.ttl` is the RDF graph. This build adds characters,
+genres, music-credit relationships and all five song batches, with suspicious
+song rows retained for review. Rebuild using:
+
+```sh
+python Queries/build_integrated_graph.py --start-year 1970 --end-year 2025
+python Queries/build_graph_explorer.py
+```
+
+The earlier 2000–2025 GIS/demo instructions below describe the existing project
+deliverables; their saved counts and maps are not automatically refreshed.
+
 This repository contains the team's movie, song and heritage source datasets.
 Satyendhran's integration contribution combines them into a reproducible graph
 for the 14 October 2026 mid evaluation.

@@ -18,6 +18,13 @@ gwm:SongShape a sh:NodeShape ; sh:targetClass gwm:Song ;
   sh:property [ sh:path rdfs:label ; sh:minCount 1 ; sh:datatype xsd:string ] ;
   sh:property [ sh:path gwm:inFilm ; sh:minCount 1 ; sh:maxCount 1 ; sh:class gwm:Film ] .
 
+gwm:CharacterShape a sh:NodeShape ; sh:targetClass gwm:Character ;
+  sh:property [ sh:path rdfs:label ; sh:minCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path gwm:characterInFilm ; sh:minCount 1 ; sh:maxCount 1 ; sh:class gwm:Film ] .
+
+gwm:PersonShape a sh:NodeShape ; sh:targetClass gwm:Person ;
+  sh:property [ sh:path gwm:portrays ; sh:class gwm:Character ] .
+
 gwm:StatementShape a sh:NodeShape ; sh:targetClass rdf:Statement ;
   sh:property [ sh:path rdf:subject ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ;
   sh:property [ sh:path rdf:predicate ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ;

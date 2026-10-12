@@ -10,6 +10,40 @@ from query_integrated_graph import nearby, distance_km
 
 
 class IntegrationTests(unittest.TestCase):
+    def test_roles_are_film_scoped_and_recent_song_files_are_included(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            data = Path(tmp)
+            def write(name, rows):
+                with (data / name).open('w', encoding='utf-8', newline='') as f:
+                    w = csv.DictWriter(f, fieldnames=list(rows[0]))
+                    w.writeheader()
+                    w.writerows(rows)
+            write('tmdb_movies.csv', [dict(title='First', tmdb_id='1', wikidata_id='Q1', release_date='2015-01-01', genres='Romance|Drama'),
+                                      dict(title='Second', tmdb_id='2', wikidata_id='Q2', release_date='2020-01-01', genres='Action')])
+            write('tmdb_cast.csv', [dict(tmdb_id=str(i), person_id='10', name='Same Name', character='Raj') for i in (1, 2)])
+            for period, fid, date, title in [('2015_2019', 'Q1', '2015', 'First'), ('2020_2025', 'Q2', '2020', 'Second')]:
+                write('songs_' + period + '.csv', [dict(wikidata_id=fid, film=title, year=date, song='Song', singers='Same Name', music='', lyrics='', source_url='https://example.org'),
+                    dict(wikidata_id=fid, film=title, year=date, song='Unrelated movie in a navigation table', singers='', music='', lyrics='', source_url='https://example.org'),
+                    dict(wikidata_id=fid, film=title, year=date, song='25:24', singers='', music='', lyrics='', source_url='https://example.org')])
+            pipeline = Integration(data).build()
+            self.assertEqual(len(pipeline.characters), 2)
+            self.assertEqual(len(pipeline.songs), 2)
+            self.assertEqual(sum(i['kind'] == 'song_row_needs_review' for i in pipeline.issues), 4)
+            self.assertEqual(len(pipeline.genres), 3)
+            singers = {c['object_id'] for c in pipeline.claims.values() if c['relation'] == 'performed_by'}
+            self.assertEqual(len(singers), 2)
+            self.assertNotIn('person:tmdb:10', singers)
+            for c in pipeline.claims.values():
+                if c['relation'] == 'character_in_film':
+                    self.assertEqual(pipeline.characters[c['subject_id']]['film_id'], c['object_id'])
+            pipeline.export(data / 'out')
+            from rdflib import Graph, Namespace
+            from rdflib.namespace import RDF
+            graph = Graph().parse(data / 'out' / 'graph.ttl')
+            gwm = Namespace('https://w3id.org/gwm/')
+            self.assertEqual(len(set(graph.subjects(RDF.type, gwm.Character))), 2)
+            self.assertEqual(len(list(graph.triples((None, gwm.performedBy, None)))), 2)
+
     def test_conflicting_identifiers_do_not_merge_transitively(self):
         records = [dict(ids=ids, source=str(i), row=2, record_id=str(i), title="Same", year=2000)
                    for i, ids in enumerate([{"wikidata": "Q1", "imdb": "tt1"},

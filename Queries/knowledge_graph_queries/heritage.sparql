@@ -1,0 +1,14 @@
+PREFIX gwm: <https://w3id.org/gwm/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+# Component-level filming rolls up to the UNESCO parent property.
+SELECT ?site (COUNT(DISTINCT ?film) AS ?filmCount)
+       (COUNT(DISTINCT ?genre) AS ?genreCount)
+       (GROUP_CONCAT(DISTINCT ?genreLabel; separator=" | ") AS ?genres) WHERE {
+  { ?film gwm:filmedAt ?property . }
+  UNION
+  { ?film gwm:filmedAt ?component . ?component gwm:partOfHeritage ?property . }
+  ?film gwm:hasGenre ?genre .
+  ?property a gwm:HeritageSite ; rdfs:label ?site .
+  ?genre rdfs:label ?genreLabel .
+} GROUP BY ?property ?site HAVING(COUNT(DISTINCT ?genre) > 1)
+ORDER BY DESC(?genreCount)

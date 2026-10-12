@@ -153,6 +153,7 @@ class Integration:
         self.inputs, self.issues, self.crosswalk, self.films = {}, [], [], {}
         self.attributes = []
         self.places, self.people, self.songs, self.claims = {}, {}, {}, {}
+        self.characters, self.genres = {}, {}
         self.review_claims = []
         self.source_to_film = {}
         self.id_index, self.title_index = collections.defaultdict(set), collections.defaultdict(set)
@@ -377,9 +378,33 @@ class Integration:
                 self.people[pid] = dict(person_id=pid, name=row.get("name", ""), tmdb_person_id=person)
                 self.claim(fid, relation, pid, source, number, "tmdb_credit_snapshot",
                            "https://www.themoviedb.org/movie/" + row["tmdb_id"], evidence=row.get("character", ""))
+                role = row.get("character", "").strip()
+                if relation == "cast_member" and role:
+                    # Scope roles to film and performer. 'Raj' across unrelated
+                    # films, and compound character credits, must not be merged.
+                    cid = key("character", fid, pid, norm(role))
+                    self.characters[cid] = dict(character_id=cid, name=role, film_id=fid, person_id=pid)
+                    for subj, rel, obj in [(pid, "portrays", cid), (cid, "character_in_film", fid)]:
+                        self.claim(subj, rel, obj, source, number, "tmdb_character_credit",
+                                   "https://www.themoviedb.org/movie/" + row["tmdb_id"], evidence=role)
+        valid_genres = {"Action", "Adventure", "Animation", "Comedy", "Crime", "Documentary",
+                        "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Mystery",
+                        "Romance", "Science Fiction", "TV Movie", "Thriller", "War", "Western"}
+        for number, row in enumerate(self.raw_films.get("tmdb_movies.csv", []), 2):
+            fid = self.source_to_film.get("tmdb_movies.csv:" + str(number))
+            if not fid:
+                continue
+            for label in filter(None, map(str.strip, row.get("genres", "").split("|"))):
+                if label not in valid_genres:
+                    self.issue("unrecognized_genre", "tmdb_movies.csv", number, label)
+                    continue
+                gid = key("genre", label)
+                self.genres[gid] = dict(genre_id=gid, name=label)
+                self.claim(fid, "genre", gid, "tmdb_movies.csv", number, "tmdb_genre_snapshot",
+                           "https://www.themoviedb.org/movie/" + row["tmdb_id"])
 
     def build_songs(self):
-        for source in ["songs_2000_2004.csv", "songs_2005_2009.csv"]:
+        for source in sorted(p.name for p in self.data.glob("songs_[0-9]*_[0-9]*.csv")):
             for number, row in enumerate(self.read(source), 2):
                 sy = year(row.get("year", ""))
                 fid = self.lookup("wikidata", row.get("wikidata_id", ""))
@@ -393,10 +418,30 @@ class Integration:
                 title = row.get("song", "")
                 if not title:
                     continue
+                # Some supplied scrapes captured navigation/filmography tables
+                # or an album's total duration rather than a soundtrack row.
+                has_credit = any(norm(row.get(k, '')) not in {'', 'n a', 'none', 'unknown'}
+                                 for k in ('singers', 'music', 'lyrics'))
+                has_duration = bool(re.fullmatch(r'\d{1,2}:\d{2}', row.get('length', '').strip()))
+                if re.fullmatch(r'\d+(?::\d+)*', title.strip()) or norm(title) in {'total length', 'total', 'title', 'track listing'} or not (has_credit or has_duration):
+                    self.issue('song_row_needs_review', source, number,
+                               title + ': lacks track metadata or resembles a table header/total')
+                    continue
                 sid = key("song", fid, norm(title))
                 self.songs.setdefault(sid, dict(song_id=sid, title=title, film_id=fid, singers=row.get("singers", ""),
                                                 music=row.get("music", ""), lyrics=row.get("lyrics", "")))
                 self.claim(sid, "in_film", fid, source, number, "wikipedia_song_table_snapshot", row.get("source_url", ""))
+                for column, relation in [("singers", "performed_by"), ("music", "composed_by"), ("lyrics", "lyrics_by")]:
+                    for name in filter(None, map(str.strip, re.split(r"[,;]", row.get(column, "")))):
+                        # Name-only credits stay scoped to this source and film;
+                        # never identify a playback singer with an actor by name.
+                        if norm(name) in {"unknown", "n a", "none", "instrumental", "traditional", "various", "various artists"}:
+                            continue
+                        pid = key("person-credit", source, fid, norm(name))
+                        self.people.setdefault(pid, dict(person_id=pid, name=name, tmdb_person_id="",
+                            identity_scope="source_and_film_name_credit"))
+                        self.claim(sid, relation, pid, source, number, "song_credit_name_scoped",
+                                   row.get("source_url", ""), evidence=column + ": " + row.get(column, ""))
                 if row.get("song_location_note"):
                     self.issue("song_location_needs_review", source, number, row["song_location_note"])
                 # Film locations do not prove that this particular song was shot there.
@@ -407,7 +452,7 @@ class Integration:
                            row.get("title", "") + ": part_of has no validated film identity")
 
     def validate(self):
-        nodes = set(self.films) | set(self.places) | set(self.people) | set(self.songs)
+        nodes = set(self.films) | set(self.places) | set(self.people) | set(self.songs) | set(self.characters) | set(self.genres)
         for claim in self.claims.values():
             if claim["subject_id"] not in nodes or claim["object_id"] not in nodes:
                 raise ValueError("Dangling graph edge: " + claim["claim_id"])
@@ -431,6 +476,9 @@ class Integration:
         locations = [c for c in self.claims.values() if c["relation"] in ("filming", "narrative")]
         return dict(year_range=[self.start, self.end], heritage_inscribed_by=self.cutoff,
             films=len(self.films), songs=len(self.songs), people=len(self.people), places=len(self.places),
+            characters=len(self.characters), genres=len(self.genres),
+            events=0, landscapes=0,
+            distinct_relationships=len({(c['subject_id'], c['relation'], c['object_id']) for c in self.claims.values()}),
             heritage_properties=sum(p.startswith("heritage:") for p in self.places),
             heritage_components=sum(p.startswith("heritage-component:") for p in self.places),
             claims=len(self.claims), location_claims=len(locations),
@@ -448,7 +496,9 @@ class Integration:
         tables = {
             "films.csv": (self.films.values(), "film_id,title,release_year,observed_years,wikidata_id,imdb_id,tmdb_id,filmapia_id,sources"),
             "places.csv": (self.places.values(), "place_id,place_name,latitude,longitude,coordinate_scope,coordinate_source,heritage_parent_id,country_codes,country_names,inscription_year"),
-            "people.csv": (self.people.values(), "person_id,name,tmdb_person_id"),
+            "people.csv": (self.people.values(), "person_id,name,tmdb_person_id,identity_scope"),
+            "characters.csv": (self.characters.values(), "character_id,name,film_id,person_id"),
+            "genres.csv": (self.genres.values(), "genre_id,name"),
             "songs.csv": (self.songs.values(), "song_id,title,film_id,singers,music,lyrics"),
             "claims.csv": (self.claims.values(), "claim_id,subject_id,relation,object_id,source_file,source_row,source_url,method,status,evidence,revision_id,retrieved_at"),
             "film_crosswalk.csv": (self.crosswalk, "source_file,source_row,source_title,source_year,film_id,scope"),
@@ -476,6 +526,7 @@ class Integration:
         def lit(value):
             return json.dumps(str(value), ensure_ascii=False)
         with path.open("w", encoding="utf-8", newline="\n") as stream:
+            stream.write((ROOT / 'Queries' / 'cinema_ontology.ttl').read_text(encoding='utf-8') + '\n')
             stream.write('@prefix gwm: <https://w3id.org/gwm/> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n@prefix geo: <http://www.opengis.net/ont/geosparql#> .\n@prefix prov: <http://www.w3.org/ns/prov#> .\n')
             for name, info in sorted(self.inputs.items()):
                 stream.write(iri("source:" + name) + ' a prov:Entity ; gwm:sha256 ' + lit(info["sha256"]) +
@@ -490,6 +541,10 @@ class Integration:
                 stream.write(iri(pid) + ' a gwm:Person ; rdfs:label ' + lit(person["name"]) + ' .\n')
             for sid, song in self.songs.items():
                 stream.write(iri(sid) + ' a gwm:Song ; rdfs:label ' + lit(song["title"]) + ' .\n')
+            for cid, character in self.characters.items():
+                stream.write(iri(cid) + ' a gwm:Character ; rdfs:label ' + lit(character['name']) + ' .\n')
+            for gid, genre in self.genres.items():
+                stream.write(iri(gid) + ' a gwm:Genre ; rdfs:label ' + lit(genre['name']) + ' .\n')
             for pid, place in self.places.items():
                 kind = "HeritageSite" if pid.startswith("heritage:") else "HeritageComponent" if pid.startswith("heritage-component:") else "Place"
                 stream.write(iri(pid) + ' a gwm:' + kind + ', geo:Feature ; rdfs:label ' + lit(place["place_name"]) +
@@ -506,7 +561,9 @@ class Integration:
                     if place["coordinate_source"]:
                         stream.write(iri(pid) + ' gwm:coordinateSourceURL ' + lit(place["coordinate_source"]) + ' .\n')
             predicates = {"filming": "filmedAt", "narrative": "setIn", "cast_member": "castMember",
-                          "director": "directedBy", "in_film": "inFilm"}
+                          "director": "directedBy", "in_film": "inFilm", "portrays": "portrays",
+                          "character_in_film": "characterInFilm", "genre": "hasGenre",
+                          "performed_by": "performedBy", "composed_by": "composedBy", "lyrics_by": "lyricsBy"}
             direct = set()
             for cid, claim in self.claims.items():
                 triple = (claim["subject_id"], predicates[claim["relation"]], claim["object_id"])
