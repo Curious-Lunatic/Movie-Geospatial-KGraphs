@@ -7,6 +7,13 @@ for the 14 October 2026 mid evaluation.
 Read [the method and source mapping](Docs/INTEGRATION_METHOD.md) and
 [the executed demo results](Dataset/integration_demo/README.md).
 
+For the GIS course demonstration, open **`GIS/Good_Will_Mapping.qgz`** in QGIS.
+Its layers are stored in the adjacent **`GIS/good_will_mapping.gpkg`**.
+See [the executed QGIS workflow](Docs/GIS_WORKFLOW.md) and
+[the application screenshots](GIS/screenshots/README.md).
+The project includes India/Agra maps, native attribute and spatial joins, a
+5,000 metre buffer in EPSG:32644, linked tables and two presentation layouts.
+
 ## Run the contribution
 
 From the repository root, Python 3.9+ is sufficient for the merge and distance demo.
@@ -33,8 +40,10 @@ The build writes `Dataset/integrated/`:
 | `graph.ttl` | RDF projection with typed relations, GeoSPARQL WKT and provenance |
 | `summary.json` | Counts, issue totals and SHA-256 hashes of source inputs |
 
-Derived files are ignored by Git and regenerated locally. A small, executed
-result snapshot is committed in `Dataset/integration_demo/`; source CSVs stay intact.
+The large `Dataset/integrated/` files are ignored by Git and regenerated locally.
+A small executed result snapshot is committed in `Dataset/integration_demo/`.
+The portable QGIS project, GeoPackage, maps and screenshots are saved in `GIS/`;
+source CSVs stay intact.
 
 Optional RDF/SPARQL/SHACL verification:
 
@@ -45,18 +54,19 @@ python Queries/validate_integrated_graph.py --report Dataset/integrated/validati
 
 The validator writes `sparql_demo.csv`. A GeoSPARQL-store query is provided in
 `Queries/integration_nearby_geosparql.sparql`; RDFLib does not execute its distance
-extension. Use the Python query for the available offline spatial demonstration.
+extension. Use the Python query for the spherical comparison or the QGIS project
+for the executed projected spatial analysis.
 
 ## Mid-evaluation demonstration
 
 1. Show the source mapping and identity-resolution choices in the method document.
 2. Run the build and show the movie/song/heritage counts and review issues.
-3. Open `Dataset/integrated/places.geojson` in QGIS with **Add Vector Layer**. The
-   file supplies longitude/latitude geometry; filter `place_id` starting with
-   `heritage:` or `heritage-component:` to show the heritage layer.
-4. Run the Taj Mahal query. The supplied Filmapia snapshot links **Jodhaa Akbar
-   (2008)** to **Agra Fort**, whose representative point is about **2.141 km** from
-   the Taj Mahal representative point. The claim's original CSV row remains visible.
+3. Open `GIS/Good_Will_Mapping.qgz` in QGIS. Show the canonical movie table,
+   filming assertions, map layers and the 5 km buffer in EPSG:32644.
+4. Follow [the QGIS workflow](Docs/GIS_WORKFLOW.md) to demonstrate attribute and
+   spatial joins. The supplied Filmapia snapshot links **Jodhaa Akbar (2008)** to
+   **Agra Fort**, whose representative point is about **2.145 km** from the Taj
+   Mahal reference point in QGIS. The claim's original CSV row remains visible.
 5. Explain why a filming relation, story setting, and a song-film membership are
    separate edges. Show an unresolved song-year or identity conflict in `issues.csv`.
 

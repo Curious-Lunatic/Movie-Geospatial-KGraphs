@@ -1,0 +1,265 @@
+{
+  "qgis_version": "4.0.0-Norrköping",
+  "attribute_joins_executed": 2,
+  "spatial_join_executed": true,
+  "metric_crs": "EPSG:32644",
+  "buffer_metres": 5000,
+  "geocoded_filming_assertions": 3961,
+  "filming_claims_without_geometry": 1538,
+  "indian_heritage_property_points": 44,
+  "indian_heritage_component_points": 128,
+  "india_filming_features": 2311,
+  "matched_features": 1,
+  "results": [
+    {
+      "title": "Jodhaa Akbar",
+      "release_year": "2008",
+      "place_id": "heritage:251",
+      "place_name": "Agra Fort",
+      "target": "Taj Mahal",
+      "distance_m": 2144.978,
+      "source_file": "filmapia_film_locations.csv",
+      "source_row": "76",
+      "analysis_crs": "EPSG:32644",
+      "interpretation": "Projected distance between representative points"
+    }
+  ],
+  "project_reopened_with_valid_layers": true,
+  "portable_project_layers": 14,
+  "qgis_relations": 2,
+  "qgis_layouts": 2,
+  "independent_python_pairs_agree": true,
+  "source_hashes": {
+    "films.csv": "bcfec25422c60d2ebf5adc20e7868a5576920c0e55e66cab9fac4be84635c943",
+    "claims.csv": "0c30ca992badb8d276d7fc4e3c122b24902e49177a5c465a98581bca00ba5ffd",
+    "songs.csv": "26b1328f556e1582c71d3c1c1fa2653b347ae2d81d358b644171ff92029b2e67",
+    "places.geojson": "6d771f6e5a32a79e3b1076e2500d4161118e4749fb0a3109974a1b33053ad871"
+  },
+  "steps": [
+    {
+      "algorithm": "native:extractbyexpression",
+      "parameters": {
+        "INPUT": "Sourced relationship table",
+        "EXPRESSION": "\"relation\" = 'filming' AND \"status\" = 'source_supported'",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 5499
+    },
+    {
+      "algorithm": "native:joinattributestable",
+      "parameters": {
+        "INPUT": "output",
+        "FIELD": "subject_id",
+        "INPUT_2": "Canonical movies",
+        "FIELD_2": "film_id",
+        "FIELDS_TO_COPY": [
+          "title",
+          "release_year"
+        ],
+        "METHOD": 1,
+        "DISCARD_NONMATCHING": true,
+        "PREFIX": "film_",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 5499
+    },
+    {
+      "algorithm": "native:joinattributestable",
+      "parameters": {
+        "INPUT": "Place reference points (WGS84)",
+        "FIELD": "place_id",
+        "INPUT_2": "output",
+        "FIELD_2": "object_id",
+        "FIELDS_TO_COPY": [
+          "claim_id",
+          "subject_id",
+          "relation",
+          "film_title",
+          "film_release_year",
+          "source_file",
+          "source_row",
+          "source_url",
+          "method",
+          "status"
+        ],
+        "METHOD": 0,
+        "DISCARD_NONMATCHING": true,
+        "PREFIX": "",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 3961
+    },
+    {
+      "algorithm": "native:extractbyexpression",
+      "parameters": {
+        "INPUT": "Place reference points (WGS84)",
+        "EXPRESSION": "\"place_id\" LIKE 'heritage:%'",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 1234
+    },
+    {
+      "algorithm": "native:extractbyexpression",
+      "parameters": {
+        "INPUT": "Place reference points (WGS84)",
+        "EXPRESSION": "\"place_id\" LIKE 'heritage-component:%'",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 5645
+    },
+    {
+      "algorithm": "native:extractbyexpression",
+      "parameters": {
+        "INPUT": "output",
+        "EXPRESSION": "regexp_match(\"country_codes\", '(^|[,;| ])IN($|[,;| ])')",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 44
+    },
+    {
+      "algorithm": "native:extractbyexpression",
+      "parameters": {
+        "INPUT": "output",
+        "EXPRESSION": "regexp_match(\"country_codes\", '(^|[,;| ])IN($|[,;| ])')",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 128
+    },
+    {
+      "algorithm": "native:extractbyexpression",
+      "parameters": {
+        "INPUT": "QGIS bundled context boundaries",
+        "EXPRESSION": "\"iso_a2\" = 'IN'",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 35
+    },
+    {
+      "algorithm": "native:extractbylocation",
+      "parameters": {
+        "INPUT": "output",
+        "PREDICATE": [
+          0
+        ],
+        "INTERSECT": "output",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 2311
+    },
+    {
+      "algorithm": "native:extractbyexpression",
+      "parameters": {
+        "INPUT": "Place reference points (WGS84)",
+        "EXPRESSION": "\"place_id\" = 'heritage:252'",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 1
+    },
+    {
+      "algorithm": "native:reprojectlayer",
+      "parameters": {
+        "INPUT": "output",
+        "TARGET_CRS": "EPSG:32644",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 1
+    },
+    {
+      "algorithm": "native:extractbyexpression",
+      "parameters": {
+        "INPUT": "output",
+        "EXPRESSION": "(\"place_id\" LIKE 'heritage:%' OR \"place_id\" LIKE 'heritage-component:%') AND x($geometry) BETWEEN 77 AND 79 AND y($geometry) BETWEEN 26 AND 28",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 1
+    },
+    {
+      "algorithm": "native:reprojectlayer",
+      "parameters": {
+        "INPUT": "output",
+        "TARGET_CRS": "EPSG:32644",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 1
+    },
+    {
+      "algorithm": "native:buffer",
+      "parameters": {
+        "INPUT": "output",
+        "DISTANCE": 5000,
+        "SEGMENTS": 72,
+        "END_CAP_STYLE": 0,
+        "JOIN_STYLE": 0,
+        "MITER_LIMIT": 2,
+        "DISSOLVE": false,
+        "OUTPUT": "memory:"
+      },
+      "output_features": 1
+    },
+    {
+      "algorithm": "native:extractbylocation",
+      "parameters": {
+        "INPUT": "output",
+        "PREDICATE": [
+          0
+        ],
+        "INTERSECT": "output",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 1
+    },
+    {
+      "algorithm": "native:joinattributesbylocation",
+      "parameters": {
+        "INPUT": "output",
+        "JOIN": "output",
+        "PREDICATE": [
+          0
+        ],
+        "JOIN_FIELDS": [
+          "place_name",
+          "place_id"
+        ],
+        "METHOD": 0,
+        "DISCARD_NONMATCHING": true,
+        "PREFIX": "buffer_",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 1
+    },
+    {
+      "algorithm": "native:joinbynearest",
+      "parameters": {
+        "INPUT": "output",
+        "INPUT_2": "output",
+        "FIELDS_TO_COPY": [
+          "place_name"
+        ],
+        "DISCARD_NONMATCHING": true,
+        "PREFIX": "target_",
+        "NEIGHBORS": 1,
+        "MAX_DISTANCE": 5000,
+        "OUTPUT": "memory:"
+      },
+      "output_features": 1
+    }
+  ],
+  "warnings": [
+    {
+      "message": "6996 feature(s) from input layer could not be matched",
+      "fatal": false
+    },
+    {
+      "message": "No spatial index exists for input layer, performance will be severely degraded",
+      "fatal": false
+    },
+    {
+      "message": "No spatial index exists for input layer, performance will be severely degraded",
+      "fatal": false
+    },
+    {
+      "message": "No spatial index exists for input layer, performance will be severely degraded",
+      "fatal": false
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+title,release_year,place_id,place_name,target,distance_m,source_file,source_row,analysis_crs,interpretation
+Jodhaa Akbar,2008,heritage:251,Agra Fort,Taj Mahal,2144.978,filmapia_film_locations.csv,76,EPSG:32644,Projected distance between representative points

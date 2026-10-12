@@ -1,0 +1,62 @@
+[
+  {
+    "file": "01_project_loaded.jpg",
+    "caption": "Saved project loaded in QGIS with valid layers and EPSG:32644.",
+    "window": "Untitled Project — QGIS",
+    "captured_at": "2026-10-12T10:46:44.207Z"
+  },
+  {
+    "file": "02_agra_buffer_map.jpg",
+    "caption": "Agra Fort / Jodhaa Akbar inside the 5 km Taj Mahal buffer, displayed in QGIS.",
+    "window": "Good Will Mapping: QGIS integration and 5 km heritage query — QGIS",
+    "captured_at": "2026-10-12T10:48:09.245Z"
+  },
+  {
+    "file": "03_joined_result_attributes.jpg",
+    "caption": "QGIS attribute form: Jodhaa Akbar, Agra Fort, Filmapia row 76, Taj Mahal spatial join and 2144.978 metre distance.",
+    "window": "Good Will Mapping: QGIS integration and 5 km heritage query — QGIS",
+    "captured_at": "2026-10-12T10:49:01.052Z"
+  },
+  {
+    "file": "04_qgis_buffer_settings.jpg",
+    "caption": "Native QGIS Buffer dialog: Taj Mahal point, EPSG:32644, distance 5000 metres and 72 segments.",
+    "window": "*Good Will Mapping: QGIS integration and 5 km heritage query — QGIS",
+    "captured_at": "2026-10-12T10:52:09.536Z"
+  },
+  {
+    "file": "05_qgis_buffer_execution.jpg",
+    "caption": "QGIS GUI log confirms Buffer completed with DISTANCE=5000 and EPSG:32644 input.",
+    "window": "*Good Will Mapping: QGIS integration and 5 km heritage query — QGIS",
+    "captured_at": "2026-10-12T10:53:33.483Z"
+  },
+  {
+    "file": "06_qgis_attribute_join_settings.jpg",
+    "caption": "QGIS field-value join: raw filming subject_id to canonical film_id, copying title and year.",
+    "window": "*Good Will Mapping: QGIS integration and 5 km heritage query — QGIS",
+    "captured_at": "2026-10-12T10:55:28.564Z"
+  },
+  {
+    "file": "07_qgis_attribute_join_completed.jpg",
+    "caption": "QGIS GUI confirms all 5499 supported filming assertions matched canonical movie IDs; zero unjoinable records.",
+    "window": "*Good Will Mapping: QGIS integration and 5 km heritage query — QGIS",
+    "captured_at": "2026-10-12T10:57:57.674Z"
+  },
+  {
+    "file": "08_qgis_spatial_join_settings.jpg",
+    "caption": "QGIS Join Attributes by Location: Agra site points intersect the 5 km buffer; both inputs use EPSG:32644.",
+    "window": "*Good Will Mapping: QGIS integration and 5 km heritage query — QGIS",
+    "captured_at": "2026-10-12T10:59:18.184Z"
+  },
+  {
+    "file": "09_qgis_spatial_join_completed.jpg",
+    "caption": "QGIS GUI confirms the spatial join completed and matched one named film-location feature.",
+    "window": "*Good Will Mapping: QGIS integration and 5 km heritage query — QGIS",
+    "captured_at": "2026-10-12T10:59:54.505Z"
+  },
+  {
+    "file": "10_qgis_india_layout.jpg",
+    "caption": "QGIS print layout showing Indian heritage sites and sourced film-location features.",
+    "window": "Good Will Mapping: QGIS integration and 5 km heritage query — QGIS",
+    "captured_at": "2026-10-12T11:03:33.343Z"
+  }
+]

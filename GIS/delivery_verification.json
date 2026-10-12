@@ -1,0 +1,115 @@
+{
+  "portable_relative_layer_sources": [
+    "./good_will_mapping.gpkg|layername=taj_mahal_5km",
+    "./good_will_mapping.gpkg|layername=movies",
+    "./good_will_mapping.gpkg|layername=distance_lines",
+    "./good_will_mapping.gpkg|layername=songs",
+    "./good_will_mapping.gpkg|layername=mapped_filming",
+    "./good_will_mapping.gpkg|layername=filming_assertions",
+    "./good_will_mapping.gpkg|layername=india_filming",
+    "./good_will_mapping.gpkg|layername=india_context",
+    "./good_will_mapping.gpkg|layername=india_components",
+    "./good_will_mapping.gpkg|layername=india_heritage",
+    "./good_will_mapping.gpkg|layername=nearby_movies",
+    "./good_will_mapping.gpkg|layername=taj_mahal",
+    "./good_will_mapping.gpkg|layername=heritage_components",
+    "./good_will_mapping.gpkg|layername=heritage_properties"
+  ],
+  "project_layers": 14,
+  "layouts": 2,
+  "relations": 2,
+  "saved_geopackage_counts": {
+    "distance_lines": 1,
+    "filming_assertions": 5499,
+    "heritage_components": 5645,
+    "heritage_properties": 1234,
+    "india_components": 128,
+    "india_context": 35,
+    "india_filming": 2311,
+    "india_heritage": 44,
+    "mapped_filming": 3961,
+    "movies": 6182,
+    "nearby_movies": 1,
+    "songs": 5378,
+    "taj_mahal": 1,
+    "taj_mahal_5km": 1
+  },
+  "gui_geopackage_counts": {
+    "buffer_from_gui.gpkg": {
+      "buffer_from_gui": 1
+    },
+    "attribute_join_from_gui.gpkg": {
+      "attribute_join_from_gui": 5499
+    },
+    "agra_candidates_from_gui.gpkg": {
+      "agra_candidates_from_gui": 1
+    },
+    "spatial_join_from_gui.gpkg": {
+      "spatial_join_from_gui": 1
+    }
+  },
+  "input_hashes_match_processing_report": true,
+  "screenshot_count": 10,
+  "screenshots": [
+    {
+      "file": "01_project_loaded.jpg",
+      "width": 1920,
+      "height": 1032,
+      "sha256": "d6a7251f984dac185f04269fe0faf742966ffd35503010756dc4c3671103f9b3"
+    },
+    {
+      "file": "02_agra_buffer_map.jpg",
+      "width": 1920,
+      "height": 1032,
+      "sha256": "0126f25894b66831a4692094cdb150c7c9d7ceabf95ce6daf4d120c278e1b7eb"
+    },
+    {
+      "file": "03_joined_result_attributes.jpg",
+      "width": 1920,
+      "height": 1032,
+      "sha256": "14f31bf0ca30eb98fc6e592321ce80d13b5e41a883d5aae26c77d00495fa9baf"
+    },
+    {
+      "file": "04_qgis_buffer_settings.jpg",
+      "width": 1062,
+      "height": 761,
+      "sha256": "948fce489cd41b05e1b5d5777771fb0a5dc0665941895da469e0054124882f4a"
+    },
+    {
+      "file": "05_qgis_buffer_execution.jpg",
+      "width": 1062,
+      "height": 761,
+      "sha256": "87ab76ab7b33abd67262933bc03e9597b32848f5fdd7df2dedf91e1e9d4060ec"
+    },
+    {
+      "file": "06_qgis_attribute_join_settings.jpg",
+      "width": 1062,
+      "height": 761,
+      "sha256": "80cb93afc4a2dad8e3d7adccb73d8b519c8e3c1a3c8e1f897fbb72c7c4ddd761"
+    },
+    {
+      "file": "07_qgis_attribute_join_completed.jpg",
+      "width": 1062,
+      "height": 761,
+      "sha256": "0409b201bef3e7fb41b5fe740ac86e64c0b06cf9b8f883663c6bf60df0049ed3"
+    },
+    {
+      "file": "08_qgis_spatial_join_settings.jpg",
+      "width": 1062,
+      "height": 761,
+      "sha256": "9f0fb3857a799363c21e16be6e5f2828a79af0755295e803ece9f120e422256d"
+    },
+    {
+      "file": "09_qgis_spatial_join_completed.jpg",
+      "width": 1062,
+      "height": 761,
+      "sha256": "b95a234fa879a9bc45c8c8d2fe55c080fc5fbe2a578acf47e60b8b0248c11946"
+    },
+    {
+      "file": "10_qgis_india_layout.jpg",
+      "width": 1920,
+      "height": 1032,
+      "sha256": "a8beb532d5eced32402f5e3b943815acaed281e3f19878d63a0ba503bc4f79e0"
+    }
+  ]
+}

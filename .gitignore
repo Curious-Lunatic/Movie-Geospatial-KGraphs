@@ -4,3 +4,7 @@ __pycache__/
 node_modules/
 Dataset/integrated/
 outputs/
+*.gpkg-shm
+*.gpkg-wal
+*.qgz~
+*.qgs~

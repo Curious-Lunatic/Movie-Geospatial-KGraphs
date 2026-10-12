@@ -32,8 +32,17 @@ set there, and its film location does not establish where each song was shot.
    representative-point distance.
 5. Show `Dataset/integration_demo/sparql_demo.csv` and `validation.json` for the
    executed provenance query and successful graph-structure validation.
-6. Load `Dataset/integrated/places.geojson` in QGIS if QGIS is available. Geometry
-   is longitude/latitude; filter heritage/component IDs and country codes as needed.
+6. Open `GIS/Good_Will_Mapping.qgz` in QGIS. Demonstrate the field-value joins,
+   EPSG:32644 projection, 5 km buffer and spatial join using `Docs/GIS_WORKFLOW.md`.
+   Show the source row in the result attributes and open the two print layouts.
+
+The QGIS extension is now implemented and executed. For the GIS presentation,
+open **`GIS/Good_Will_Mapping.qgz`** and follow **`Docs/GIS_WORKFLOW.md`**.
+Show the attribute join, reprojected point layers, **5,000 metre buffer**, spatial
+join and **2,144.978 metre** QGIS distance result. Use the actual application
+screenshots in **`GIS/screenshots/`** and the two saved QGIS print layouts.
+The Python merge supplies clean identity keys; QGIS performs the geographic
+joins, mapping and projected distance analysis.
 
 ## Be precise when answering questions
 
