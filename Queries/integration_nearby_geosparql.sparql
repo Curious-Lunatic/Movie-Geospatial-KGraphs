@@ -1,0 +1,16 @@
+# For a store implementing OGC GeoSPARQL distance, e.g. Apache Jena GeoSPARQL.
+# The offline Python demo implements the spherical representative-point query.
+# CRS84 WKT is longitude latitude. Units below are metres.
+PREFIX gwm: <https://w3id.org/gwm/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+PREFIX uom: <http://www.opengis.net/def/uom/OGC/1.0/>
+SELECT DISTINCT ?title ?place ?metres WHERE {
+  ?target a gwm:HeritageSite ; rdfs:label "Taj Mahal" ; geo:hasGeometry/geo:asWKT ?targetWKT .
+  ?film a gwm:Film ; rdfs:label ?title ; gwm:filmedAt ?location .
+  VALUES ?kind { gwm:HeritageSite gwm:HeritageComponent }
+  ?location a ?kind ; rdfs:label ?place ; geo:hasGeometry/geo:asWKT ?locationWKT .
+  BIND(geof:distance(?targetWKT, ?locationWKT, uom:metre) AS ?metres)
+  FILTER(?metres <= 5000)
+} ORDER BY ?metres ?title

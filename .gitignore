@@ -1,2 +1,6 @@
 __pycache__/
 *.py[cod]
+.validation-deps/
+node_modules/
+Dataset/integrated/
+outputs/

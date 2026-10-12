@@ -1,0 +1,9 @@
+{
+  "shacl_conforms": true,
+  "rdf_triples": 767435,
+  "rdf_statements": 57589,
+  "sparql_demo_rows": 9,
+  "counts_match_csv": true,
+  "graph_sha256": "3e67198960d6566e058e94ee8c9ae983021b177c7d4b081f1f66bdf11df28926",
+  "geosparql_distance_executed": false
+}

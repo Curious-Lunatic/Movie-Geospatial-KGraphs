@@ -1,0 +1,30 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix gwm: <https://w3id.org/gwm/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+
+gwm:FilmShape a sh:NodeShape ; sh:targetClass gwm:Film ;
+  sh:property [ sh:path rdfs:label ; sh:minCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path gwm:releaseYear ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:integer ] ;
+  sh:property [ sh:path gwm:filmedAt ; sh:class geo:Feature ] ;
+  sh:property [ sh:path gwm:setIn ; sh:class geo:Feature ] ;
+  sh:property [ sh:path gwm:directedBy ; sh:class gwm:Person ] ;
+  sh:property [ sh:path gwm:castMember ; sh:class gwm:Person ] .
+
+gwm:SongShape a sh:NodeShape ; sh:targetClass gwm:Song ;
+  sh:property [ sh:path rdfs:label ; sh:minCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path gwm:inFilm ; sh:minCount 1 ; sh:maxCount 1 ; sh:class gwm:Film ] .
+
+gwm:StatementShape a sh:NodeShape ; sh:targetClass rdf:Statement ;
+  sh:property [ sh:path rdf:subject ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ;
+  sh:property [ sh:path rdf:predicate ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ;
+  sh:property [ sh:path rdf:object ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ;
+  sh:property [ sh:path prov:wasDerivedFrom ; sh:minCount 1 ; sh:class prov:Entity ] ;
+  sh:property [ sh:path gwm:sourceRow ; sh:minCount 1 ; sh:datatype xsd:string ] ;
+  sh:property [ sh:path gwm:status ; sh:hasValue "source_supported" ] .
+
+gwm:GeometryShape a sh:NodeShape ; sh:targetClass geo:Geometry ;
+  sh:property [ sh:path geo:asWKT ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype geo:wktLiteral ] .
