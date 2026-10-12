@@ -1,0 +1,32 @@
+{
+  "source_url": "https://delhitourism.gov.in/pdf/Calendar%202018.pdf",
+  "publication": "Delhi Tourism Calendar 2018",
+  "retrieval_method": "Full original PDF downloaded; text and rendered PDF pages 5 and 7 inspected",
+  "pages": [
+    {
+      "pdf_page": 5,
+      "month": "March",
+      "site": "Humayun's Tomb",
+      "films": [
+        "Kurbaan",
+        "Aisha",
+        "Veer Zara",
+        "Mere Brother Ki Dulhan",
+        "Fitoor"
+      ]
+    },
+    {
+      "pdf_page": 7,
+      "month": "May",
+      "site": "Qutub Minar",
+      "films": [
+        "Fanaa",
+        "Black And White",
+        "Chini Kam"
+      ]
+    }
+  ],
+  "notes": "Structured factual extraction, not a verbatim transcript. Explicit filming statements on PDF pages 5 and 7 visually verified. Kurbaan image identifies the 2009 film. Red Fort wording says around the complex and is excluded.",
+  "original_pdf": "delhi_tourism_2018.pdf",
+  "original_pdf_sha256": "59ed8c2ba484f599f6df24e7aca2d3456c7e773e9236410918993bca7a29820c"
+}

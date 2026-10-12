@@ -1,0 +1,180 @@
+[
+  {
+    "film_id": "Q776098",
+    "film_page": "Kurbaan (2009 film)",
+    "heritage_id": "heritage:232",
+    "snapshot": "delhi_calendar_reviewed_extract.json",
+    "method": "heritage_tourism_publication",
+    "locator": "Delhi Tourism Calendar 2018, PDF page 5 (March)",
+    "summary": "The tourism publication lists Kurbaan (2009 film) among films shot at this tomb.",
+    "verify_tokens": [
+      "Humayun",
+      "Kurbaan"
+    ],
+    "source_film_label": "Kurbaan",
+    "pdf_page": 5,
+    "source_site_label": "Humayun's Tomb"
+  },
+  {
+    "film_id": "Q2089221",
+    "film_page": "Aisha (2010 film)",
+    "heritage_id": "heritage:232",
+    "snapshot": "delhi_calendar_reviewed_extract.json",
+    "method": "heritage_tourism_publication",
+    "locator": "Delhi Tourism Calendar 2018, PDF page 5 (March)",
+    "summary": "The tourism publication lists Aisha (2010 film) among films shot at this tomb.",
+    "verify_tokens": [
+      "Humayun",
+      "Kurbaan"
+    ],
+    "source_film_label": "Aisha",
+    "pdf_page": 5,
+    "source_site_label": "Humayun's Tomb"
+  },
+  {
+    "film_id": "Q106819",
+    "film_page": "Veer-Zaara",
+    "heritage_id": "heritage:232",
+    "snapshot": "delhi_calendar_reviewed_extract.json",
+    "method": "heritage_tourism_publication",
+    "locator": "Delhi Tourism Calendar 2018, PDF page 5 (March)",
+    "summary": "The tourism publication lists Veer-Zaara among films shot at this tomb.",
+    "verify_tokens": [
+      "Humayun",
+      "Kurbaan"
+    ],
+    "source_film_label": "Veer Zara",
+    "pdf_page": 5,
+    "source_site_label": "Humayun's Tomb"
+  },
+  {
+    "film_id": "Q3306436",
+    "film_page": "Mere Brother Ki Dulhan",
+    "heritage_id": "heritage:232",
+    "snapshot": "delhi_calendar_reviewed_extract.json",
+    "method": "heritage_tourism_publication",
+    "locator": "Delhi Tourism Calendar 2018, PDF page 5 (March)",
+    "summary": "The tourism publication lists Mere Brother Ki Dulhan among films shot at this tomb.",
+    "verify_tokens": [
+      "Humayun",
+      "Kurbaan"
+    ],
+    "source_film_label": "Mere Brother Ki Dulhan",
+    "pdf_page": 5,
+    "source_site_label": "Humayun's Tomb"
+  },
+  {
+    "film_id": "Q16248394",
+    "film_page": "Fitoor",
+    "heritage_id": "heritage:232",
+    "snapshot": "delhi_calendar_reviewed_extract.json",
+    "method": "heritage_tourism_publication",
+    "locator": "Delhi Tourism Calendar 2018, PDF page 5 (March)",
+    "summary": "The tourism publication lists Fitoor among films shot at this tomb.",
+    "verify_tokens": [
+      "Humayun",
+      "Kurbaan"
+    ],
+    "source_film_label": "Fitoor",
+    "pdf_page": 5,
+    "source_site_label": "Humayun's Tomb"
+  },
+  {
+    "film_id": "Q657943",
+    "film_page": "Fanaa (2006 film)",
+    "heritage_id": "heritage:233",
+    "snapshot": "delhi_calendar_reviewed_extract.json",
+    "method": "heritage_tourism_publication",
+    "locator": "Delhi Tourism Calendar 2018, PDF page 7 (May)",
+    "summary": "The tourism publication lists Fanaa (2006 film) among films shot at Qutub Minar.",
+    "verify_tokens": [
+      "Qutub Minar"
+    ],
+    "source_film_label": "Fanaa",
+    "pdf_page": 7,
+    "source_site_label": "Qutub Minar"
+  },
+  {
+    "film_id": "Q4922216",
+    "film_page": "Black & White (2008 Hindi film)",
+    "heritage_id": "heritage:233",
+    "snapshot": "delhi_calendar_reviewed_extract.json",
+    "method": "heritage_tourism_publication",
+    "locator": "Delhi Tourism Calendar 2018, PDF page 7 (May)",
+    "summary": "The tourism publication lists Black & White (2008 Hindi film) among films shot at Qutub Minar.",
+    "verify_tokens": [
+      "Qutub Minar"
+    ],
+    "source_film_label": "Black And White",
+    "pdf_page": 7,
+    "source_site_label": "Qutub Minar"
+  },
+  {
+    "film_id": "Q2317377",
+    "film_page": "Cheeni Kum",
+    "heritage_id": "heritage:233",
+    "snapshot": "delhi_calendar_reviewed_extract.json",
+    "method": "heritage_tourism_publication",
+    "locator": "Delhi Tourism Calendar 2018, PDF page 7 (May)",
+    "summary": "The tourism publication lists Cheeni Kum among films shot at Qutub Minar.",
+    "verify_tokens": [
+      "Qutub Minar"
+    ],
+    "source_film_label": "Chini Kam",
+    "pdf_page": 7,
+    "source_site_label": "Qutub Minar"
+  },
+  {
+    "film_id": "Q1445622",
+    "film_page": "Pardes (1997 film)",
+    "heritage_id": "heritage:255",
+    "snapshot": "incredible_india_fatehpur.html",
+    "method": "heritage_tourism_publication",
+    "locator": "Incredible India, Fatehpur Sikri overview",
+    "summary": "The official site overview names Pardes (1997 film) among productions using Fatehpur Sikri as a backdrop.",
+    "verify_tokens": [
+      "Yamla Pagla Deewana",
+      "Pardes"
+    ]
+  },
+  {
+    "film_id": "Q8048073",
+    "film_page": "Yamla Pagla Deewana",
+    "heritage_id": "heritage:255",
+    "snapshot": "incredible_india_fatehpur.html",
+    "method": "heritage_tourism_publication",
+    "locator": "Incredible India, Fatehpur Sikri overview",
+    "summary": "The official site overview names Yamla Pagla Deewana among productions using Fatehpur Sikri as a backdrop.",
+    "verify_tokens": [
+      "Yamla Pagla Deewana",
+      "Pardes"
+    ]
+  },
+  {
+    "film_id": "Q944356",
+    "film_page": "Dil Se..",
+    "heritage_id": "heritage-component:944ter-002",
+    "snapshot": "nilgiri_x_class.html",
+    "method": "heritage_site_article",
+    "locator": "In Bollywood section",
+    "summary": "The article describes repainting Nilgiri railway rolling stock and shooting the Chaiyya Chaiyya sequence for Dil Se on the train.",
+    "verify_tokens": [
+      "Chaiyya Chaiyya",
+      "Dil Se",
+      "music video was shot"
+    ]
+  },
+  {
+    "film_id": "Q125076",
+    "film_page": "Slumdog Millionaire",
+    "heritage_id": "heritage:945",
+    "snapshot": "chhatrapati_shivaji_terminus.html",
+    "method": "heritage_site_article",
+    "locator": "In popular culture section",
+    "summary": "The station article identifies CST as the filming location of the Jai Ho sequence in Slumdog Millionaire.",
+    "verify_tokens": [
+      "filming location",
+      "Slumdog Millionaire"
+    ]
+  }
+]

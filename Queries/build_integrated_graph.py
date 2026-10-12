@@ -159,6 +159,7 @@ class Integration:
         self.id_index, self.title_index = collections.defaultdict(set), collections.defaultdict(set)
         self.place_index = collections.defaultdict(set)
         self.heritage_index = collections.defaultdict(set)
+        self.heritage_aliases = {}
 
     def issue(self, kind, source, row, detail):
         self.issues.append(dict(kind=kind, source_file=source, source_row=row, detail=detail))
@@ -280,8 +281,29 @@ class Integration:
                 self.issue("non_earth_coordinate", "enriched/places.csv", number, pid)
             self.add_place(pid, row["place_name"], coord,
                 "place_representative_point" if coord else "unresolved", row.get("source_url", ""))
+        alias_source = "../Queries/heritage_enrichment/site_aliases.csv"
+        if (self.data / alias_source).exists():
+            for row in self.read(alias_source):
+                pid = row["heritage_id"]
+                if pid not in self.places:  # Respect the configured inscription cutoff.
+                    continue
+                if not pid.startswith(("heritage:", "heritage-component:")):
+                    raise ValueError("Alias target is not a heritage entity: " + pid)
+                alias = norm(row["alias"])
+                if alias in self.heritage_aliases and self.heritage_aliases[alias]["heritage_id"] != pid:
+                    raise ValueError("Conflicting heritage alias: " + row["alias"])
+                self.heritage_aliases[alias] = row
+
+    def heritage_alias(self, label, context=""):
+        row = self.heritage_aliases.get(norm(label))
+        if row and (not context or norm(context.split(" -- ")[-1]) == norm(row["country"])):
+            return row
+        return None
 
     def place(self, label, context="", coord=None, coordinate_source=""):
+        alias = self.heritage_alias(label, context)
+        if alias:
+            return alias["heritage_id"]
         heritage = self.heritage_index.get(norm(label), set())
         if context:
             country = context.split(" -- ")[-1]
@@ -335,8 +357,12 @@ class Integration:
                     for full in filter(None, map(str.strip, row.get("place_name", "").split("|"))):
                         label = full.split(" -- ")[0]
                         pid = self.place(label, context=full)
+                        alias = self.heritage_alias(label, full)
+                        evidence = full
+                        if alias:
+                            evidence += "; Reviewed same-site alias: " + alias["alias"] + " -> " + pid + "; identity source: " + alias["identity_source_url"]
                         self.claim(fid, "filming", pid, source, number, "filmapia_existing_snapshot",
-                                   evidence=full)
+                                   evidence=evidence)
                     continue
                 for relation in ("filming", "narrative"):
                     value = row.get(relation + "_location", "")

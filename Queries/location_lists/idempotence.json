@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "sha256": {
+    "Dataset/enriched/films_enriched.csv": "18b1b57ba224a97b4d831693151186a71258b784255a7fcca3b88c3dbb98d554",
+    "Dataset/enriched/places.csv": "a98c069059e38a45fa467f6ee3bb089d9ce95307f23bd24d72266a8da3edf2b9",
+    "Dataset/enriched/location_assertions.csv": "e29aba4b95a522b17b7f2528df910974a531e5996b1b7a60ead0473f984ea4b3"
+  }
+}

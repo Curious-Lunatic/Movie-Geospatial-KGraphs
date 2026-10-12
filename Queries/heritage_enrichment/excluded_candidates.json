@@ -1,0 +1,26 @@
+[
+  {
+    "candidate": "Red Fort: Fanaa and Kurbaan",
+    "reason": "Calendar says shot around the complex; footprint-level filming not established."
+  },
+  {
+    "candidate": "CST: The Attacks of 26/11",
+    "reason": "Article explicitly says filming permission was denied; depiction alone is not filming."
+  },
+  {
+    "candidate": "CST: Ra.One",
+    "reason": "No exact Wikipedia film identity in current enriched corpus; no fuzzy match added."
+  },
+  {
+    "candidate": "Qutb Minar: Tere Ghar Ke Samne",
+    "reason": "Article says replica; also outside 1970\u20132025 corpus."
+  },
+  {
+    "candidate": "Darjeeling railway popular-culture list",
+    "reason": "Depiction wording alone is insufficient; only pre-existing Filmapia filming assertions recovered."
+  },
+  {
+    "candidate": "Jaipur, Mumbai, Agra city filming assertions",
+    "reason": "City-level evidence does not locate production inside a UNESCO property."
+  }
+]

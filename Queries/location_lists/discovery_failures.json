@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://en.wikipedia.org/wiki/Category:Films_shot_in_Udaipur",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Category:Films_shot_in_Jodhpur",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Category:Films_shot_in_Jaisalmer",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Category:Films_shot_in_Bikaner",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Category:Films_shot_in_Hyderabad",
+    "error": "No film entries found"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Category:Films_shot_in_Amritsar",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Category:Films_shot_in_Shimla",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Category:Films_shot_in_Manali",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Category:Films_shot_in_Kashmir",
+    "error": "No film entries found"
+  }
+]

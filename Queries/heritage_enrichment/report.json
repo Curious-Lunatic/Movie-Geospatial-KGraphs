@@ -1,0 +1,80 @@
+{
+  "passed": true,
+  "before_film_heritage_pairs": 5,
+  "after_film_heritage_pairs": 25,
+  "added_film_heritage_pairs": 20,
+  "recovered_existing_connections": 10,
+  "newly_sourced_connections": 10,
+  "new_source_assertions": 12,
+  "before_linked_heritage_properties": 3,
+  "after_linked_heritage_properties": 9,
+  "new_heritage_properties": 6,
+  "films_gaining_heritage_connections": 18,
+  "by_site": [
+    {
+      "heritage_id": "heritage:231",
+      "name": "Red Fort Complex",
+      "before": 0,
+      "after": 2,
+      "added": 2
+    },
+    {
+      "heritage_id": "heritage:232",
+      "name": "Humayun's Tomb, Delhi",
+      "before": 0,
+      "after": 7,
+      "added": 7
+    },
+    {
+      "heritage_id": "heritage:233",
+      "name": "Qutb Minar and its Monuments, Delhi",
+      "before": 0,
+      "after": 3,
+      "added": 3
+    },
+    {
+      "heritage_id": "heritage:247",
+      "name": "Hill Forts of Rajasthan",
+      "before": 3,
+      "after": 5,
+      "added": 2
+    },
+    {
+      "heritage_id": "heritage:251",
+      "name": "Agra Fort",
+      "before": 1,
+      "after": 1,
+      "added": 0
+    },
+    {
+      "heritage_id": "heritage:255",
+      "name": "Fatehpur Sikri",
+      "before": 0,
+      "after": 2,
+      "added": 2
+    },
+    {
+      "heritage_id": "heritage:326",
+      "name": "Petra",
+      "before": 1,
+      "after": 1,
+      "added": 0
+    },
+    {
+      "heritage_id": "heritage:944",
+      "name": "Mountain Railways of India",
+      "before": 0,
+      "after": 3,
+      "added": 3
+    },
+    {
+      "heritage_id": "heritage:945",
+      "name": "Chhatrapati Shivaji Terminus (formerly Victoria Terminus)",
+      "before": 0,
+      "after": 1,
+      "added": 1
+    }
+  ],
+  "counting_rule": "Unique film\u2013UNESCO-property pairs; components roll up to their parent. Multiple sources do not increase the count.",
+  "scope": "1970\u20132025 corpus; UNESCO properties in the supplied dataset inscribed by 2025. Evidence is not independent verification; coordinates represent sites, not camera positions."
+}

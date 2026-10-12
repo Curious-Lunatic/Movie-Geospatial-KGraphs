@@ -455,6 +455,34 @@ def main(fetch=False, wikipedia_only=False, older_only=False, resolve_places=Fal
                         retrieved=primary['reviewed_at'])
                 films[fid]['sources'].add('primary_location_evidence.json')
 
+    # Retain the separately reviewed location-first and heritage evidence on rebuild.
+    for batch_directory, methods in [
+            ('location_lists', {'wikipedia_location_list', 'wikipedia_location_category'}),
+            ('heritage_enrichment', {'heritage_site_article', 'heritage_tourism_publication'})]:
+        location_lists_path = ROOT / 'Queries' / batch_directory / 'assertions.csv'
+        if not location_lists_path.exists():
+            continue
+        with location_lists_path.open(encoding='utf-8', newline='') as handle:
+            for claim in csv.DictReader(handle):
+                fid = claim['film_id']
+                if fid not in films:
+                    raise ValueError('Location-list film missing from corpus: ' + fid)
+                if claim['relation'] != 'filming' or claim['method'] not in methods:
+                    raise ValueError('Invalid location-list claim: ' + fid)
+                add(fid, 'filming', claim['place_name'], claim['method'],
+                    claim['source_url'], claim['evidence'], place_id=claim['place_id'],
+                    status=claim['status'], revision=claim['revision_id'],
+                    retrieved=claim['retrieved_at'])
+                films[fid]['sources'].add('Queries/' + batch_directory + '/assertions.csv')
+        list_places_path = location_lists_path.with_name('places.csv')
+        if list_places_path.exists():
+            known_ids = {p['place_id'] for p in place_rows}
+            with list_places_path.open(encoding='utf-8', newline='') as handle:
+                for place in csv.DictReader(handle):
+                    if place['place_id'] not in known_ids:
+                        place_rows.append(place)
+                        known_ids.add(place['place_id'])
+
     place_names={a['place_name'] for a in assertions if a['status']!='legacy_unreviewed'}
     if resolve_places:
         errors+=fetch_batches(place_names,'place_pages',50,place_batch)

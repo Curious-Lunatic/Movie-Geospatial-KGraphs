@@ -1,0 +1,47 @@
+{
+  "direct_filming_pairs": [
+    [
+      "film:418e2e4adea4d46bcb4fad0a",
+      "heritage-component:247rev-006"
+    ],
+    [
+      "film:8a2aa5fb3d525ce2673e276d",
+      "heritage-component:247rev-001"
+    ],
+    [
+      "film:8b5cecf1ad0407ed286edfa9",
+      "heritage-component:247rev-001"
+    ],
+    [
+      "film:e1efa6121237b54f7cd3c182",
+      "heritage:326"
+    ],
+    [
+      "film:e9acd9fae23d3efb957f4eb4",
+      "heritage:251"
+    ]
+  ],
+  "property_filming_pairs": [
+    [
+      "film:418e2e4adea4d46bcb4fad0a",
+      "heritage:247"
+    ],
+    [
+      "film:8a2aa5fb3d525ce2673e276d",
+      "heritage:247"
+    ],
+    [
+      "film:8b5cecf1ad0407ed286edfa9",
+      "heritage:247"
+    ],
+    [
+      "film:e1efa6121237b54f7cd3c182",
+      "heritage:326"
+    ],
+    [
+      "film:e9acd9fae23d3efb957f4eb4",
+      "heritage:251"
+    ]
+  ],
+  "linked_properties": 3
+}
