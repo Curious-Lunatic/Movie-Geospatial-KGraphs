@@ -40,3 +40,9 @@ processing steps, interpretation and instructions to repeat the operations.
 ![QGIS spatial join settings](08_qgis_spatial_join_settings.jpg)
 
 ![India print layout in QGIS](10_qgis_india_layout.jpg)
+
+## Refreshed graph view — 13 October
+
+[Actual graph explorer screenshot](2026-10-13_03_graph_explorer.jpg).
+The original ten screenshots above document the 2000–2025 GUI demonstration;
+the refreshed QGIS processing report and maps use 1970–2025.

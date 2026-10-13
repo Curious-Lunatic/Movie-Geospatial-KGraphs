@@ -1,0 +1,21 @@
+{
+  "full_rdf_syntax_parsed": false,
+  "direct_graph_syntax_parsed": true,
+  "query_projection_and_sample_triples": 551767,
+  "provenance_statements": 218993,
+  "provenance_records_sampled": 218,
+  "entity_counts_match": true,
+  "rdf_csv_query_results_match": true,
+  "query_result_rows": {
+    "romance": 944,
+    "heritage": 8,
+    "characters": 15
+  },
+  "shacl_executed": false,
+  "graph_sha256": "6d26cf98c85178236636787d88f994badc73036372bca02e407c74d7ff6fba8a",
+  "query_sha256": {
+    "romance": "bb54e728eb66e132e81521a3994ada290ab6e55b457fe71cb0cc926b2ed942f4",
+    "heritage": "9d128b9a43891571d595b70b5aeaea53975fafdb6bc01d88cb2690db64eca851",
+    "characters": "a1376a6ec5712546d5c4166363d17ac456b0a130d83b246f1977776c930029a2"
+  }
+}

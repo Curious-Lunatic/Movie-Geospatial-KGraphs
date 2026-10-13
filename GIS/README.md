@@ -1,7 +1,7 @@
 # QGIS deliverable
 
-Open **Good_Will_Mapping.qgz** in QGIS and keep **good_will_mapping.gpkg** next
-to it. The saved project contains 14 persistent layers, two movie-to-table
+Open **Good_Will_Mapping_1970_2025.qgz** in QGIS and keep **good_will_mapping_1970_2025.gpkg** next
+to it. The saved project contains 22 persistent layers, nine linked-table
 relations, Agra/India bookmarks and two print layouts. It works without an
 online basemap or the regenerated integration CSVs.
 
@@ -15,7 +15,8 @@ online basemap or the regenerated integration CSVs.
 
 The four additional `*_from_gui.gpkg` files retain the outputs of the GUI
 demonstration: buffer, attribute join, reprojected candidate points and spatial
-join. The saved project uses `good_will_mapping.gpkg` as its stable snapshot.
+join. Those GUI outputs preserve the 12 October 2000–2025 demonstration. The refreshed
+project uses `good_will_mapping_1970_2025.gpkg` as its stable snapshot.
 
 The sourced Agra query identifies **Jodhaa Akbar (2008) / Agra Fort**, about
 **2.145 km** from the Taj Mahal reference point. This is a distance between

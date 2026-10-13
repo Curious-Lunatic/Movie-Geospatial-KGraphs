@@ -10,6 +10,38 @@ from query_integrated_graph import nearby, distance_km
 
 
 class IntegrationTests(unittest.TestCase):
+    def test_heritage_query_keeps_films_without_genre_metadata(self):
+        from rdflib import Graph
+        graph = Graph().parse(data='''
+            @prefix gwm: <https://w3id.org/gwm/> .
+            @prefix ex: <https://example.org/> .
+            @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+            ex:site a gwm:HeritageSite ; rdfs:label "Site" .
+            ex:component gwm:partOfHeritage ex:site .
+            ex:a gwm:filmedAt ex:site ; gwm:hasGenre ex:action .
+            ex:b gwm:filmedAt ex:component ; gwm:hasGenre ex:romance .
+            ex:c gwm:filmedAt ex:site .
+            ex:action rdfs:label "Action" .
+            ex:romance rdfs:label "Romance" .
+        ''', format='turtle')
+        query = (Path(__file__).resolve().parent / 'knowledge_graph_queries/heritage.sparql').read_text(encoding='utf-8')
+        row = list(graph.query(query))[0].asdict()
+        self.assertEqual(int(row['filmCount']), 3)
+        self.assertEqual(int(row['genreCount']), 2)
+
+    def test_default_cohort_matches_1970_project_scope_and_remains_configurable(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            data = Path(tmp)
+            with (data / 'tmdb_movies.csv').open('w', encoding='utf-8', newline='') as stream:
+                writer = csv.DictWriter(stream, fieldnames=['title','release_date','tmdb_id'])
+                writer.writeheader()
+                writer.writerows(dict(title=str(y), release_date=str(y)+'-01-01', tmdb_id=str(y))
+                                 for y in (1969, 1970, 1999, 2000, 2025, 2026))
+            current = Integration(data).build()
+            self.assertEqual({f['release_year'] for f in current.films.values()}, {1970,1999,2000,2025})
+            legacy = Integration(data, start=2000).build()
+            self.assertEqual({f['release_year'] for f in legacy.films.values()}, {2000,2025})
+
     def test_roles_are_film_scoped_and_recent_song_files_are_included(self):
         with tempfile.TemporaryDirectory() as tmp:
             data = Path(tmp)

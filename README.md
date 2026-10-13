@@ -14,8 +14,8 @@ python Queries/build_integrated_graph.py --start-year 1970 --end-year 2025
 python Queries/build_graph_explorer.py
 ```
 
-The earlier 2000–2025 GIS/demo instructions below describe the existing project
-deliverables; their saved counts and maps are not automatically refreshed.
+The GIS project and demo below were refreshed on 13 October 2026 for the full
+1970–2025 cohort. The original 12 October GUI snapshots remain historical evidence.
 
 This repository contains the team's movie, song and heritage source datasets.
 Satyendhran's integration contribution combines them into a reproducible graph
@@ -24,8 +24,8 @@ for the 14 October 2026 mid evaluation.
 Read [the method and source mapping](Docs/INTEGRATION_METHOD.md) and
 [the executed demo results](Dataset/integration_demo/README.md).
 
-For the GIS course demonstration, open **`GIS/Good_Will_Mapping.qgz`** in QGIS.
-Its layers are stored in the adjacent **`GIS/good_will_mapping.gpkg`**.
+For the GIS course demonstration, open **`GIS/Good_Will_Mapping_1970_2025.qgz`** in QGIS.
+Its layers are stored in the adjacent **`GIS/good_will_mapping_1970_2025.gpkg`**.
 See [the executed QGIS workflow](Docs/GIS_WORKFLOW.md) and
 [the application screenshots](GIS/screenshots/README.md).
 The project includes India/Agra maps, native attribute and spatial joins, a
@@ -78,7 +78,7 @@ for the executed projected spatial analysis.
 
 1. Show the source mapping and identity-resolution choices in the method document.
 2. Run the build and show the movie/song/heritage counts and review issues.
-3. Open `GIS/Good_Will_Mapping.qgz` in QGIS. Show the canonical movie table,
+3. Open `GIS/Good_Will_Mapping_1970_2025.qgz` in QGIS. Show the canonical movie table,
    filming assertions, map layers and the 5 km buffer in EPSG:32644.
 4. Follow [the QGIS workflow](Docs/GIS_WORKFLOW.md) to demonstrate attribute and
    spatial joins. The supplied Filmapia snapshot links **Jodhaa Akbar (2008)** to
@@ -91,3 +91,9 @@ The map is worldwide because Hindi films have international locations. Use
 `country_codes` containing `IN` for Indian heritage properties/components.
 All distances are between representative points. Source-supported assertions
 are evidence from the named input, not independently verified shooting positions.
+
+## Ready for evaluation
+
+Open [the local presentation](Presentations/Good_Will_Mapping_Mid_Evaluation.pptx),
+[the graph archive](Dataset/knowledge_graph/knowledge_graph_1970_2025.zip), and
+[the project review](Docs/PROJECT_REVIEW.md).

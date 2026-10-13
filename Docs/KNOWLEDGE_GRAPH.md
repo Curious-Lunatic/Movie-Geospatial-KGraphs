@@ -10,8 +10,8 @@ of a selected film; the RDF and CSVs contain all accepted relationships.
 
 The 1970–2025 build contains 9,509 resolved movie entities, 10,708 song entities,
 33,524 person/credit entities, 44,416 film-specific credited roles, 19 genres,
-and 8,575 place entities. There are 211,224 distinct sourced relationships backed
-by 217,448 source assertions. In addition, 5,645 UNESCO component-to-property
+and 8,579 place entities. There are 211,297 distinct sourced relationships backed
+by 218,993 source assertions. In addition, 5,645 UNESCO component-to-property
 relationships are exported from the heritage catalogue.
 
 The movie cohort is the union of the supplied datasets, including TMDB, rather
@@ -104,7 +104,7 @@ results. It does not claim full provenance syntax or SHACL validation.
 Optional SHACL validation remains in `validate_integrated_graph.py` and requires
 the additional packages listed in `requirements-integration.txt`.
 
-The original integration command defaults to 2000–2025 for compatibility with
+The integration command defaults to 1970–2025. Use --start-year 2000 to reproduce
 the prior mid-evaluation demo. Always pass `--start-year 1970` to reproduce this
 build. Existing QGIS files and committed demo snapshots are not automatically
 refreshed; they describe the earlier integration, not this graph's new counts.
@@ -112,7 +112,7 @@ Generated `Dataset/integrated/` files are ignored by Git and can be rebuilt.
 
 ## Remaining limits
 
-1,698 films have accepted filming locations and 1,608 have narrative locations.
+1,718 films have accepted filming locations and 1,608 have narrative locations.
 Many locations are broad city/region/country points. No precise shooting
 coordinate is inferred from them. Heritage inscription dates do not prove that
 a site held that designation at the time a film was made.
@@ -121,3 +121,11 @@ No foundation model inferred missing facts. Foundation models could assist
 future evidence extraction, but those suggestions should be reviewed before
 entering the accepted graph. Existing snapshot assertions still inherit source
 errors, missing provenance and imperfect geographic identity resolution.
+
+## Executed refreshed delivery
+
+The full snapshot and hash manifest are in `Dataset/knowledge_graph/`.
+Full RDF/SHACL validation passed for 2,706,799 triples. Aggregate RDF queries
+match their CSV exports. Heritage aggregation includes films without genre
+metadata in film totals: nine linked properties and 25 film/property pairs;
+eight properties have at least two known genres.

@@ -148,7 +148,7 @@ class Resolver:
 
 
 class Integration:
-    def __init__(self, data, start=2000, end=2025, heritage_cutoff=2025):
+    def __init__(self, data, start=1970, end=2025, heritage_cutoff=2025):
         self.data, self.start, self.end, self.cutoff = Path(data), start, end, heritage_cutoff
         self.inputs, self.issues, self.crosswalk, self.films = {}, [], [], {}
         self.attributes = []
@@ -565,6 +565,8 @@ class Integration:
                         stream.write(iri(fid) + ' gwm:' + field + ' ' + lit(film[field]) + ' .\n')
             for pid, person in self.people.items():
                 stream.write(iri(pid) + ' a gwm:Person ; rdfs:label ' + lit(person["name"]) + ' .\n')
+                stream.write(iri(pid) + ' gwm:identityScope ' +
+                             lit(person.get("identity_scope") or "tmdb_person_id") + ' .\n')
             for sid, song in self.songs.items():
                 stream.write(iri(sid) + ' a gwm:Song ; rdfs:label ' + lit(song["title"]) + ' .\n')
             for cid, character in self.characters.items():
@@ -613,7 +615,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-dir", type=Path, default=ROOT / "Dataset")
     parser.add_argument("--output-dir", type=Path, default=ROOT / "Dataset" / "integrated")
-    parser.add_argument("--start-year", type=int, default=2000)
+    parser.add_argument("--start-year", type=int, default=1970)
     parser.add_argument("--end-year", type=int, default=2025)
     parser.add_argument("--heritage-cutoff", type=int, default=2025)
     args = parser.parse_args()

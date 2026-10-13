@@ -1,0 +1,86 @@
+{
+  "year_range": [
+    1970,
+    2025
+  ],
+  "files": {
+    "graph.ttl": "6d26cf98c85178236636787d88f994badc73036372bca02e407c74d7ff6fba8a",
+    "graph_explorer.html": "2968e3f2ec386c851c0b6d02fa0112356a188987118b3baf86e4dfae7b2bd140",
+    "films.csv": "57385d5a1dfb61df4b077b67ee4e7678b79e78c8a00cb6408eb04dd6c127b410",
+    "film_crosswalk.csv": "1ba691b80337b235c11ebae8cf7d6c79848c457d59cdaca63641ffabe04deac4",
+    "film_attributes.csv": "253c0a14c9bd07152d2f4a069e2bb586ac607fbea1de89c19776e5354006b907",
+    "places.csv": "6e851e783751e9d248165232f0426f861bf659a2baaed239491c62d84d99d1f4",
+    "places.geojson": "41549ce97d1bf73634fa46f0b17204b499033811abfbc6faab875edb4a2af0f4",
+    "people.csv": "09c46b42c726232a9c2a765143262c9740138d0d61419b32d5bc1817ea40788a",
+    "characters.csv": "60444a3a1a71baec5340ed13cc54418b5c986876a8c0f811f9010a6c48f3497b",
+    "genres.csv": "94a01654b3c5656cb41956dc54a4d429fbfa01ccf92061702531ecd93e96f65b",
+    "songs.csv": "bc95d2e70be191f1bffcf242676acd7c5f5db6b1f87bb05cdbd90cfb93574451",
+    "claims.csv": "95ee072b8ff7431b4233bb748e55358d617330d74ea086c5a0ef987dfdb721a1",
+    "location_review.csv": "d3db41888172e4a68f8a239ba3a9b8f7d64031193cee34aa5d51993c494523ac",
+    "issues.csv": "cbdd7e861fde81a196bae731ed7deb2d840e5456062f6f22020f9efecdce1263",
+    "summary.json": "0e204f69d670e9d408c31dab3b75e41b8cbfe32c8638bcb1f3d4b7db66631403",
+    "validation.json": "e1af21ebf8861a73b4fcac7bcd46fd63e9cc9737ea09b0ba012c81e0f53501ff",
+    "sparql_demo.csv": "185d70a15b570134b8686a81f49a0ffabd85dd08214e6b3d23d05aad21daeb40",
+    "romance_places.csv": "c2519ae07dfca6191423594b74ed856b64adfcd73f89e2bdd92c95f396d755d4",
+    "heritage_genres.csv": "584518d656f2a22a5ffa799dee8a0ef0fe7557887401aeea6c037f8e303ed583",
+    "graph_verification.json": "45262076dd54426f4ee08b0a7b5974f3f56b1ccd24ec1eee0f96f65cf17ddcb4"
+  },
+  "summary": {
+    "year_range": [
+      1970,
+      2025
+    ],
+    "heritage_inscribed_by": 2025,
+    "films": 9509,
+    "songs": 10708,
+    "people": 33524,
+    "places": 8579,
+    "characters": 44416,
+    "genres": 19,
+    "events": 0,
+    "landscapes": 0,
+    "distinct_relationships": 211297,
+    "heritage_properties": 1248,
+    "heritage_components": 5645,
+    "claims": 218993,
+    "location_claims": 15353,
+    "source_attributes": 281650,
+    "films_with_filming_locations": 1718,
+    "films_with_narrative_locations": 1608,
+    "geocoded_places": 7342,
+    "review_only_location_claims": 5365,
+    "issue_counts": {
+      "ambiguous_title_year": 24,
+      "identifier_conflict": 20,
+      "release_year_disagreement": 424,
+      "song_location_needs_review": 48,
+      "song_row_needs_review": 2659,
+      "standalone_song_needs_mapping": 27,
+      "unresolved_song_film": 335
+    }
+  },
+  "validation": {
+    "shacl_conforms": true,
+    "rdf_triples": 2706799,
+    "rdf_statements": 218993,
+    "sparql_demo_rows": 12,
+    "counts_match_csv": true,
+    "graph_sha256": "6d26cf98c85178236636787d88f994badc73036372bca02e407c74d7ff6fba8a",
+    "geosparql_distance_executed": false,
+    "rdf_csv_query_results_match": true,
+    "query_result_rows": {
+      "romance": 944,
+      "heritage": 8,
+      "characters": 15
+    },
+    "query_sha256": {
+      "romance": "bb54e728eb66e132e81521a3994ada290ab6e55b457fe71cb0cc926b2ed942f4",
+      "heritage": "9d128b9a43891571d595b70b5aeaea53975fafdb6bc01d88cb2690db64eca851",
+      "characters": "a1376a6ec5712546d5c4166363d17ac456b0a130d83b246f1977776c930029a2"
+    },
+    "query_validation_mode": "Direct accepted RDF edges; full graph syntax and SHACL validated separately against the same SHA-256"
+  },
+  "archive": "knowledge_graph_1970_2025.zip",
+  "archive_sha256": "f169dd2e460231feac1484e5934841009f5dd21566c330478965a841bca219f4",
+  "zip_round_trip_hashes_match": true
+}

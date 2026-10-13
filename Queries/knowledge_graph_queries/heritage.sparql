@@ -1,14 +1,19 @@
 PREFIX gwm: <https://w3id.org/gwm/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 # Component-level filming rolls up to the UNESCO parent property.
-SELECT ?site (COUNT(DISTINCT ?film) AS ?filmCount)
-       (COUNT(DISTINCT ?genre) AS ?genreCount)
-       (GROUP_CONCAT(DISTINCT ?genreLabel; separator=" | ") AS ?genres) WHERE {
-  { ?film gwm:filmedAt ?property . }
-  UNION
-  { ?film gwm:filmedAt ?component . ?component gwm:partOfHeritage ?property . }
-  ?film gwm:hasGenre ?genre .
-  ?property a gwm:HeritageSite ; rdfs:label ?site .
-  ?genre rdfs:label ?genreLabel .
-} GROUP BY ?property ?site HAVING(COUNT(DISTINCT ?genre) > 1)
+SELECT ?site (COUNT(DISTINCT ?film) AS ?filmCount) ?genreCount ?genres WHERE {
+  # Compute genre coverage from known tags, then count all linked films.
+  # A film without genre metadata still contributes to filmCount.
+  { SELECT ?property (COUNT(DISTINCT ?genre) AS ?genreCount)
+           (GROUP_CONCAT(DISTINCT ?genreLabel; separator=" | ") AS ?genres) WHERE {
+      ?property a gwm:HeritageSite .
+      ?taggedLocation gwm:partOfHeritage? ?property .
+      ?taggedFilm gwm:filmedAt ?taggedLocation ; gwm:hasGenre ?genre .
+      ?genre rdfs:label ?genreLabel .
+    } GROUP BY ?property HAVING(COUNT(DISTINCT ?genre) > 1)
+  }
+  ?property rdfs:label ?site .
+  ?location gwm:partOfHeritage? ?property .
+  ?film gwm:filmedAt ?location .
+} GROUP BY ?property ?site ?genreCount ?genres
 ORDER BY DESC(?genreCount)
