@@ -40,8 +40,8 @@ PyQGIS is QGIS's supported
 
 ## Open the GIS deliverable
 
-Open **`GIS/Good_Will_Mapping.qgz`** in QGIS. Keep it beside
-**`GIS/good_will_mapping.gpkg`**. All 14 saved layers reference that GeoPackage
+Open **`GIS/Good_Will_Mapping_1970_2025.qgz`** in QGIS. Keep it beside
+**`GIS/good_will_mapping_1970_2025.gpkg`**. All 22 saved layers reference that GeoPackage
 with relative paths. The project was reopened in the QGIS engine and desktop
 application with valid layers. It includes two table relations, two spatial
 bookmarks and two print layouts.
@@ -57,10 +57,10 @@ for the presentation. They are QGIS map exports. The files under
 
 ## Observed results
 
-The attribute joins map **3,961 supported filming assertions** to usable point
-geometry. Another **1,538 filming assertions** have no usable mapped coordinate
+The attribute joins map **6,525 supported filming assertions** to usable point
+geometry. Another **1,565 filming assertions** have no usable mapped coordinate
 and remain in the tabular evidence. There are **44 Indian heritage property
-points**, **128 Indian heritage component points**, and **2,311 sourced filming
+points**, **128 Indian heritage component points**, and **4,422 sourced filming
 features whose reference points fall inside the bundled India context geometry**.
 Several assertions can share a point or film; these are not unique shooting-spot
 or movie counts.
@@ -115,3 +115,8 @@ Then use the installed QGIS Python environment, for example on this machine:
 `GIS/qgis_report.json` contains the executed algorithms, parameters, layer counts,
 input hashes, distances, and saved-project round-trip checks. This command runs
 the actual QGIS processing engine. Normal system Python does not include PyQGIS.
+
+The refreshed build also repeats the two field joins for narrative assertions:
+6,907 have point geometry and 356 remain without geometry. India contains
+5,039 mapped narrative assertion features. The 12 October GUI captures retain
+the earlier cohort; 13 October processing counts come from the QGIS engine.

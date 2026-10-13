@@ -1,34 +1,40 @@
 {
   "year_range": [
-    2000,
+    1970,
     2025
   ],
   "heritage_inscribed_by": 2025,
-  "films": 6182,
-  "songs": 5378,
-  "people": 15063,
-  "places": 8572,
+  "films": 9509,
+  "songs": 10708,
+  "people": 33524,
+  "places": 8579,
+  "characters": 44416,
+  "genres": 19,
+  "events": 0,
+  "landscapes": 0,
+  "distinct_relationships": 211297,
   "heritage_properties": 1248,
   "heritage_components": 5645,
-  "claims": 57589,
-  "location_claims": 11469,
-  "source_attributes": 196132,
-  "films_with_filming_locations": 1366,
-  "films_with_narrative_locations": 1301,
-  "geocoded_places": 7330,
-  "review_only_location_claims": 4983,
+  "claims": 218993,
+  "location_claims": 15353,
+  "source_attributes": 281650,
+  "films_with_filming_locations": 1718,
+  "films_with_narrative_locations": 1608,
+  "geocoded_places": 7342,
+  "review_only_location_claims": 5365,
   "issue_counts": {
     "ambiguous_title_year": 24,
     "identifier_conflict": 20,
     "release_year_disagreement": 424,
-    "song_location_needs_review": 14,
-    "standalone_song_needs_mapping": 26,
-    "unresolved_song_film": 124
+    "song_location_needs_review": 48,
+    "song_row_needs_review": 2659,
+    "standalone_song_needs_mapping": 27,
+    "unresolved_song_film": 335
   },
   "sources": {
     "enriched/films_enriched.csv": {
       "rows": 6069,
-      "sha256": "2d37e7ed7842b116187897302ed34d60eac433d3f0a2cb20c40ab6a94586eec7"
+      "sha256": "4f72ae8aaed7a8e13c870883073086959cfa05f0ed27db3f8b9f6ecb9a4eebf5"
     },
     "tmdb_movies.csv": {
       "rows": 9611,
@@ -59,12 +65,16 @@
       "sha256": "24d4d1c64b09e9615b32bd5fd3e7b59a9c278cac9fe8aa7babbd7e5f1a2587b5"
     },
     "enriched/places.csv": {
-      "rows": 494,
-      "sha256": "fbcbb00b44c796621a8f19dbe61110ea7f6b932d80d7206b897602337b0568b9"
+      "rows": 508,
+      "sha256": "0586bae46feb4830d6365a7c412446d4893af0ef5592b2c977d61d2c56755b93"
+    },
+    "../Queries/heritage_enrichment/site_aliases.csv": {
+      "rows": 6,
+      "sha256": "72d3ddb39642780468a0044a924e4310e20aeddc9afafde1891d8ef011d9a062"
     },
     "enriched/location_assertions.csv": {
-      "rows": 14835,
-      "sha256": "0af5288df7cb3b7baa24fdee5d7d9de0222526d6c4de5f8a1a67282b91a4712e"
+      "rows": 16380,
+      "sha256": "437339fc446c63c5b3482585d9f366bfc5c7c7952b535be4187ecd8161acdf43"
     },
     "wikidata_cache.json": {
       "rows": 6244,
@@ -85,6 +95,18 @@
     "songs_2005_2009.csv": {
       "rows": 2727,
       "sha256": "62072192da9659ab474a4b4c5a700f1b90ed0777d2983f2039d25aa240c5c27a"
+    },
+    "songs_2010_2014.csv": {
+      "rows": 3341,
+      "sha256": "577b6f862f93b0174b6b40a70748213a7710de334cfc662aeb9e3aeb7d6d0f6e"
+    },
+    "songs_2015_2019.csv": {
+      "rows": 3170,
+      "sha256": "2eac9460b7ea8591d6881c53773607422213b7b6db911c6c87ab302ca93fcec6"
+    },
+    "songs_2020_2025.csv": {
+      "rows": 1690,
+      "sha256": "b13f683ab325fe3d16e4bd60f6237c98172c0f6d8b04eb902f2fe8ea3a297c3d"
     },
     "bollywood_songs_1970_2026.csv": {
       "rows": 28,

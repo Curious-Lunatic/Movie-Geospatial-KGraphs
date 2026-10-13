@@ -8,6 +8,7 @@ provenance statement is counted; every thousandth record is syntax-checked.
 import collections
 import csv
 import json
+import hashlib
 from pathlib import Path
 from rdflib import Graph, Namespace
 from rdflib.namespace import RDF
@@ -42,23 +43,15 @@ for kind, metric in [('Film', 'films'), ('Song', 'songs'), ('Person', 'people'),
                      ('Character', 'characters'), ('Genre', 'genres'), ('HeritageSite', 'heritage_properties')]:
     assert len(set(g.subjects(RDF.type, GWM[kind]))) == summary[metric], kind
 assert statements == summary['claims']
-results = {}
-for name in ('romance', 'heritage', 'characters'):
-    print('Executing ' + name + ' query...', flush=True)
-    query = (ROOT / 'Queries' / 'knowledge_graph_queries' / (name + '.sparql')).read_text()
-    results[name] = [dict((str(k), str(v)) for k, v in row.asdict().items()) for row in g.query(query)]
-    assert results[name], 'No demonstration results for ' + name
-romance_csv = collections.Counter((r['place'], 'filmedAt' if r['relation'] == 'filming' else 'setIn', r['film_count']) for r in read('romance_places.csv'))
-romance_rdf = collections.Counter((r['place'], r['relation'].split('/')[-1], r['filmCount']) for r in results['romance'])
-assert romance_csv == romance_rdf, 'RDF and CSV romance query disagree'
-expected = {r['heritage_site']: (r['film_count'], r['genre_count'], frozenset(r['genres'].split('|')))
-            for r in read('heritage_genres.csv') if int(r['genre_count']) > 1}
-actual = {r['site']: (r['filmCount'], r['genreCount'], frozenset(r['genres'].split(' | '))) for r in results['heritage']}
-assert expected == actual, 'RDF and CSV heritage query disagree'
+from validate_graph_queries import validate_queries
+query_checks = validate_queries(g, OUT)
 report = dict(full_rdf_syntax_parsed=False, direct_graph_syntax_parsed=True,
               query_projection_and_sample_triples=len(g), provenance_statements=statements,
               provenance_records_sampled=len(sample_subjects),
               entity_counts_match=True, rdf_csv_query_results_match=True,
-              query_result_rows={k: len(v) for k, v in results.items()}, shacl_executed=False)
+              query_result_rows=query_checks['query_result_rows'], shacl_executed=False,
+              graph_sha256=hashlib.sha256((OUT/'graph.ttl').read_bytes()).hexdigest(),
+              query_sha256={name:hashlib.sha256((ROOT/'Queries/knowledge_graph_queries'/(name+'.sparql')).read_bytes()).hexdigest()
+                            for name in ('romance','heritage','characters')})
 (OUT / 'graph_verification.json').write_text(json.dumps(report, indent=2) + '\n')
 print(json.dumps(report, indent=2))

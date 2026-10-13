@@ -23,8 +23,8 @@ set there, and its film location does not establish where each song was shot.
 
 1. Open `Docs/INTEGRATION_METHOD.md` to show the compared integration methods and
    source-to-schema mapping.
-2. Run `python Queries/build_integrated_graph.py`. Show 6,182 movie entities,
-   5,378 film-linked songs and 57,589 sourced graph relationships.
+2. Run `python Queries/build_integrated_graph.py`. Show 9,509 movie entities,
+   10,708 film-linked songs and 218,993 sourced graph relationships.
 3. Run `python -m unittest discover -s Queries -p "test_integration.py" -v`.
    Explain one conflicting-ID or wrong-song-year test.
 4. Run `python Queries/query_integrated_graph.py --heritage "Taj Mahal" --radius-km 5`.
@@ -32,12 +32,12 @@ set there, and its film location does not establish where each song was shot.
    representative-point distance.
 5. Show `Dataset/integration_demo/sparql_demo.csv` and `validation.json` for the
    executed provenance query and successful graph-structure validation.
-6. Open `GIS/Good_Will_Mapping.qgz` in QGIS. Demonstrate the field-value joins,
+6. Open `GIS/Good_Will_Mapping_1970_2025.qgz` in QGIS. Demonstrate the field-value joins,
    EPSG:32644 projection, 5 km buffer and spatial join using `Docs/GIS_WORKFLOW.md`.
    Show the source row in the result attributes and open the two print layouts.
 
 The QGIS extension is now implemented and executed. For the GIS presentation,
-open **`GIS/Good_Will_Mapping.qgz`** and follow **`Docs/GIS_WORKFLOW.md`**.
+open **`GIS/Good_Will_Mapping_1970_2025.qgz`** and follow **`Docs/GIS_WORKFLOW.md`**.
 Show the attribute join, reprojected point layers, **5,000 metre buffer**, spatial
 join and **2,144.978 metre** QGIS distance result. Use the actual application
 screenshots in **`GIS/screenshots/`** and the two saved QGIS print layouts.

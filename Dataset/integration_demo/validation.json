@@ -1,9 +1,21 @@
 {
   "shacl_conforms": true,
-  "rdf_triples": 767435,
-  "rdf_statements": 57589,
-  "sparql_demo_rows": 9,
+  "rdf_triples": 2706799,
+  "rdf_statements": 218993,
+  "sparql_demo_rows": 12,
   "counts_match_csv": true,
-  "graph_sha256": "3e67198960d6566e058e94ee8c9ae983021b177c7d4b081f1f66bdf11df28926",
-  "geosparql_distance_executed": false
+  "graph_sha256": "6d26cf98c85178236636787d88f994badc73036372bca02e407c74d7ff6fba8a",
+  "geosparql_distance_executed": false,
+  "rdf_csv_query_results_match": true,
+  "query_result_rows": {
+    "romance": 944,
+    "heritage": 8,
+    "characters": 15
+  },
+  "query_sha256": {
+    "romance": "bb54e728eb66e132e81521a3994ada290ab6e55b457fe71cb0cc926b2ed942f4",
+    "heritage": "9d128b9a43891571d595b70b5aeaea53975fafdb6bc01d88cb2690db64eca851",
+    "characters": "a1376a6ec5712546d5c4166363d17ac456b0a130d83b246f1977776c930029a2"
+  },
+  "query_validation_mode": "Direct accepted RDF edges; full graph syntax and SHACL validated separately against the same SHA-256"
 }

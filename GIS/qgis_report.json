@@ -1,14 +1,22 @@
 {
   "qgis_version": "4.0.0-Norrköping",
-  "attribute_joins_executed": 2,
+  "attribute_joins_executed": 4,
+  "project_file": "Good_Will_Mapping_1970_2025.qgz",
+  "geopackage_file": "good_will_mapping_1970_2025.gpkg",
+  "year_range": [
+    1970,
+    2025
+  ],
   "spatial_join_executed": true,
   "metric_crs": "EPSG:32644",
   "buffer_metres": 5000,
-  "geocoded_filming_assertions": 3961,
-  "filming_claims_without_geometry": 1538,
+  "geocoded_filming_assertions": 6525,
+  "filming_claims_without_geometry": 1565,
+  "geocoded_narrative_assertions": 6907,
+  "narrative_claims_without_geometry": 356,
   "indian_heritage_property_points": 44,
   "indian_heritage_component_points": 128,
-  "india_filming_features": 2311,
+  "india_filming_features": 4422,
   "matched_features": 1,
   "results": [
     {
@@ -24,16 +32,20 @@
       "interpretation": "Projected distance between representative points"
     }
   ],
+  "india_narrative_features": 5039,
   "project_reopened_with_valid_layers": true,
-  "portable_project_layers": 14,
-  "qgis_relations": 2,
+  "portable_project_layers": 22,
+  "qgis_relations": 9,
   "qgis_layouts": 2,
   "independent_python_pairs_agree": true,
   "source_hashes": {
-    "films.csv": "bcfec25422c60d2ebf5adc20e7868a5576920c0e55e66cab9fac4be84635c943",
-    "claims.csv": "0c30ca992badb8d276d7fc4e3c122b24902e49177a5c465a98581bca00ba5ffd",
-    "songs.csv": "26b1328f556e1582c71d3c1c1fa2653b347ae2d81d358b644171ff92029b2e67",
-    "places.geojson": "6d771f6e5a32a79e3b1076e2500d4161118e4749fb0a3109974a1b33053ad871"
+    "films.csv": "57385d5a1dfb61df4b077b67ee4e7678b79e78c8a00cb6408eb04dd6c127b410",
+    "claims.csv": "95ee072b8ff7431b4233bb748e55358d617330d74ea086c5a0ef987dfdb721a1",
+    "songs.csv": "bc95d2e70be191f1bffcf242676acd7c5f5db6b1f87bb05cdbd90cfb93574451",
+    "places.geojson": "41549ce97d1bf73634fa46f0b17204b499033811abfbc6faab875edb4a2af0f4",
+    "people.csv": "09c46b42c726232a9c2a765143262c9740138d0d61419b32d5bc1817ea40788a",
+    "characters.csv": "60444a3a1a71baec5340ed13cc54418b5c986876a8c0f811f9010a6c48f3497b",
+    "genres.csv": "94a01654b3c5656cb41956dc54a4d429fbfa01ccf92061702531ecd93e96f65b"
   },
   "steps": [
     {
@@ -43,7 +55,7 @@
         "EXPRESSION": "\"relation\" = 'filming' AND \"status\" = 'source_supported'",
         "OUTPUT": "memory:"
       },
-      "output_features": 5499
+      "output_features": 8090
     },
     {
       "algorithm": "native:joinattributestable",
@@ -61,7 +73,7 @@
         "PREFIX": "film_",
         "OUTPUT": "memory:"
       },
-      "output_features": 5499
+      "output_features": 8090
     },
     {
       "algorithm": "native:joinattributestable",
@@ -87,7 +99,78 @@
         "PREFIX": "",
         "OUTPUT": "memory:"
       },
-      "output_features": 3961
+      "output_features": 6525
+    },
+    {
+      "algorithm": "native:extractbyexpression",
+      "parameters": {
+        "INPUT": "Sourced relationship table",
+        "EXPRESSION": "\"relation\" = 'narrative' AND \"status\" = 'source_supported'",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 7263
+    },
+    {
+      "algorithm": "native:joinattributestable",
+      "parameters": {
+        "INPUT": "output",
+        "FIELD": "subject_id",
+        "INPUT_2": "Canonical movies",
+        "FIELD_2": "film_id",
+        "FIELDS_TO_COPY": [
+          "title",
+          "release_year"
+        ],
+        "METHOD": 1,
+        "DISCARD_NONMATCHING": true,
+        "PREFIX": "film_",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 7263
+    },
+    {
+      "algorithm": "native:joinattributestable",
+      "parameters": {
+        "INPUT": "Place reference points (WGS84)",
+        "FIELD": "place_id",
+        "INPUT_2": "output",
+        "FIELD_2": "object_id",
+        "FIELDS_TO_COPY": [
+          "claim_id",
+          "subject_id",
+          "relation",
+          "film_title",
+          "film_release_year",
+          "source_file",
+          "source_row",
+          "source_url",
+          "method",
+          "status"
+        ],
+        "METHOD": 0,
+        "DISCARD_NONMATCHING": true,
+        "PREFIX": "",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 6907
+    },
+    {
+      "algorithm": "native:extractbyexpression",
+      "parameters": {
+        "INPUT": "Sourced relationship table",
+        "EXPRESSION": "\"relation\" = 'cast_member'",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 57969
+    },
+    {
+      "algorithm": "native:extractbyexpression",
+      "parameters": {
+        "INPUT": "Sourced relationship table",
+        "EXPRESSION": "\"relation\" = 'genre'",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 12313
     },
     {
       "algorithm": "native:extractbyexpression",
@@ -144,7 +227,19 @@
         "INTERSECT": "output",
         "OUTPUT": "memory:"
       },
-      "output_features": 2311
+      "output_features": 4422
+    },
+    {
+      "algorithm": "native:extractbylocation",
+      "parameters": {
+        "INPUT": "output",
+        "PREDICATE": [
+          0
+        ],
+        "INTERSECT": "output",
+        "OUTPUT": "memory:"
+      },
+      "output_features": 5039
     },
     {
       "algorithm": "native:extractbyexpression",
@@ -171,7 +266,7 @@
         "EXPRESSION": "(\"place_id\" LIKE 'heritage:%' OR \"place_id\" LIKE 'heritage-component:%') AND x($geometry) BETWEEN 77 AND 79 AND y($geometry) BETWEEN 26 AND 28",
         "OUTPUT": "memory:"
       },
-      "output_features": 1
+      "output_features": 3
     },
     {
       "algorithm": "native:reprojectlayer",
@@ -180,7 +275,7 @@
         "TARGET_CRS": "EPSG:32644",
         "OUTPUT": "memory:"
       },
-      "output_features": 1
+      "output_features": 3
     },
     {
       "algorithm": "native:buffer",
@@ -246,7 +341,15 @@
   ],
   "warnings": [
     {
-      "message": "6996 feature(s) from input layer could not be matched",
+      "message": "6966 feature(s) from input layer could not be matched",
+      "fatal": false
+    },
+    {
+      "message": "7048 feature(s) from input layer could not be matched",
+      "fatal": false
+    },
+    {
+      "message": "No spatial index exists for input layer, performance will be severely degraded",
       "fatal": false
     },
     {

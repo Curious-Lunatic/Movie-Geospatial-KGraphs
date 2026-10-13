@@ -33,7 +33,8 @@ def main():
     summary = json.loads((directory / "summary.json").read_text(encoding="utf-8"))
     for type_name, expected in [("Film", summary["films"]), ("Song", summary["songs"]),
                                 ("Person", summary["people"]), ("HeritageSite", summary["heritage_properties"]),
-                                ("HeritageComponent", summary["heritage_components"])]:
+                                ("HeritageComponent", summary["heritage_components"]),
+                                ("Character", summary["characters"]), ("Genre", summary["genres"])]:
         actual = len(set(graph.subjects(RDF.type, gwm[type_name])))
         if actual != expected:
             raise SystemExit("RDF/CSV count disagreement: " + type_name)
@@ -52,6 +53,8 @@ def main():
                   sparql_demo_rows=len(rows), counts_match_csv=True,
                   graph_sha256=hashlib.sha256((directory / "graph.ttl").read_bytes()).hexdigest(),
                   geosparql_distance_executed=False)
+    from validate_graph_queries import validate_queries
+    result.update(validate_queries(graph, directory))
     if args.report:
         args.report.parent.mkdir(parents=True, exist_ok=True)
         args.report.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")

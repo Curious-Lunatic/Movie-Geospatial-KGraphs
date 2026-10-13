@@ -2,12 +2,8 @@ PREFIX gwm: <https://w3id.org/gwm/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 # Genre association only, not scene-level emotion. Keep filming and setting separate.
 SELECT ?place ?relation (COUNT(DISTINCT ?film) AS ?filmCount) WHERE {
-  { SELECT DISTINCT ?film WHERE {
-      ?genre rdfs:label "Romance" .
-      ?film gwm:hasGenre ?genre .
-  } }
-  { ?film gwm:filmedAt ?placeId . BIND(gwm:filmedAt AS ?relation) }
-  UNION
-  { ?film gwm:setIn ?placeId . BIND(gwm:setIn AS ?relation) }
+  VALUES ?relation { gwm:filmedAt gwm:setIn }
+  ?genre rdfs:label "Romance" .
+  ?film gwm:hasGenre ?genre ; ?relation ?placeId .
   ?placeId rdfs:label ?place .
 } GROUP BY ?placeId ?place ?relation ORDER BY DESC(?filmCount)

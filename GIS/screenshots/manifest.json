@@ -2,61 +2,110 @@
   {
     "file": "01_project_loaded.jpg",
     "caption": "Saved project loaded in QGIS with valid layers and EPSG:32644.",
-    "window": "Untitled Project — QGIS",
-    "captured_at": "2026-10-12T10:46:44.207Z"
+    "window": "Untitled Project \u2014 QGIS",
+    "captured_at": "2026-10-12T10:46:44.207Z",
+    "cohort": [
+      2000,
+      2025
+    ]
   },
   {
     "file": "02_agra_buffer_map.jpg",
     "caption": "Agra Fort / Jodhaa Akbar inside the 5 km Taj Mahal buffer, displayed in QGIS.",
-    "window": "Good Will Mapping: QGIS integration and 5 km heritage query — QGIS",
-    "captured_at": "2026-10-12T10:48:09.245Z"
+    "window": "Good Will Mapping: QGIS integration and 5 km heritage query \u2014 QGIS",
+    "captured_at": "2026-10-12T10:48:09.245Z",
+    "cohort": [
+      2000,
+      2025
+    ]
   },
   {
     "file": "03_joined_result_attributes.jpg",
     "caption": "QGIS attribute form: Jodhaa Akbar, Agra Fort, Filmapia row 76, Taj Mahal spatial join and 2144.978 metre distance.",
-    "window": "Good Will Mapping: QGIS integration and 5 km heritage query — QGIS",
-    "captured_at": "2026-10-12T10:49:01.052Z"
+    "window": "Good Will Mapping: QGIS integration and 5 km heritage query \u2014 QGIS",
+    "captured_at": "2026-10-12T10:49:01.052Z",
+    "cohort": [
+      2000,
+      2025
+    ]
   },
   {
     "file": "04_qgis_buffer_settings.jpg",
     "caption": "Native QGIS Buffer dialog: Taj Mahal point, EPSG:32644, distance 5000 metres and 72 segments.",
-    "window": "*Good Will Mapping: QGIS integration and 5 km heritage query — QGIS",
-    "captured_at": "2026-10-12T10:52:09.536Z"
+    "window": "*Good Will Mapping: QGIS integration and 5 km heritage query \u2014 QGIS",
+    "captured_at": "2026-10-12T10:52:09.536Z",
+    "cohort": [
+      2000,
+      2025
+    ]
   },
   {
     "file": "05_qgis_buffer_execution.jpg",
     "caption": "QGIS GUI log confirms Buffer completed with DISTANCE=5000 and EPSG:32644 input.",
-    "window": "*Good Will Mapping: QGIS integration and 5 km heritage query — QGIS",
-    "captured_at": "2026-10-12T10:53:33.483Z"
+    "window": "*Good Will Mapping: QGIS integration and 5 km heritage query \u2014 QGIS",
+    "captured_at": "2026-10-12T10:53:33.483Z",
+    "cohort": [
+      2000,
+      2025
+    ]
   },
   {
     "file": "06_qgis_attribute_join_settings.jpg",
     "caption": "QGIS field-value join: raw filming subject_id to canonical film_id, copying title and year.",
-    "window": "*Good Will Mapping: QGIS integration and 5 km heritage query — QGIS",
-    "captured_at": "2026-10-12T10:55:28.564Z"
+    "window": "*Good Will Mapping: QGIS integration and 5 km heritage query \u2014 QGIS",
+    "captured_at": "2026-10-12T10:55:28.564Z",
+    "cohort": [
+      2000,
+      2025
+    ]
   },
   {
     "file": "07_qgis_attribute_join_completed.jpg",
     "caption": "QGIS GUI confirms all 5499 supported filming assertions matched canonical movie IDs; zero unjoinable records.",
-    "window": "*Good Will Mapping: QGIS integration and 5 km heritage query — QGIS",
-    "captured_at": "2026-10-12T10:57:57.674Z"
+    "window": "*Good Will Mapping: QGIS integration and 5 km heritage query \u2014 QGIS",
+    "captured_at": "2026-10-12T10:57:57.674Z",
+    "cohort": [
+      2000,
+      2025
+    ]
   },
   {
     "file": "08_qgis_spatial_join_settings.jpg",
     "caption": "QGIS Join Attributes by Location: Agra site points intersect the 5 km buffer; both inputs use EPSG:32644.",
-    "window": "*Good Will Mapping: QGIS integration and 5 km heritage query — QGIS",
-    "captured_at": "2026-10-12T10:59:18.184Z"
+    "window": "*Good Will Mapping: QGIS integration and 5 km heritage query \u2014 QGIS",
+    "captured_at": "2026-10-12T10:59:18.184Z",
+    "cohort": [
+      2000,
+      2025
+    ]
   },
   {
     "file": "09_qgis_spatial_join_completed.jpg",
     "caption": "QGIS GUI confirms the spatial join completed and matched one named film-location feature.",
-    "window": "*Good Will Mapping: QGIS integration and 5 km heritage query — QGIS",
-    "captured_at": "2026-10-12T10:59:54.505Z"
+    "window": "*Good Will Mapping: QGIS integration and 5 km heritage query \u2014 QGIS",
+    "captured_at": "2026-10-12T10:59:54.505Z",
+    "cohort": [
+      2000,
+      2025
+    ]
   },
   {
     "file": "10_qgis_india_layout.jpg",
     "caption": "QGIS print layout showing Indian heritage sites and sourced film-location features.",
-    "window": "Good Will Mapping: QGIS integration and 5 km heritage query — QGIS",
-    "captured_at": "2026-10-12T11:03:33.343Z"
+    "window": "Good Will Mapping: QGIS integration and 5 km heritage query \u2014 QGIS",
+    "captured_at": "2026-10-12T11:03:33.343Z",
+    "cohort": [
+      2000,
+      2025
+    ]
+  },
+  {
+    "file": "2026-10-13_03_graph_explorer.jpg",
+    "caption": "Actual refreshed 1970\u20132025 offline knowledge graph explorer.",
+    "captured_date": "2026-10-13",
+    "cohort": [
+      1970,
+      2025
+    ]
   }
 ]
