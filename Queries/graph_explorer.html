@@ -2,19 +2,73 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Bollywood · Places & Stories</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f5f3ee;color:#213437;font:15px system-ui,sans-serif}header{padding:28px 36px;background:#173e40;color:#fff}h1{font:34px Georgia,serif;margin:3px 0 10px}header p{color:#bcd3cf;margin:0;max-width:960px;line-height:1.5}.eyebrow{letter-spacing:.18em;font-size:11px;text-transform:uppercase;color:#96c5b5}nav{display:flex;gap:8px;padding:15px 36px;border-bottom:1px solid #d8dcd4}button,select,input{font:inherit;border:1px solid #bdcbc5;border-radius:7px;padding:9px 12px;background:white;color:#213437}button{cursor:pointer}button.active{background:#173e40;color:white}.metrics{display:flex;flex-wrap:wrap;gap:28px;margin:22px 36px}.metrics strong{font-size:25px;display:block}.metrics span{font-size:12px;color:#627572}.workspace{display:grid;grid-template-columns:270px minmax(400px,1fr) 295px;gap:16px;margin:20px 24px}.panel{background:white;border:1px solid #dce1d8;border-radius:12px;padding:18px}input,select{width:100%}#matches{height:540px;overflow:auto;margin-top:12px}#matches button{text-align:left;display:block;width:100%;border:0;border-bottom:1px solid #eee;border-radius:0;font-size:13px}#matches button.selected{background:#e6efea;color:#0b5b45}h2{font-size:19px;margin:0 0 12px}h3{font-size:14px;margin:18px 0 8px}.muted{color:#687b77;font-size:12px;line-height:1.5}svg{width:100%;min-height:600px}svg text{font-family:system-ui,sans-serif;font-size:13px}.node{cursor:pointer}.node:hover rect{stroke:#163e40;stroke-width:2}.edge{stroke:#b8c6c2;stroke-width:1.2;cursor:pointer;opacity:.55}.edge:hover{stroke:#173e40;stroke-width:4;opacity:1}#details{overflow-wrap:anywhere;font-size:13px;line-height:1.6}#details button{font-size:12px;text-align:left;margin:3px 0;display:block}#details a{color:#087661}.legend{display:flex;gap:15px;flex-wrap:wrap;font-size:11px;margin-top:9px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}.query{display:none;margin:24px 36px;max-width:1100px}.query p{line-height:1.6}table{border-collapse:collapse;width:100%;background:white;font-size:13px}td,th{padding:12px;text-align:left;border-bottom:1px solid #e1e5de}th{background:#e6efea}a{color:#126b5e}.empty{padding:45px;color:#667b74}footer{padding:20px 36px;color:#657871;font-size:12px}.search-wrap{position:relative}.search-wrap input{padding-right:32px}.clear-btn{position:absolute;right:4px;top:50%;transform:translateY(-50%);border:none;background:none;color:#687b77;font-size:16px;padding:4px 8px;cursor:pointer;border-radius:4px}.clear-btn:hover{background:#e6efea;color:#213437}#matches button:hover{background:#f0f5f2}#matches button .year{color:#687b77;font-size:11px}@media(max-width:1050px){.workspace{grid-template-columns:220px 1fr}#detailPanel{grid-column:1/-1}#matches{height:450px}}@media(max-width:700px){.workspace{display:block}.panel{margin-bottom:12px}#matches{height:150px}nav{padding:12px;flex-wrap:wrap}header{padding:24px}svg{min-height:400px}}
+*{box-sizing:border-box}
+body{margin:0;background:#f5f3ee;color:#213437;font:14px system-ui,sans-serif}
+header{padding:20px max(24px,calc((100% - 1540px)/2));background:#173e40;color:#fff}
+h1{font:32px Georgia,serif;margin:6px 0 10px}
+header p{color:#c4d8d3;margin:0;max-width:800px;line-height:1.6}
+.eyebrow{letter-spacing:.13em;font-size:11px;text-transform:uppercase;color:#a8cec0}
+.metrics,.workspace,.supplementary,footer{width:calc(100% - 48px);max-width:1540px;margin-left:auto;margin-right:auto}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px;margin-bottom:18px}
+.metrics>div{background:#fff;border:1px solid #dce1d8;border-top:3px solid #286f67;border-radius:8px;padding:14px 18px}
+.metrics strong{display:block;font-size:26px;font-weight:600;color:#173e40;margin-bottom:3px;font-variant-numeric:tabular-nums}
+.metrics span{font-size:12px;color:#627572}
+button,select,input{font:inherit;border:1px solid #bdcbc5;border-radius:6px;padding:9px 12px;background:white;color:#213437}
+button{cursor:pointer}button:hover{background:#f0f5f2}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,.node:focus-visible{outline:2px solid #287b6a;outline-offset:3px}
+.workspace{display:grid;grid-template-columns:240px minmax(0,1fr) 240px;gap:16px;margin-top:18px;margin-bottom:20px;align-items:start}
+.panel{min-width:0;background:white;border:1px solid #dce1d8;border-radius:8px;padding:18px}
+h2{font-size:17px;margin:0 0 14px;font-weight:600}h3{font-size:14px;margin:18px 0 8px}
+input,select{width:100%}
+.muted{color:#687b77;font-size:12px;line-height:1.6}
+#resultCount{padding-bottom:12px;border-bottom:1px solid #e7ebe4;margin-bottom:0}
+#matches{height:560px;overflow:auto;margin-top:6px}
+#matches button{text-align:left;display:flex;align-items:baseline;justify-content:space-between;gap:10px;width:100%;border:0;border-radius:5px;font-size:13px;padding:11px 9px;margin:2px 0;line-height:1.4}
+#matches button.selected{background:#e6efea;color:#0b5b45;font-weight:600;box-shadow:inset 3px 0 #286f67}
+#matches button .year{color:#687b77;font-size:11px;font-weight:400;flex-shrink:0}
+.graph-toolbar{display:flex;justify-content:space-between;align-items:start;gap:16px;padding-bottom:14px;border-bottom:1px solid #e7ebe4}
+.graph-toolbar h2{margin:3px 0 0;font-size:19px}.filter-control{width:190px;flex-shrink:0}.filter-control label{display:block;margin-bottom:5px}
+#scope{margin:12px 0}
+svg{display:block;width:100%;height:auto;aspect-ratio:1400/1100;background:#fafbf8;border:1px solid #e7ebe4;border-radius:6px}
+svg text{font-family:system-ui,sans-serif;font-size:13px}
+.node{cursor:pointer}.node:hover rect,.node:focus-visible rect{stroke:#163e40;stroke-width:2}
+.edge{stroke:#b8c6c2;stroke-width:1.2;cursor:pointer;opacity:.55}.edge:hover{stroke:#173e40;stroke-width:4;opacity:1}
+#detailPanel>h2{padding-bottom:14px;border-bottom:1px solid #e7ebe4}
+#details{max-height:640px;overflow:auto;overflow-wrap:anywhere;font-size:13px;line-height:1.6}
+#details h3:first-child{margin-top:0}#details p{margin:9px 0;color:#627572}
+#details button{font-size:12px;line-height:1.5;text-align:left;margin:5px 0;display:block;width:100%;border-color:#e0e7e1;padding:8px 10px}
+.legend{display:flex;gap:10px 16px;flex-wrap:wrap;font-size:11px;margin-top:14px;color:#627572}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+.supplementary{margin-top:0;margin-bottom:24px}
+.supplementary>h2{font-size:14px;color:#627572;margin-bottom:10px}
+.query{background:#fff;border:1px solid #dce1d8;border-radius:6px;margin-bottom:8px}
+.query summary{cursor:pointer;padding:14px 18px;font-size:13px;font-weight:600}
+.query summary:hover{background:#f0f5f2}.query[open] summary{border-bottom:1px solid #e7ebe4}
+.query-content{padding:18px}.query-content h3{margin-top:0;font-size:16px}
+.query p{line-height:1.7;max-width:960px}.query-content>p:first-of-type{color:#627572}
+#romanceTable,#heritageTable{overflow:auto;max-height:420px;border:1px solid #e1e5de;border-radius:6px;margin-top:20px}
+table{border-collapse:collapse;width:100%;background:white;font-size:13px}td,th{padding:12px 14px;text-align:left;border-bottom:1px solid #e1e5de}th{background:#edf2ed;font-weight:600;position:sticky;top:0}tbody tr:last-child td{border-bottom:0}tbody tr:nth-child(even){background:#fafbf8}
+a{color:#126b5e;text-underline-offset:3px}.empty{padding:45px;color:#667b74}
+footer{padding:16px 0 24px;border-top:1px solid #d8dcd4;color:#657871;font-size:12px;line-height:1.6}
+.team-credit{margin:16px 0 0;color:#213437;font-size:13px;font-weight:600}
+.search-wrap{position:relative}.search-wrap input{padding-right:32px}
+.clear-btn{position:absolute;right:4px;top:50%;transform:translateY(-50%);border:none;background:none;color:#687b77;font-size:16px;padding:4px 8px;border-radius:4px}.clear-btn:hover{background:#e6efea}
+@media(max-width:1150px){.workspace{grid-template-columns:220px minmax(0,1fr)}#detailPanel{grid-column:1/-1}#details{max-height:300px}.graph-toolbar{flex-direction:column}.filter-control{width:100%}}
+@media(max-width:700px){header{padding:24px 16px}h1{font-size:29px}.metrics,.workspace,.supplementary,footer{width:calc(100% - 32px)}.metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.metrics>div{padding:12px}.metrics strong{font-size:23px}.workspace{grid-template-columns:minmax(0,1fr);gap:12px}#detailPanel{grid-column:auto}#matches{height:180px}.panel,.query-content{padding:14px}.graph-toolbar{gap:12px}}
 </style></head><body>
-<header><div class="eyebrow">Indian cinema · Geospatial knowledge graph</div><h1>Places & Stories</h1><p>Explore films, songs, performers, credited characters and the places connected to them. Every relationship comes from a supplied source. Select a film, then a node or connecting line to inspect its evidence.</p></header>
-<div class="metrics" id="metrics"></div>
-<nav><button class="active" data-tab="explore">Explore the graph</button><button data-tab="romance">Places in romance films</button><button data-tab="heritage">Heritage across genres</button><button data-tab="method">What this graph means</button></nav>
+<header><div class="eyebrow">Indian cinema · Geospatial knowledge graph</div><h1>Places & Stories</h1><p>Explore cinema through its people, music and places. Choose a film, then select a node or line to see the source behind a connection.</p></header>
+<div class="metrics" id="metrics" aria-label="Dataset overview"></div>
+
 <main id="explore" class="workspace">
-<section class="panel"><h2>Find a film</h2><div class="search-wrap"><input id="search" type="search" aria-label="Search films" placeholder="Try Jodhaa Akbar, Dhoom…" autocomplete="off"><button id="clearSearch" class="clear-btn" aria-label="Clear search" style="display:none">✕</button></div><p class="muted" id="resultCount"></p><div id="matches"><p class="muted" id="loadingMsg">Loading film data…</p></div></section>
-<section class="panel"><h2 id="filmTitle"></h2><label class="muted" for="filter">Show connections</label><select id="filter"><option value="all">All relationships</option><option value="locations">Places and genres</option><option value="credits">Cast and characters</option><option value="songs">Songs and music credits</option></select><p class="muted" id="scope"></p><svg id="graph" viewBox="0 0 1400 1100" aria-label="Selected film relationship graph" role="img"></svg><div class="legend" id="legend"></div></section>
+<section class="panel"><h2>Search movies</h2><div class="search-wrap"><input id="search" type="search" aria-label="Search films" placeholder="Try Jodhaa Akbar, Dhoom…" autocomplete="off"><button id="clearSearch" class="clear-btn" aria-label="Clear search" style="display:none">✕</button></div><p class="muted" id="resultCount"></p><div id="matches"><p class="muted" id="loadingMsg">Loading film data…</p></div></section>
+<section class="panel"><div class="graph-toolbar"><h2 id="filmTitle"></h2><div class="filter-control"><label class="muted" for="filter">Show connections</label><select id="filter"><option value="all">All relationships</option><option value="locations">Places and genres</option><option value="credits">Cast and characters</option><option value="songs">Songs and music credits</option></select></div></div><p class="muted" id="scope"></p><svg id="graph" viewBox="0 0 1400 1100" aria-label="Selected film relationship graph" role="img"></svg><div class="legend" id="legend"></div></section>
 <aside class="panel" id="detailPanel"><h2>Evidence & connections</h2><div id="details">Select a node or line.</div></aside></main>
-<section class="query" id="romance"><h2>Which places are linked to romance films?</h2><p>This counts distinct films with a TMDB <strong>Romance</strong> genre. Filming locations and narrative settings are counted separately. This is a genre association, not a measurement of romantic scenes or audience emotion. Place aliases may still be separate entities.</p><div id="romanceTable"></div><p><a href="romance_places.csv" download>Download all results</a></p></section>
-<section class="query" id="heritage"><h2>Which heritage sites occur across genres?</h2><p>Only filming links to identified UNESCO properties or components are included. Components are grouped under their parent property. One film can have multiple genres; compare the film count too. Inclusion does not establish that filming happened after heritage inscription.</p><div id="heritageTable"></div><p><a href="heritage_genres.csv" download>Download all results</a></p></section>
-<section class="query panel" id="method"><h2>A graph of evidence, with explicit gaps</h2><p>Films link to songs, cast members, credited roles, genres, filming places and story settings. Playback singers, composers and lyricists come from song credits. A film's cast is not automatically treated as the cast appearing in each song. A film location is never inherited as a song location.</p><p>TMDB person IDs identify cast and directors. Name-only music credits are scoped to a source and film and may contain credited duos or groups. Character records preserve full role strings, including self appearances and compound roles, without guessing separate fictional identities.</p><p><strong>Events and landscapes have no validated instances in these source files.</strong> The ontology reserves these classes for future evidence. No missing facts are filled by a language model. UNESCO properties without film links remain a reference catalogue, not evidence of cinematic use.</p><p>Coordinates are representative points, often for a city, region or country. Nearby heritage does not imply filming at that site. Review-only extraction candidates are excluded from the graph. Source disagreements and uncertain matches remain in the review tables.</p><p>The corpus includes the union of supplied movie records for the selected years; it is larger than the earlier enriched movie CSV. It is not a verified census of Bollywood. The graph view limits the number of visible nodes to keep a film readable; all accepted relationships remain in the downloadable graph and tables.</p><p><a href="graph.ttl" download>Download RDF knowledge graph</a> · <a href="claims.csv" download>Relationship evidence</a> · <a href="summary.json">Build counts</a></p></section>
-<footer>Offline explorer · No external libraries, accounts or network requests required. The RDF export is the complete graph; the diagram shows a selected neighbourhood.</footer>
+<section class="supplementary" aria-labelledby="moreTitle"><h2 id="moreTitle">More to explore</h2>
+<details class="query" id="romance"><summary>Places in romance films</summary><div class="query-content"><h3>Which places are linked to romance films?</h3><p>This counts distinct films with a TMDB <strong>Romance</strong> genre. Filming locations and narrative settings are counted separately. This is a genre association, not a measurement of romantic scenes or audience emotion. Place aliases may still be separate entities.</p><div id="romanceTable"></div><p><a href="romance_places.csv" download>Download all results</a></p></div></details>
+<details class="query" id="heritage"><summary>Heritage across genres</summary><div class="query-content"><h3>Which heritage sites occur across genres?</h3><p>Only filming links to identified UNESCO properties or components are included. Components are grouped under their parent property. One film can have multiple genres; compare the film count too. Inclusion does not establish that filming happened after heritage inscription.</p><div id="heritageTable"></div><p><a href="heritage_genres.csv" download>Download all results</a></p></div></details>
+<details class="query" id="method"><summary>About the graph & downloads</summary><div class="query-content"><h3>A graph of evidence, with explicit gaps</h3><p>Films link to songs, cast members, credited roles, genres, filming places and story settings. Playback singers, composers and lyricists come from song credits. A film's cast is not automatically treated as the cast appearing in each song. A film location is never inherited as a song location.</p><p>TMDB person IDs identify cast and directors. Name-only music credits are scoped to a source and film and may contain credited duos or groups. Character records preserve full role strings, including self appearances and compound roles, without guessing separate fictional identities.</p><p><strong>Events and landscapes have no validated instances in these source files.</strong> The ontology reserves these classes for future evidence. No missing facts are filled by a language model. UNESCO properties without film links remain a reference catalogue, not evidence of cinematic use.</p><p>Coordinates are representative points, often for a city, region or country. Nearby heritage does not imply filming at that site. Review-only extraction candidates are excluded from the graph. Source disagreements and uncertain matches remain in the review tables.</p><p>The corpus includes the union of supplied movie records for the selected years; it is larger than the earlier enriched movie CSV. It is not a verified census of Bollywood. The graph view limits the number of visible nodes to keep a film readable; all accepted relationships remain in the downloadable graph and tables.</p><p><a href="graph.ttl" download>Download RDF knowledge graph</a> · <a href="claims.csv" download>Relationship evidence</a> · <a href="summary.json">Build counts</a></p></div></details>
+</section>
+<footer>Offline explorer · No external libraries, accounts or network requests required. The RDF export is the complete graph; the diagram shows a selected neighbourhood.<p class="team-credit">Created by Team Good Will Mapping</p></footer>
 <script>
 try{
 const DATA=/*__GRAPH_DATA__*/;
@@ -38,7 +92,9 @@ function listFilms(){
   const frag=document.createDocumentFragment();
   hits.slice(0,150).forEach(([s,n,i])=>{
     const b=document.createElement('button');
-    b.textContent=n[1]+(n[3]?' ('+n[3]+')':'');
+    add(b,'span',n[1]);
+    if(n[3])add(b,'span',n[3],'year');
+    b.setAttribute('aria-pressed',String(i===current));
     if(i===current)b.className='selected';
     b.onclick=()=>{current=i;render();listFilms();details(i)};
     frag.append(b);
@@ -63,9 +119,8 @@ function render(){if(current===undefined)return;const f=$('filter').value,g=$('g
  $('scope').textContent=(selected.size-1)+' visible neighbours · '+adj[current].length+' direct film relationships. Lines show relationships; click for their type and evidence.';
 }
 function table(id,rows,fields){let t=add($(id),'table',''),head=add(t,'thead',''),tr=add(head,'tr','');fields.forEach(([k,name])=>add(tr,'th',name));let body=add(t,'tbody','');rows.forEach(row=>{let r=add(body,'tr','');fields.forEach(([k])=>add(r,'td',String(row[k])))})}
-for(const [key,title]of [['films','Films'],['songs','Songs'],['characters','Credited characters'],['distinct_relationships','Distinct evidence-backed edges']]){const box=add($('metrics'),'div','');add(box,'strong',DATA.summary[key].toLocaleString());add(box,'span',title)}
+for(const [key,title]of [['films','Films'],['songs','Songs'],['characters','Credited characters'],['distinct_relationships','Sourced relationships']]){const box=add($('metrics'),'div','');add(box,'strong',DATA.summary[key].toLocaleString());add(box,'span',title)}
 Object.entries(colors).forEach(([k,v])=>{let span=add($('legend'),'span','');let dot=add(span,'i','','dot');dot.style.background=v;span.append(k)});
-document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x===b));['explore','romance','heritage','method'].forEach(id=>$(id).style.display=id===b.dataset.tab?(id==='explore'?'grid':'block'):'none')});
 table('romanceTable',DATA.romance,[['place','Place'],['relation','Relationship'],['film_count','Distinct films']]);table('heritageTable',DATA.heritage,[['heritage_site','Heritage property'],['film_count','Films'],['genre_count','Genres'],['genres','Genre labels']]);
 // Debounced search: wait 150ms after last keystroke before filtering
 let searchTimer=null;
