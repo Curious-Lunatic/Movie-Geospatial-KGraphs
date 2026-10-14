@@ -1,79 +1,73 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Bollywood · Places & Stories</title>
+<script>
+// Apply before painting; file:// and privacy settings may disable storage.
+(()=>{let saved;try{saved=localStorage.getItem('places-stories-theme')}catch{}
+const dark=window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+document.documentElement.dataset.theme=saved==='dark'||saved==='light'?saved:(dark?'dark':'light');})();
+</script>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#f5f3ee;color:#213437;font:14px system-ui,sans-serif}
-header{padding:20px max(24px,calc((100% - 1540px)/2));background:#173e40;color:#fff}
-h1{font:32px Georgia,serif;margin:6px 0 10px}
-header p{color:#c4d8d3;margin:0;max-width:800px;line-height:1.6}
-.eyebrow{letter-spacing:.13em;font-size:11px;text-transform:uppercase;color:#a8cec0}
-.metrics,.workspace,.supplementary,footer{width:calc(100% - 48px);max-width:1540px;margin-left:auto;margin-right:auto}
-.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px;margin-bottom:18px}
-.metrics>div{background:#fff;border:1px solid #dce1d8;border-top:3px solid #286f67;border-radius:8px;padding:14px 18px}
-.metrics strong{display:block;font-size:26px;font-weight:600;color:#173e40;margin-bottom:3px;font-variant-numeric:tabular-nums}
-.metrics span{font-size:12px;color:#627572}
-button,select,input{font:inherit;border:1px solid #bdcbc5;border-radius:6px;padding:9px 12px;background:white;color:#213437}
-button{cursor:pointer}button:hover{background:#f0f5f2}
-button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,.node:focus-visible{outline:2px solid #287b6a;outline-offset:3px}
-.workspace{display:grid;grid-template-columns:240px minmax(0,1fr) 240px;gap:16px;margin-top:18px;margin-bottom:20px;align-items:start}
-.panel{min-width:0;background:white;border:1px solid #dce1d8;border-radius:8px;padding:18px}
-h2{font-size:17px;margin:0 0 14px;font-weight:600}h3{font-size:14px;margin:18px 0 8px}
-input,select{width:100%}
-.muted{color:#687b77;font-size:12px;line-height:1.6}
-#resultCount{padding-bottom:12px;border-bottom:1px solid #e7ebe4;margin-bottom:0}
-#matches{height:560px;overflow:auto;margin-top:6px}
-#matches button{text-align:left;display:flex;align-items:baseline;justify-content:space-between;gap:10px;width:100%;border:0;border-radius:5px;font-size:13px;padding:11px 9px;margin:2px 0;line-height:1.4}
-#matches button.selected{background:#e6efea;color:#0b5b45;font-weight:600;box-shadow:inset 3px 0 #286f67}
-#matches button .year{color:#687b77;font-size:11px;font-weight:400;flex-shrink:0}
-.graph-toolbar{display:flex;justify-content:space-between;align-items:start;gap:16px;padding-bottom:14px;border-bottom:1px solid #e7ebe4}
-.graph-toolbar h2{margin:3px 0 0;font-size:19px}.filter-control{width:190px;flex-shrink:0}.filter-control label{display:block;margin-bottom:5px}
-#scope{margin:12px 0}
-svg{display:block;width:100%;height:auto;aspect-ratio:1400/1100;background:#fafbf8;border:1px solid #e7ebe4;border-radius:6px}
-svg text{font-family:system-ui,sans-serif;font-size:13px}
-.node{cursor:pointer}.node:hover rect,.node:focus-visible rect{stroke:#163e40;stroke-width:2}
-.edge{stroke:#b8c6c2;stroke-width:1.2;cursor:pointer;opacity:.55}.edge:hover{stroke:#173e40;stroke-width:4;opacity:1}
-#detailPanel>h2{padding-bottom:14px;border-bottom:1px solid #e7ebe4}
-#details{max-height:640px;overflow:auto;overflow-wrap:anywhere;font-size:13px;line-height:1.6}
-#details h3:first-child{margin-top:0}#details p{margin:9px 0;color:#627572}
-#details button{font-size:12px;line-height:1.5;text-align:left;margin:5px 0;display:block;width:100%;border-color:#e0e7e1;padding:8px 10px}
-.legend{display:flex;gap:10px 16px;flex-wrap:wrap;font-size:11px;margin-top:14px;color:#627572}
-.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
-.supplementary{margin-top:0;margin-bottom:24px}
-.supplementary>h2{font-size:14px;color:#627572;margin-bottom:10px}
-.query{background:#fff;border:1px solid #dce1d8;border-radius:6px;margin-bottom:8px}
-.query summary{cursor:pointer;padding:14px 18px;font-size:13px;font-weight:600}
-.query summary:hover{background:#f0f5f2}.query[open] summary{border-bottom:1px solid #e7ebe4}
-.query-content{padding:18px}.query-content h3{margin-top:0;font-size:16px}
-.query p{line-height:1.7;max-width:960px}.query-content>p:first-of-type{color:#627572}
-#romanceTable,#heritageTable{overflow:auto;max-height:420px;border:1px solid #e1e5de;border-radius:6px;margin-top:20px}
-table{border-collapse:collapse;width:100%;background:white;font-size:13px}td,th{padding:12px 14px;text-align:left;border-bottom:1px solid #e1e5de}th{background:#edf2ed;font-weight:600;position:sticky;top:0}tbody tr:last-child td{border-bottom:0}tbody tr:nth-child(even){background:#fafbf8}
-a{color:#126b5e;text-underline-offset:3px}.empty{padding:45px;color:#667b74}
-footer{padding:16px 0 24px;border-top:1px solid #d8dcd4;color:#657871;font-size:12px;line-height:1.6}
-.team-credit{margin:16px 0 0;color:#213437;font-size:13px;font-weight:600}
-.search-wrap{position:relative}.search-wrap input{padding-right:32px}
-.clear-btn{position:absolute;right:4px;top:50%;transform:translateY(-50%);border:none;background:none;color:#687b77;font-size:16px;padding:4px 8px;border-radius:4px}.clear-btn:hover{background:#e6efea}
-@media(max-width:1150px){.workspace{grid-template-columns:220px minmax(0,1fr)}#detailPanel{grid-column:1/-1}#details{max-height:300px}.graph-toolbar{flex-direction:column}.filter-control{width:100%}}
-@media(max-width:700px){header{padding:24px 16px}h1{font-size:29px}.metrics,.workspace,.supplementary,footer{width:calc(100% - 32px)}.metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.metrics>div{padding:12px}.metrics strong{font-size:23px}.workspace{grid-template-columns:minmax(0,1fr);gap:12px}#detailPanel{grid-column:auto}#matches{height:180px}.panel,.query-content{padding:14px}.graph-toolbar{gap:12px}}
+:root{color-scheme:light;--ink:#252b29;--muted:#747a75;--line:#dedfd7;--paper:#f4f3ed;--green:#365d4d;--surface:#fff;--inset:#eeeee7;--hover:#f2f4ef;--input:#f8f8f4;--selected:#e8eee6;--selected-ink:#294b3d;--canvas:#fafbf8;--dots:#dce1d7;--edge:#9cae9f;--poster:#e7ebe2;--film:#286f67;--song:#95721f;--person:#5979a3;--character:#9269a5;--genre:#a86c57;--place:#578e69;--heritage:#bf6b41}
+:root[data-theme="dark"]{color-scheme:dark;--ink:#e4e8df;--muted:#a4afa5;--line:#39433c;--paper:#151a17;--green:#a0c6aa;--surface:#1e2520;--inset:#1b221d;--hover:#2b352d;--input:#19201b;--selected:#304335;--selected-ink:#d0e5d0;--canvas:#171e19;--dots:#303c32;--edge:#8ca58e;--poster:#2b392e;--film:#8dbfb0;--song:#dbc17a;--person:#9bbbe0;--character:#c5a5d7;--genre:#d7a58f;--place:#9bc4a4;--heritage:#e4aa83}
+.header-tools{display:flex;flex-direction:column;align-items:flex-end;gap:12px}.theme-toggle{font-size:11px;white-space:nowrap}.theme-toggle[aria-pressed="true"]{background:var(--selected);border-color:var(--green);color:var(--selected-ink)}
+
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:14px system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+header,.metrics,.workspace,.supplementary,footer{width:calc(100% - 64px);max-width:1560px;margin-inline:auto}
+header{display:flex;align-items:end;justify-content:space-between;gap:32px;padding:32px 0 24px;border-bottom:1px solid var(--ink)}
+.eyebrow{font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font:42px Georgia,serif;letter-spacing:-1.8px;margin:8px 0 0}header p{max-width:400px;color:var(--muted);line-height:1.7;font-size:12px;margin:0 0 3px}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:24px 0;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.metrics>div{padding:0 28px;border-right:1px solid var(--line)}.metrics>div:first-child{padding-left:0}.metrics>div:last-child{border:0}
+.metrics strong{display:block;font-size:clamp(26px,3vw,42px);font-weight:500;letter-spacing:-1.6px;font-variant-numeric:tabular-nums;line-height:1.2;margin-bottom:6px}.metrics span{font-size:11px;color:var(--muted);letter-spacing:.03em}
+.workspace{display:grid;grid-template-columns:230px minmax(0,1fr);grid-template-rows:auto 1fr;gap:16px 20px;margin-block:24px 32px;align-items:start}
+.panel{min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px}
+.search-panel{grid-column:1;grid-row:1}.graph-panel{grid-column:2;grid-row:1/3;padding:22px}#detailPanel{grid-column:1;grid-row:2;background:var(--inset)}
+h2{font-size:14px;letter-spacing:-.2px;margin:0 0 16px;font-weight:600}h3{font-size:14px;margin:18px 0 8px}
+button,select,input{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px 12px}button{cursor:pointer}button:hover{background:var(--hover)}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,.node:focus-visible{outline:2px solid var(--green);outline-offset:3px}input,select{width:100%;font-size:12px}input{background:var(--input)}input::placeholder{color:var(--muted)}
+.muted{color:var(--muted);font-size:11px;line-height:1.6}#resultCount{padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:0}
+#matches{height:300px;overflow:auto;margin-top:6px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+#matches button{display:flex;align-items:baseline;justify-content:space-between;gap:10px;text-align:left;width:100%;border:0;border-radius:4px;font-size:12px;padding:11px 9px;margin:2px 0;line-height:1.5}
+#matches button.selected{background:var(--selected);color:var(--selected-ink);font-weight:600;box-shadow:inset 2px 0 var(--green)}#matches .year{font-size:10px;color:var(--muted);font-weight:400;flex-shrink:0}
+.graph-toolbar{display:flex;justify-content:space-between;align-items:center;gap:20px}.graph-toolbar h2{font:25px Georgia,serif;letter-spacing:-.6px;margin:5px 0 0}.section-label{font-size:10px;color:var(--green);letter-spacing:.13em;text-transform:uppercase;font-weight:600}.filter-control{width:190px;flex-shrink:0}.filter-control label{display:block;margin-bottom:5px}
+#scope{margin:14px 0 16px}.graph-canvas{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background-color:var(--canvas);background-image:radial-gradient(var(--dots) .7px,transparent .7px);background-size:18px 18px}
+#graph{display:block;width:100%;min-width:680px;height:auto;aspect-ratio:1400/1100}svg text{font-family:system-ui,sans-serif;font-size:13px}.node{cursor:pointer}.node:hover .node-frame,.node:focus-visible .node-frame{stroke:var(--green);stroke-width:2}.edge{stroke:var(--edge);stroke-width:1.4;cursor:pointer;opacity:.48}.edge:hover{stroke:var(--green);stroke-width:4;opacity:1}
+#detailPanel>h2{font-size:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}#details{max-height:270px;overflow:auto;overflow-wrap:anywhere;font-size:12px;line-height:1.6;scrollbar-width:thin}#details h3:first-child{margin-top:0}#details p{color:var(--muted);margin:9px 0}#details button{display:block;width:100%;text-align:left;font-size:11px;line-height:1.5;margin:5px 0;padding:8px 10px;border-color:var(--line);background:var(--input)}
+.legend{display:flex;gap:10px 18px;flex-wrap:wrap;font-size:10px;color:var(--muted);margin-top:16px}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px}
+.supplementary{margin-bottom:28px}.supplementary>h2{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:10px}.query{border-bottom:1px solid var(--line)}.query summary{cursor:pointer;padding:17px 2px;font-size:13px;font-weight:500}.query summary:hover{color:var(--green)}.query-content{padding:8px 0 20px}.query-content h3{margin-top:0}.query p{line-height:1.8;max-width:960px;font-size:13px;color:var(--muted)}
+#romanceTable,#heritageTable{overflow:auto;max-height:420px;border:1px solid var(--line);border-radius:6px;margin-top:20px}table{border-collapse:collapse;width:100%;background:var(--surface);font-size:12px}td,th{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line)}th{position:sticky;top:0;background:var(--inset);font-weight:600}tbody tr:last-child td{border-bottom:0}tbody tr:nth-child(even){background:var(--canvas)}
+a{color:var(--green);text-underline-offset:3px}footer{display:flex;justify-content:space-between;align-items:start;gap:24px;padding:22px 0 28px;border-top:1px solid var(--ink);font-size:11px;color:var(--muted);line-height:1.8}footer p{margin:0;max-width:720px}.team-credit{color:var(--ink);font-size:12px;white-space:nowrap}
+.search-wrap{position:relative}.search-wrap input{padding-right:30px}.clear-btn{position:absolute;right:4px;top:50%;transform:translateY(-50%);border:0;background:none;padding:4px 6px;font-size:14px;color:var(--muted)}
+@media(min-width:1600px){.workspace{grid-template-columns:260px minmax(0,1fr)}#matches{height:380px}#details{max-height:350px}}
+@media(max-width:1000px){header p{max-width:300px}.workspace{grid-template-columns:210px minmax(0,1fr);gap:14px}.graph-panel{padding:16px}.graph-toolbar{align-items:start;flex-direction:column;gap:12px}.filter-control{width:100%}footer{flex-direction:column;gap:10px}}
+@media(max-width:700px){header,.metrics,.workspace,.supplementary,footer{width:calc(100% - 32px)}header{display:block;padding:24px 0 18px}.header-tools{align-items:flex-start}h1{font-size:36px}header p{margin-top:12px;max-width:100%}.metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 0;padding:20px 0}.metrics>div{padding:0 16px}.metrics>div:nth-child(odd){padding-left:0}.metrics>div:nth-child(even){border:0}.metrics strong{font-size:30px}.workspace{grid-template-columns:minmax(0,1fr);margin-top:18px}.search-panel,.graph-panel,#detailPanel{grid-column:1;grid-row:auto}#matches{height:160px}.panel{padding:16px}#details{max-height:230px}.graph-toolbar{flex-direction:row}.graph-toolbar h2{font-size:21px}.filter-control{width:150px}}
 </style></head><body>
-<header><div class="eyebrow">Indian cinema · Geospatial knowledge graph</div><h1>Places & Stories</h1><p>Explore cinema through its people, music and places. Choose a film, then select a node or line to see the source behind a connection.</p></header>
+<header><div><div class="eyebrow">Indian cinema · Geospatial knowledge graph</div><h1>Places & Stories</h1></div><div class="header-tools"><p>Explore cinema through its people, music and places. Choose a film, then select a node or line to see the source behind a connection.</p><button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false">Dark mode</button></div></header>
 <div class="metrics" id="metrics" aria-label="Dataset overview"></div>
 
 <main id="explore" class="workspace">
-<section class="panel"><h2>Search movies</h2><div class="search-wrap"><input id="search" type="search" aria-label="Search films" placeholder="Try Jodhaa Akbar, Dhoom…" autocomplete="off"><button id="clearSearch" class="clear-btn" aria-label="Clear search" style="display:none">✕</button></div><p class="muted" id="resultCount"></p><div id="matches"><p class="muted" id="loadingMsg">Loading film data…</p></div></section>
-<section class="panel"><div class="graph-toolbar"><h2 id="filmTitle"></h2><div class="filter-control"><label class="muted" for="filter">Show connections</label><select id="filter"><option value="all">All relationships</option><option value="locations">Places and genres</option><option value="credits">Cast and characters</option><option value="songs">Songs and music credits</option></select></div></div><p class="muted" id="scope"></p><svg id="graph" viewBox="0 0 1400 1100" aria-label="Selected film relationship graph" role="img"></svg><div class="legend" id="legend"></div></section>
+<section class="panel search-panel"><h2>Search movies</h2><div class="search-wrap"><input id="search" type="search" aria-label="Search films" placeholder="Try Jodhaa Akbar, Dhoom…" autocomplete="off"><button id="clearSearch" class="clear-btn" aria-label="Clear search" style="display:none">✕</button></div><p class="muted" id="resultCount"></p><div id="matches"><p class="muted" id="loadingMsg">Loading film data…</p></div></section>
+<section class="panel graph-panel"><div class="graph-toolbar"><div><div class="section-label">Movie connections</div><h2 id="filmTitle"></h2></div><div class="filter-control"><label class="muted" for="filter">Show connections</label><select id="filter"><option value="all">All relationships</option><option value="locations">Places and genres</option><option value="credits">Cast and characters</option><option value="songs">Songs and music credits</option></select></div></div><p class="muted" id="scope"></p><div class="graph-canvas"><svg id="graph" viewBox="0 0 1400 1100" aria-label="Selected film relationship graph" role="group"></svg></div><div class="legend" id="legend"></div></section>
 <aside class="panel" id="detailPanel"><h2>Evidence & connections</h2><div id="details">Select a node or line.</div></aside></main>
 <section class="supplementary" aria-labelledby="moreTitle"><h2 id="moreTitle">More to explore</h2>
 <details class="query" id="romance"><summary>Places in romance films</summary><div class="query-content"><h3>Which places are linked to romance films?</h3><p>This counts distinct films with a TMDB <strong>Romance</strong> genre. Filming locations and narrative settings are counted separately. This is a genre association, not a measurement of romantic scenes or audience emotion. Place aliases may still be separate entities.</p><div id="romanceTable"></div><p><a href="romance_places.csv" download>Download all results</a></p></div></details>
 <details class="query" id="heritage"><summary>Heritage across genres</summary><div class="query-content"><h3>Which heritage sites occur across genres?</h3><p>Only filming links to identified UNESCO properties or components are included. Components are grouped under their parent property. One film can have multiple genres; compare the film count too. Inclusion does not establish that filming happened after heritage inscription.</p><div id="heritageTable"></div><p><a href="heritage_genres.csv" download>Download all results</a></p></div></details>
 <details class="query" id="method"><summary>About the graph & downloads</summary><div class="query-content"><h3>A graph of evidence, with explicit gaps</h3><p>Films link to songs, cast members, credited roles, genres, filming places and story settings. Playback singers, composers and lyricists come from song credits. A film's cast is not automatically treated as the cast appearing in each song. A film location is never inherited as a song location.</p><p>TMDB person IDs identify cast and directors. Name-only music credits are scoped to a source and film and may contain credited duos or groups. Character records preserve full role strings, including self appearances and compound roles, without guessing separate fictional identities.</p><p><strong>Events and landscapes have no validated instances in these source files.</strong> The ontology reserves these classes for future evidence. No missing facts are filled by a language model. UNESCO properties without film links remain a reference catalogue, not evidence of cinematic use.</p><p>Coordinates are representative points, often for a city, region or country. Nearby heritage does not imply filming at that site. Review-only extraction candidates are excluded from the graph. Source disagreements and uncertain matches remain in the review tables.</p><p>The corpus includes the union of supplied movie records for the selected years; it is larger than the earlier enriched movie CSV. It is not a verified census of Bollywood. The graph view limits the number of visible nodes to keep a film readable; all accepted relationships remain in the downloadable graph and tables.</p><p><a href="graph.ttl" download>Download RDF knowledge graph</a> · <a href="claims.csv" download>Relationship evidence</a> · <a href="summary.json">Build counts</a></p></div></details>
 </section>
-<footer>Offline explorer · No external libraries, accounts or network requests required. The RDF export is the complete graph; the diagram shows a selected neighbourhood.<p class="team-credit">Created by Team Good Will Mapping</p></footer>
+<footer><p>Explore the connections. Follow the evidence.<br>Graph data works offline. Posters load from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a> when online; artwork belongs to its respective owners.</p><p class="team-credit">Created by Team Good Will Mapping</p></footer>
 <script>
+(()=>{
+const toggle=document.getElementById('themeToggle');
+const root=document.documentElement;
+const sync=()=>toggle.setAttribute('aria-pressed',String(root.dataset.theme==='dark'));
+sync();
+toggle.onclick=()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';sync();try{localStorage.setItem('places-stories-theme',root.dataset.theme)}catch{}};
+})();
 try{
 const DATA=/*__GRAPH_DATA__*/;
 if(!DATA||!DATA.nodes){throw new Error('Graph data not loaded. Make sure you are opening the generated file from Dataset/integrated/, not the template.');}
-const N=DATA.nodes,E=DATA.edges,adj=Array.from({length:N.length},()=>[]),colors={Film:'#286f67',Song:'#c39431',Person:'#5979a3',Character:'#9269a5',Genre:'#b77963',Place:'#578e69',Heritage:'#bf6b41'};
+const N=DATA.nodes,E=DATA.edges,adj=Array.from({length:N.length},()=>[]),colors={Film:'var(--film)',Song:'var(--song)',Person:'var(--person)',Character:'var(--character)',Genre:'var(--genre)',Place:'var(--place)',Heritage:'var(--heritage)'};
 E.forEach((e,i)=>{adj[e[0]].push(i);adj[e[2]].push(i)});
 const $=id=>document.getElementById(id),films=N.map((n,i)=>[n,i]).filter(([n])=>n[2]==='Film').sort((a,b)=>a[0][1].localeCompare(b[0][1]));
 // Pre-build lowercase search index for fast filtering
@@ -112,10 +106,34 @@ function render(){if(current===undefined)return;const f=$('filter').value,g=$('g
  adj[current].forEach(j=>{const e=E[j];if(!allow(e[1]))return;const other=e[0]===current?e[2]:e[0];const arr=groups[N[other][2]];if(arr&&!arr.includes(other))arr.push(other)});
  const caps={Song:10,Person:10,Character:10,Genre:6,Place:12,Heritage:8};Object.entries(groups).forEach(([k,v])=>v.slice(0,caps[k]).forEach(i=>selected.add(i)));
  if(f==='songs'){for(const s of groups.Song.slice(0,10))for(const j of adj[s]){const e=E[j];if(['performed_by','composed_by','lyrics_by'].includes(e[1])&&groups.Person.length<12&&!groups.Person.includes(e[2])){groups.Person.push(e[2]);selected.add(e[2])}}}
- const positions=new Map([[current,[690,490]]]);const layouts={Song:[170,90],Person:[170,600],Character:[650,630],Genre:[650,90],Heritage:[1120,90],Place:[1120,480]};
+ const positions=new Map([[current,[690,440]]]);const layouts={Song:[170,90],Person:[170,600],Character:[650,630],Genre:[650,90],Heritage:[1120,90],Place:[1120,480]};
  Object.entries(groups).forEach(([k,v])=>{let shown=v.filter(i=>selected.has(i));let [x,y]=layouts[k];const t=svg('text',{x:x-135,y:y-25,fill:colors[k],'font-weight':'bold'},g);t.textContent=k+' · '+v.length;shown.forEach((i,j)=>positions.set(i,[x,y+j*38]))});
- const visible=E.filter(e=>selected.has(e[0])&&selected.has(e[2]));visible.forEach(e=>{let [x1,y1]=positions.get(e[0]),[x2,y2]=positions.get(e[2]);let l=svg('line',{x1,y1,x2,y2,class:'edge'},g);svg('title',{},l).textContent=label(e[1]);l.onclick=()=>evidence(E.indexOf(e))});
- for(const [i,[x,y]]of positions){let n=N[i],group=svg('g',{class:'node',transform:`translate(${x-135},${y-14})`,tabindex:0,role:'button','aria-label':n[1]},g);svg('rect',{width:270,height:29,rx:7,fill:i===current?'#173e40':'#f8faf6',stroke:colors[n[2]],'stroke-width':i===current?3:1},group);svg('circle',{cx:12,cy:14,r:4,fill:colors[n[2]]},group);let t=svg('text',{x:24,y:19,fill:i===current?'white':'#213437'},group);t.textContent=n[1].length>31?n[1].slice(0,29)+'…':n[1];svg('title',{},group).textContent=n[1];group.onclick=()=>details(i);group.onkeydown=e=>{if(e.key==='Enter')details(i)}}
+ // Stop edges at the poster border so the image remains an unobstructed focal point.
+ const posterEdge=(other)=>{const [cx,cy]=positions.get(current),[ox,oy]=other,dx=ox-cx,dy=oy-cy;const scale=Math.min(90/Math.abs(dx||.001),135/Math.abs(dy||.001));return [cx+dx*scale,cy+dy*scale]};
+ const visible=E.filter(e=>selected.has(e[0])&&selected.has(e[2]));visible.forEach(e=>{let start=positions.get(e[0]),end=positions.get(e[2]);if(e[0]===current)start=posterEdge(end);if(e[2]===current)end=posterEdge(start);let l=svg('line',{x1:start[0],y1:start[1],x2:end[0],y2:end[1],class:'edge'},g);svg('title',{},l).textContent=label(e[1]);l.onclick=()=>evidence(E.indexOf(e))});
+ for(const [i,[x,y]]of positions){
+   const n=N[i],isFilm=i===current;
+   const group=svg('g',{class:'node',transform:`translate(${x-(isFilm?90:135)},${y-(isFilm?135:14)})`,tabindex:0,role:'button','aria-label':isFilm?'Show connections for '+n[1]:n[1]},g);
+   if(isFilm){
+     svg('rect',{width:180,height:270,rx:8,fill:'var(--poster)',stroke:'var(--line)',class:'node-frame'},group);
+     svg('text',{x:90,y:102,'text-anchor':'middle',fill:'var(--green)','font-size':32},group).textContent=n[1].split(/\s+/).slice(0,3).map(w=>w[0]).join('');
+     svg('text',{x:90,y:140,'text-anchor':'middle',fill:'var(--ink)'},group).textContent=n[1].length>23?n[1].slice(0,21)+'…':n[1];
+     svg('text',{x:90,y:164,'text-anchor':'middle',fill:'var(--ink)'},group).textContent=n[3];
+     const status=svg('text',{x:90,y:238,'text-anchor':'middle',fill:'var(--muted)'},group);status.textContent=n[5]?'Loading poster…':'Poster unavailable';
+     if(n[5]){
+       const clip=svg('clipPath',{id:'film-poster-clip'},svg('defs',{},g));svg('rect',{width:178,height:268,x:1,y:1,rx:7},clip);
+       const poster=svg('image',{x:1,y:1,width:178,height:268,preserveAspectRatio:'xMidYMid slice','clip-path':'url(#film-poster-clip)'},group);
+       poster.onload=()=>{status.textContent=''};
+       poster.onerror=()=>{poster.remove();status.textContent='Poster unavailable'};
+       poster.setAttribute('href',n[5]);
+     }
+   }else{
+     svg('rect',{width:270,height:29,rx:5,fill:'var(--surface)',stroke:'var(--line)',class:'node-frame'},group);
+     svg('circle',{cx:12,cy:14,r:3,fill:colors[n[2]]},group);
+     const t=svg('text',{x:24,y:19,fill:'var(--ink)'},group);t.textContent=n[1].length>31?n[1].slice(0,29)+'…':n[1];
+   }
+   svg('title',{},group).textContent=n[1];group.onclick=()=>details(i);group.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();details(i)}};
+ }
  $('scope').textContent=(selected.size-1)+' visible neighbours · '+adj[current].length+' direct film relationships. Lines show relationships; click for their type and evidence.';
 }
 function table(id,rows,fields){let t=add($(id),'table',''),head=add(t,'thead',''),tr=add(head,'tr','');fields.forEach(([k,name])=>add(tr,'th',name));let body=add(t,'tbody','');rows.forEach(row=>{let r=add(body,'tr','');fields.forEach(([k])=>add(r,'td',String(row[k])))})}
