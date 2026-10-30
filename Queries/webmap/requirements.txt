@@ -1,0 +1,2 @@
+# Only for regenerating the committed region assets, not running the website.
+shapely==2.2.0
