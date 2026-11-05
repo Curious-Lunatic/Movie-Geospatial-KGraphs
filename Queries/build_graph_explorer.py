@@ -41,11 +41,11 @@ def build(directory, poster_source=ROOT / 'Queries' / 'tmdb_details.jsonl'):
     for file, id_col, label_col, kind in tables:
         for row in read(directory, file):
             nid = row[id_col]
-            actual = 'Heritage' if nid.startswith(('heritage:', 'heritage-component:')) else kind
+            actual = 'Heritage' if nid.startswith(('heritage:', 'heritage-component:')) or row.get('heritage_kind') in ('historic_landmark', 'historic_component') else kind
             index[nid] = len(nodes)
             nodes.append([nid, row[label_col], actual, row.get('release_year', ''),
                           row.get('coordinate_scope', '') or row.get('identity_scope', ''),
-                          posters.get(row.get('tmdb_id', ''), '') if kind == 'Film' else ''])
+                          posters.get(row.get('tmdb_id', ''), '') if kind == 'Film' else '', row.get('heritage_source', '')])
     claims = read(directory, 'claims.csv')
     edges, edge_index = [], {}
     for c in claims:
@@ -114,6 +114,9 @@ def build(directory, poster_source=ROOT / 'Queries' / 'tmdb_details.jsonl'):
             w.writeheader()
             w.writerows(rows)
     summary = json.loads((directory / 'summary.json').read_text())
+    summary['linked_heritage_sites'] = len(heritage)
+    summary['heritage_film_site_connections'] = sum(len(value['films']) for value in heritage.values())
+    summary['heritage_films'] = len(set().union(*(value['films'] for value in heritage.values())))
     payload = json.dumps(dict(nodes=nodes, edges=edges, summary={k: v for k, v in summary.items() if k != 'sources'},
                               romance=romance_rows[:30], heritage=heritage_rows, geo=geo), ensure_ascii=False, separators=(',', ':'))
     # Escaping '<' prevents source strings from ending the embedded script tag.
@@ -122,10 +125,17 @@ def build(directory, poster_source=ROOT / 'Queries' / 'tmdb_details.jsonl'):
     webmap = ROOT / 'Queries' / 'webmap'
     template = template.replace('/*__WEBMAP_CSS__*/',
                                 (webmap / 'vendor' / 'leaflet.css').read_text() + '\n' + (webmap / 'map.css').read_text())
-    template = template.replace('<!--__WEBMAP_PANEL__-->', (webmap / 'map_panel.html').read_text())
+    query = (webmap.parent / 'taj_mahal_filming_cast.sparql').read_text()
+    panel = (webmap / 'map_panel.html').read_text()
+    template = template.replace('<!--__WEBMAP_PANEL__-->', panel +
+                                '<script type="text/plain" id="tajQueryText">' + query + '</script>')
     for name in ('india_regions.geojson', 'region_membership.json', 'boundary_sources.json'):
         shutil.copyfile(webmap / 'data' / name, directory / name)
-    scripts = '\n'.join((webmap / file).read_text() for file in ('vendor/leaflet.js', 'vendor/turf.min.js', 'spatial_tools.js', 'spatial_engine.js', 'spatial_ui.js'))
+    scripts = '\n'.join((webmap / file).read_text() for file in ('vendor/leaflet.js', 'vendor/turf.min.js', 'spatial_tools.js', 'spatial_engine.js', 'place_panel.js', 'spatial_ui.js'))
+    # Keep redistribution notices in the deployed bundle as well as the source tree.
+    licenses = '\n\n'.join((webmap / 'vendor' / name).read_text()
+                            for name in ('LEAFLET-LICENSE', 'TURF-LICENSE'))
+    scripts = '/*\n' + licenses.replace('*/', '* /') + '\n*/\n' + scripts
     template = template.replace('<!--__WEBMAP_SCRIPTS__-->', '<script>\n' + scripts + '\n</script>')
     (directory / 'graph_explorer.html').write_text(template.replace('/*__GRAPH_DATA__*/', payload), encoding='utf-8')
     print(json.dumps(dict(nodes=len(nodes), edges=len(edges), films_with_posters=sum(bool(n[5]) for n in nodes), romance_query_rows=len(romance_rows),

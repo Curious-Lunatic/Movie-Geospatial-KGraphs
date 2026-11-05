@@ -20,6 +20,9 @@ function initSpatialExplorer({data,openFilm}){
  const mapsUrl=p=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.lat+','+p.lon);
  const scope=p=>p.heritage?'Heritage reference point':'City / region reference point';
  const point=p=>[p.lat,p.lon];
+ const explore=initPlacePanel((p,r)=>{switchTool('nearby');choose(point(p),p.name);$('radiusKm').value=r;run(true);});
+ const discover=(parent,p)=>{const b=el('button','Explore this place',parent);b.type='button';b.onclick=()=>explore(p);};
+ $('discoverCenter').onclick=()=>{if(center)explore({name:centerName,lat:center[0],lon:center[1]});};
  function error(message){$('spatialError').hidden=!message;$('spatialError').textContent=message||'';}
  function controls(){return {center,radiusKm:Number($('radiusKm').value),relation:$('spatialRelation').value,genre:$('spatialGenre').value,yearFrom:Number($('yearFrom').value),yearTo:Number($('yearTo').value),heritageOnly:$('heritageOnly').checked};}
  function apply(o){for(const [id,key] of [['radiusKm','radiusKm'],['spatialRelation','relation'],['spatialGenre','genre'],['yearFrom','yearFrom'],['yearTo','yearTo']])$(id).value=o[key];$('heritageOnly').checked=!!o.heritageOnly;}
@@ -50,7 +53,7 @@ function initSpatialExplorer({data,openFilm}){
    const marker=L.circleMarker(point(p),{radius:5,color:story?'#80678f':'#28564d',fillColor:story?'#b99dca':'#649b8e',fillOpacity:.9,weight:1.5,bubblingMouseEvents:false}).addTo(markers);
    const popup=el('div');el('strong',p.name,popup);el('p',scope(p),popup);if(p.filmCount!=null)el('p',p.filmCount+' connected movies',popup);
    const use=el('button',mode==='route'?(target==='end'?'Use as destination':'Use as start'):'Explore nearby',popup);use.type='button';use.onclick=()=>{map.closePopup();if(mode!=='route'&&mode!=='time')switchTool('nearby');choose(point(p),p.name);if(mode==='nearby')run(true);};
-   link(popup,'Google Maps ↗',mapsUrl(p));marker.bindPopup(popup);
+   discover(popup,p);link(popup,'Google Maps ↗',mapsUrl(p));marker.bindPopup(popup);
   }
  }
  function renderPoints(){
@@ -63,7 +66,7 @@ function initSpatialExplorer({data,openFilm}){
   $('placeSearch').value=name;updatePointLabels();$('placeChoices').replaceChildren();renderPoints();
  }
  function updatePointLabels(){
-  $('centerLabel').textContent=center?(mode==='route'?'Start: ':'')+centerName+' · '+center.map(v=>v.toFixed(4)).join(', '):'Choose a place or click the map.';
+  $('discoverCenter').hidden=!center; $('centerLabel').textContent=center?(mode==='route'?'Start: ':'')+centerName+' · '+center.map(v=>v.toFixed(4)).join(', '):'Choose a place or click the map.';
   $('endLabel').textContent=end?'To: '+endName+' · '+end.map(v=>v.toFixed(4)).join(', '):'Destination not selected.';
  }
  function resolvePlace(text,after){
@@ -105,6 +108,7 @@ function initSpatialExplorer({data,openFilm}){
   if(fit&&contextLayer.getLayers().length)map.fitBounds(contextLayer.getBounds(),{padding:[20,20]});
  }
  async function switchTool(next){
+  $('tajExample').hidden=next!=='heritage';
   mode=next;invalidate();initializeMap();drawing=false;map.getContainer().classList.remove('drawing-map');drawingLayer.clearLayers();contextLayer.clearLayers();
   document.querySelectorAll('[data-tool]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tool===mode)));
   const d=descriptions[mode];['toolOperation','toolTitle','toolDescription','activeMapTool'].forEach((id,i)=>$(id).textContent=d[i]);
@@ -194,7 +198,13 @@ function initSpatialExplorer({data,openFilm}){
    if(n[5]){const img=el('img',null,head);img.src=n[5];img.alt='Poster for '+n[1];img.loading='lazy';img.width=64;img.height=96;img.onerror=()=>img.remove();}
    const body=el('div',null,head);el('h4',n[1],body);el('p',n[3]+(row.distanceKm==null?' · Inside selected area':' · '+row.distanceKm.toFixed(2)+' km '+last.metric),body);
    const go=el('button','Open movie graph ↗',body);go.type='button';go.onclick=()=>openFilm(row.film);const list=el('ul',null,card);
-   for(const m of row.matches.slice(0,4)){const p=m.place,li=el('li',p.name+(m.distanceKm==null?'':' · '+m.distanceKm.toFixed(2)+' km'),list);el('small',(m.relation==='filming'?'Filmed at':'Story set in')+' · '+scope(p),li);const actions=el('div',null,li);actions.className='result-actions';link(actions,'Google Maps ↗',mapsUrl(p));const edge=edges[m.edgeIndex];if(/^https?:\/\//.test(edge[5]))link(actions,'Source ↗',edge[5]);else el('small','Source: '+edge[4],actions);}
+   for(const m of row.matches.slice(0,4)){const p=m.place,li=el('li',p.name+(m.distanceKm==null?'':' · '+m.distanceKm.toFixed(2)+' km'),list);el('small',(m.relation==='filming'?'Filmed at':'Story set in')+' · '+scope(p),li);const actions=el('div',null,li);actions.className='result-actions';discover(actions,p);link(actions,'Google Maps ↗',mapsUrl(p));const edge=edges[m.edgeIndex];if(/^https?:\/\//.test(edge[5]))link(actions,'Source ↗',edge[5]);else el('small','Source: '+edge[4],actions);}
+   if(last.mode==='heritage'){
+    const credits=el('details',null,card);
+    const cast=Array.from(castByFilm.get(row.film)||[]).sort();
+    el('summary','Credited cast ('+cast.length+')',credits);
+    el('p',cast.join(', ')||'No cast credits recorded.',credits);
+   }
    if(row.matches.length>4)el('p','+'+(row.matches.length-4)+' connections included in the export.',card);
   }
   shown+=next.length;$('moreSpatial').hidden=shown>=results.length;
@@ -210,6 +220,27 @@ function initSpatialExplorer({data,openFilm}){
   if(!last)return;const features=analysisFeatures.map(f=>({...f,properties:{...f.properties,role:f.properties?.role||'search_area',analysis:last.mode,search:last.label,filters:JSON.stringify(last.options),method:last.notes}}));
   for(const row of results)for(const m of row.matches){const p=m.place,n=nodes[row.film],e=edges[m.edgeIndex];features.push({type:'Feature',geometry:{type:'Point',coordinates:[p.lon,p.lat]},properties:{role:'movie_location',movie_id:n[0],movie:n[1],year:n[3],place_id:nodes[p.node][0],place:p.name,relationship:m.relation,distance_km:m.distanceKm,distance_type:last.metric,coordinate_scope:p.scope,source_url:e[5],source_reference:e[4]}});}
   download('cinema-'+last.mode+'-analysis.geojson',JSON.stringify({type:'FeatureCollection',features}),'application/geo+json');
+ };
+ const taj=engine.places.find(place=>nodes[place.node][0]==='heritage:252');
+ const castByFilm=new Map();
+ for(const [film,relation,person] of edges){
+  if(relation!=='cast_member')continue;
+  if(!castByFilm.has(film))castByFilm.set(film,new Set());
+  castByFilm.get(film).add(nodes[person][1]);
+ }
+ for(const button of document.querySelectorAll('[data-taj]')){
+  button.disabled=!taj;
+  button.onclick=()=>{
+   apply({radiusKm:5,relation:'filming',genre:'',yearFrom:years[0],yearTo:years[1],heritageOnly:button.dataset.taj==='heritage'});
+   $('filterSummary').textContent='All genres · '+years.join('–');
+   choose(point(taj),taj.name,true);
+   run(true);
+   $('spatialSummary').scrollIntoView({block:'center'});
+  };
+ }
+ $('tajQuery').onclick=()=>{
+  const query=$('tajQueryText').textContent.replace('VALUES ?heritageOnly { false }','VALUES ?heritageOnly { '+$('heritageOnly').checked+' }');
+  download('taj-mahal-5km-filming-cast.rq',query,'application/sparql-query');
  };
  $('placeForm').onsubmit=e=>{e.preventDefault();resolvePlace($('placeSearch').value);};
  $('radiusForm').onsubmit=e=>{e.preventDefault();run(true);};

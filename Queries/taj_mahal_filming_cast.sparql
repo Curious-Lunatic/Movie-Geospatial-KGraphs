@@ -1,0 +1,19 @@
+# Set heritageOnly to true to restrict filming places to heritage properties and components.
+PREFIX gwm: <https://w3id.org/gwm/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+PREFIX uom: <http://www.opengis.net/def/uom/OGC/1.0/>
+
+SELECT DISTINCT ?film ?title ?year ?location ?place ?metres ?actor ?name WHERE {
+  VALUES ?heritageOnly { false }
+  <https://w3id.org/gwm/entity/heritage%3A252> geo:hasGeometry/geo:asWKT ?origin .
+  ?film gwm:filmedAt ?location ; rdfs:label ?title ; gwm:releaseYear ?year .
+  ?location rdfs:label ?place ; geo:hasGeometry/geo:asWKT ?point .
+  FILTER(!?heritageOnly || EXISTS { ?location a gwm:HeritageSite }
+                        || EXISTS { ?location a gwm:HeritageComponent }
+                        || EXISTS { ?location a gwm:HeritageLandmark })
+  BIND(geof:distance(?origin, ?point, uom:metre) AS ?metres)
+  FILTER(?metres <= 5000)
+  OPTIONAL { ?film gwm:castMember ?actor . ?actor rdfs:label ?name }
+} ORDER BY ?metres ?title ?name

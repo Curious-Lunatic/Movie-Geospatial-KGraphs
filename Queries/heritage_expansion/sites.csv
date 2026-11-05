@@ -1,0 +1,22 @@
+place_id,place_name,latitude,longitude,heritage_source,coordinate_source,source_snapshot,heritage_parent_id,canonical_id,heritage_kind
+L_1256bae649d228bf,Madh Fort,19.132283,72.794785,https://en.wikipedia.org/wiki/Madh_Fort,https://en.wikipedia.org/wiki/Madh_Fort,madh.json,,,historic_landmark
+place:fe1b26c658de520c359df60a,Mehrangarh Fort,26.29806,73.01889,https://en.wikipedia.org/wiki/Mehrangarh,https://en.wikipedia.org/wiki/Mehrangarh,mehrangarh.json,,,historic_landmark
+place:60ba03a9bebc7d3f8f241bb2,Chapora Fort,15.60611,73.73639,https://goa-tourism.com/fort/chapora-fort/,https://en.wikipedia.org/wiki/Chapora_Fort,chapora.json,,,historic_landmark
+place:a321d9c4460937ce539d7c06,Tughlaqabad Fort,28.51194,77.26083,https://en.wikipedia.org/wiki/Tughlaqabad_Fort,https://en.wikipedia.org/wiki/Tughlaqabad_Fort,tughlaqabad.json,,,historic_landmark
+place:18d63e763dbfd718c178bdb5,Pataudi Palace,28.322,76.783,https://www.incredibleindia.gov.in/en/haryana/gurugram/pataudi-palace,https://en.wikipedia.org/wiki/Pataudi_Palace,pataudi_official.json,,,historic_landmark
+place:4a3a11d21ccf2b7057e69665,Prag Mahal,23.25479,69.66833,https://en.wikipedia.org/wiki/Prag_Mahal,https://en.wikipedia.org/wiki/Prag_Mahal,prag.json,,,historic_landmark
+place:a0f42cc32d7d3637346c95a7,Vijay Vilas Palace,,,https://gujarattourism.com/kutch-zone/kutch/vijay-vilas-palace.html,,vijay_official.json,,,historic_landmark
+place:1f7c7f7dde3ceb917433c9cb,Gwalior Fort,26.2303,78.1689,https://en.wikipedia.org/wiki/Gwalior_Fort,https://en.wikipedia.org/wiki/Gwalior_Fort,gwalior.json,,,historic_landmark
+place:48a24b1c5d11a7fa4a510984,Junagarh Fort,28.02,73.32,https://en.wikipedia.org/wiki/Junagarh_Fort,https://en.wikipedia.org/wiki/Junagarh_Fort,junagarh.json,,,historic_landmark
+place:9f54387320a5b4ef4c6876e2,Jaigarh Fort,26.9859,75.8507,https://en.wikipedia.org/wiki/Jaigarh_Fort,https://en.wikipedia.org/wiki/Jaigarh_Fort,jaigarh.json,,,historic_landmark
+place:e334f56355f00808f8242bd7,Naggar Castle,32.112,77.165,https://en.wikipedia.org/wiki/Naggar_Castle,https://en.wikipedia.org/wiki/Naggar_Castle,naggar.json,,,historic_landmark
+place:3cf8f053248206e0a0128542,Chand Baori,27.0073,76.6065,https://en.wikipedia.org/wiki/Chand_Baori,https://en.wikipedia.org/wiki/Chand_Baori,chand.json,,,historic_landmark
+place:48f5559f027304744c569f77,Golconda Fort,17.38306,78.40111,https://en.wikipedia.org/wiki/Golconda,https://en.wikipedia.org/wiki/Golconda,golconda.json,,,historic_landmark
+L_838d584439a18424,Bagore-ki-Haveli,24.5796687,73.6800357,https://en.wikipedia.org/wiki/Bagore-ki-Haveli,https://en.wikipedia.org/wiki/Bagore-ki-Haveli,bagore.json,,,historic_landmark
+place:e4b7e42555621527cb91686c,Roopangarh Palace,26.796582,74.85056,https://en.wikipedia.org/wiki/Roopangarh_Fort,https://en.wikipedia.org/wiki/Roopangarh_Fort,roopangarh.json,,,historic_landmark
+heritage-landmark:nahargarh,Nahargarh Fort,26.937255,75.815490,https://en.wikipedia.org/wiki/Nahargarh_Fort,https://en.wikipedia.org/wiki/Nahargarh_Fort,nahargarh.json,,,historic_landmark
+place:078f12c2fa66c10cc987b3d5,Mehrangarh Fort - Sheesh Mahal,,,https://en.wikipedia.org/wiki/Mehrangarh,,mehrangarh.json,place:fe1b26c658de520c359df60a,,historic_component
+place:ae45a30c1fc2920e5a22d604,Mehrangarh Fort - Jhanki Mahal Courtyard,,,https://en.wikipedia.org/wiki/Mehrangarh,,mehrangarh.json,place:fe1b26c658de520c359df60a,,historic_component
+place:0b29fba21732424e364c8986,Mehrangarh Fort - Jay (Victory) Pol,,,https://en.wikipedia.org/wiki/Mehrangarh,,mehrangarh.json,place:fe1b26c658de520c359df60a,,historic_component
+place:79acc9037b1c6fc509ab6a26,Nahargarh Fort Stepwell,,,https://en.wikipedia.org/wiki/Nahargarh_Fort,,nahargarh.json,heritage-landmark:nahargarh,,historic_component
+place:b6a6eb7aae9159be1fce9f42,Bagore ki Haveli,,,https://en.wikipedia.org/wiki/Bagore-ki-Haveli,,bagore.json,,L_838d584439a18424,same_site_alias

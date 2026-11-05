@@ -236,7 +236,7 @@ class Integration:
         if pid not in self.places:
             self.places[pid] = dict(place_id=pid, place_name=name, latitude=coord[0] if coord else "",
                 longitude=coord[1] if coord else "", coordinate_scope=scope, coordinate_source=source_url,
-                heritage_parent_id="", country_codes="", country_names="", inscription_year="", **extra)
+                heritage_kind="", heritage_source="", heritage_parent_id="", country_codes="", country_names="", inscription_year="", **extra)
             self.place_index[norm(name)].add(pid)
         return pid
 
@@ -493,6 +493,8 @@ class Integration:
         self.build_films()
         self.build_places()
         self.build_locations()
+        from heritage_expansion.apply import apply as apply_heritage_expansion
+        apply_heritage_expansion(self)
         self.build_credits()
         self.build_songs()
         self.validate()
@@ -506,6 +508,8 @@ class Integration:
             events=0, landscapes=0,
             distinct_relationships=len({(c['subject_id'], c['relation'], c['object_id']) for c in self.claims.values()}),
             heritage_properties=sum(p.startswith("heritage:") for p in self.places),
+            historic_heritage_sites=sum(p.get("heritage_kind") == "historic_landmark" for p in self.places.values()),
+            historic_heritage_components=sum(p.get("heritage_kind") == "historic_component" for p in self.places.values()),
             heritage_components=sum(p.startswith("heritage-component:") for p in self.places),
             claims=len(self.claims), location_claims=len(locations),
             source_attributes=len(self.attributes),
@@ -521,7 +525,7 @@ class Integration:
         out.mkdir(parents=True, exist_ok=True)
         tables = {
             "films.csv": (self.films.values(), "film_id,title,release_year,observed_years,wikidata_id,imdb_id,tmdb_id,filmapia_id,sources"),
-            "places.csv": (self.places.values(), "place_id,place_name,latitude,longitude,coordinate_scope,coordinate_source,heritage_parent_id,country_codes,country_names,inscription_year"),
+            "places.csv": (self.places.values(), "place_id,place_name,latitude,longitude,coordinate_scope,coordinate_source,heritage_parent_id,country_codes,country_names,inscription_year,heritage_kind,heritage_source"),
             "people.csv": (self.people.values(), "person_id,name,tmdb_person_id,identity_scope"),
             "characters.csv": (self.characters.values(), "character_id,name,film_id,person_id"),
             "genres.csv": (self.genres.values(), "genre_id,name"),
@@ -574,9 +578,14 @@ class Integration:
             for gid, genre in self.genres.items():
                 stream.write(iri(gid) + ' a gwm:Genre ; rdfs:label ' + lit(genre['name']) + ' .\n')
             for pid, place in self.places.items():
-                kind = "HeritageSite" if pid.startswith("heritage:") else "HeritageComponent" if pid.startswith("heritage-component:") else "Place"
+                kind = ("HeritageLandmark" if place.get("heritage_kind") == "historic_landmark"
+                        else "HeritageComponent" if place.get("heritage_kind") == "historic_component"
+                        else "HeritageSite" if pid.startswith("heritage:")
+                        else "HeritageComponent" if pid.startswith("heritage-component:") else "Place")
                 stream.write(iri(pid) + ' a gwm:' + kind + ', geo:Feature ; rdfs:label ' + lit(place["place_name"]) +
                              ' ; gwm:coordinateScope ' + lit(place["coordinate_scope"]) + ' .\n')
+                if place.get("heritage_source"):
+                    stream.write(iri(pid) + ' gwm:heritageIdentitySource ' + lit(place["heritage_source"]) + ' .\n')
                 if place["heritage_parent_id"]:
                     stream.write(iri(pid) + ' gwm:partOfHeritage ' + iri(place["heritage_parent_id"]) + ' .\n')
                 if place["inscription_year"] != "":

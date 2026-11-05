@@ -1,0 +1,114 @@
+{
+  "before_sites": 9,
+  "after_sites": 25,
+  "before_connections": 25,
+  "after_connections": 72,
+  "added_connections": 47,
+  "films": 60,
+  "recovered_existing_connections": 39,
+  "newly_sourced_connections": 8,
+  "new_source_assertions": 13,
+  "counting_rule": "Distinct film and parent-site pairs. Aliases and components do not inflate site counts.",
+  "sites": [
+    {
+      "site": "Agra Fort",
+      "films": 1
+    },
+    {
+      "site": "Bagore-ki-Haveli",
+      "films": 1
+    },
+    {
+      "site": "Chand Baori",
+      "films": 4
+    },
+    {
+      "site": "Chapora Fort",
+      "films": 1
+    },
+    {
+      "site": "Chhatrapati Shivaji Terminus (formerly Victoria Terminus)",
+      "films": 1
+    },
+    {
+      "site": "Fatehpur Sikri",
+      "films": 2
+    },
+    {
+      "site": "Golconda Fort",
+      "films": 1
+    },
+    {
+      "site": "Gwalior Fort",
+      "films": 1
+    },
+    {
+      "site": "Hill Forts of Rajasthan",
+      "films": 6
+    },
+    {
+      "site": "Humayun's Tomb, Delhi",
+      "films": 7
+    },
+    {
+      "site": "Jaigarh Fort",
+      "films": 1
+    },
+    {
+      "site": "Junagarh Fort",
+      "films": 1
+    },
+    {
+      "site": "Madh Fort",
+      "films": 11
+    },
+    {
+      "site": "Mehrangarh Fort",
+      "films": 4
+    },
+    {
+      "site": "Mountain Railways of India",
+      "films": 3
+    },
+    {
+      "site": "Naggar Castle",
+      "films": 1
+    },
+    {
+      "site": "Nahargarh Fort",
+      "films": 3
+    },
+    {
+      "site": "Pataudi Palace",
+      "films": 9
+    },
+    {
+      "site": "Petra",
+      "films": 1
+    },
+    {
+      "site": "Prag Mahal",
+      "films": 3
+    },
+    {
+      "site": "Qutb Minar and its Monuments, Delhi",
+      "films": 3
+    },
+    {
+      "site": "Red Fort Complex",
+      "films": 2
+    },
+    {
+      "site": "Roopangarh Palace",
+      "films": 1
+    },
+    {
+      "site": "Tughlaqabad Fort",
+      "films": 2
+    },
+    {
+      "site": "Vijay Vilas Palace",
+      "films": 2
+    }
+  ]
+}

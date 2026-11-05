@@ -24,7 +24,7 @@ def read(directory, name):
 def nearby(directory, heritage, radius=5, site_only=True, relation="filming"):
     films = {r["film_id"]: r for r in read(directory, "films.csv")}
     places = {r["place_id"]: r for r in read(directory, "places.csv")}
-    matches = [p for p in places.values() if p["place_id"].startswith(("heritage:", "heritage-component:"))
+    matches = [p for p in places.values() if (p["place_id"].startswith(("heritage:", "heritage-component:")) or p.get("heritage_kind"))
                and (p["place_id"] == heritage or p["place_name"].casefold() == heritage.casefold())]
     if len(matches) != 1:
         raise ValueError("Heritage name is missing or ambiguous. Use the place_id from places.csv.")
@@ -40,7 +40,7 @@ def nearby(directory, heritage, radius=5, site_only=True, relation="filming"):
         place = places[claim["object_id"]]
         if place["latitude"] == "":
             continue
-        if site_only and not place["place_id"].startswith(("heritage:", "heritage-component:")):
+        if site_only and not (place["place_id"].startswith(("heritage:", "heritage-component:")) or place.get("heritage_kind")):
             continue
         distance = distance_km(target["latitude"], target["longitude"], place["latitude"], place["longitude"])
         if distance <= radius:

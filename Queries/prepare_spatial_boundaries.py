@@ -18,6 +18,22 @@ REVISION = '9469f09'
 OUT = ROOT / 'Queries/webmap/data'
 
 
+def join_places(features):
+    geometries = [shape(f['geometry']) for f in features]
+    index = STRtree(geometries)
+    membership = {}
+    with (ROOT / 'Dataset/integrated/places.csv').open() as stream:
+        for row in csv.DictReader(stream):
+            try:
+                point = Point(float(row['longitude']), float(row['latitude']))
+            except (ValueError, TypeError):
+                continue
+            ids = [features[int(i)]['properties']['id'] for i in index.query(point) if geometries[int(i)].covers(point)]
+            if ids:
+                membership[row['place_id']] = ids
+    return membership
+
+
 def prepare(cache, download=False):
     cache.mkdir(parents=True, exist_ok=True)
     metadata = {}
@@ -60,18 +76,7 @@ def prepare(cache, download=False):
         parent = max(overlaps)[1]
         district['properties']['state_id'] = layers['ADM1'][parent]['properties']['id']
     features = layers['ADM1'] + layers['ADM2']
-    geometries = [shape(f['geometry']) for f in features]
-    index = STRtree(geometries)
-    membership = {}
-    with (ROOT / 'Dataset/integrated/places.csv').open() as stream:
-        for row in csv.DictReader(stream):
-            try:
-                point = Point(float(row['longitude']), float(row['latitude']))
-            except (ValueError, TypeError):
-                continue
-            ids = [features[int(i)]['properties']['id'] for i in index.query(point) if geometries[int(i)].covers(point)]
-            if ids:
-                membership[row['place_id']] = ids
+    membership = join_places(features)
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / 'india_regions.geojson').write_text(json.dumps(dict(type='FeatureCollection', features=features), separators=(',', ':')))
     (OUT / 'region_membership.json').write_text(json.dumps(membership, separators=(',', ':')))
@@ -86,5 +91,13 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--cache', type=Path, default=ROOT / 'outputs/boundary-sources')
     parser.add_argument('--download', action='store_true')
+    parser.add_argument('--membership-only', action='store_true',
+                        help='Refresh place joins against the already published boundaries')
     args = parser.parse_args()
-    prepare(args.cache, args.download)
+    if args.membership_only:
+        features = json.loads((OUT / 'india_regions.geojson').read_text())['features']
+        membership = join_places(features)
+        (OUT / 'region_membership.json').write_text(json.dumps(membership, separators=(',', ':')))
+        print(json.dumps(dict(joined_places=len(membership))))
+    else:
+        prepare(args.cache, args.download)

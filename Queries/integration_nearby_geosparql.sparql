@@ -9,7 +9,7 @@ PREFIX uom: <http://www.opengis.net/def/uom/OGC/1.0/>
 SELECT DISTINCT ?title ?place ?metres WHERE {
   ?target a gwm:HeritageSite ; rdfs:label "Taj Mahal" ; geo:hasGeometry/geo:asWKT ?targetWKT .
   ?film a gwm:Film ; rdfs:label ?title ; gwm:filmedAt ?location .
-  VALUES ?kind { gwm:HeritageSite gwm:HeritageComponent }
+  VALUES ?kind { gwm:HeritageSite gwm:HeritageComponent gwm:HeritageLandmark }
   ?location a ?kind ; rdfs:label ?place ; geo:hasGeometry/geo:asWKT ?locationWKT .
   BIND(geof:distance(?targetWKT, ?locationWKT, uom:metre) AS ?metres)
   FILTER(?metres <= 5000)

@@ -10,6 +10,8 @@ gwm:Character a rdfs:Class ; rdfs:comment "Film-specific credited role; includes
 gwm:Genre a rdfs:Class .
 gwm:Place a rdfs:Class ; rdfs:subClassOf geo:Feature .
 gwm:HeritageSite a rdfs:Class ; rdfs:subClassOf gwm:Place .
+gwm:HeritageLandmark a rdfs:Class ; rdfs:subClassOf gwm:HeritageSite .
+gwm:heritageIdentitySource a rdf:Property .
 gwm:HeritageComponent a rdfs:Class ; rdfs:subClassOf gwm:Place .
 gwm:Event a rdfs:Class ; rdfs:comment "Reserved for sourced depicted events. No event instances supplied in this build." .
 gwm:Landscape a rdfs:Class ; rdfs:comment "Reserved for sourced landscape classifications. No landscape instances supplied in this build." .

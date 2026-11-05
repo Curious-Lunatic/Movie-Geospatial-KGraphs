@@ -38,6 +38,10 @@ def prepare():
     # The region layer is fetched only when the Regions tool is opened.
     boundary = OUTPUT / 'india_regions.geojson'
     boundary.write_bytes(gzip.compress(boundary.read_bytes(), mtime=0))
+    api = OUTPUT / 'api'
+    api.mkdir(exist_ok=True)
+    for filename in ('places.js', 'cities.json'):
+        shutil.copyfile(ROOT / 'Queries' / 'place_tools' / filename, api / filename)
     config = {
         'framework': None,
         'buildCommand': '',

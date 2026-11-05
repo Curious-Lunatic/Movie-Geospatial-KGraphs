@@ -1,0 +1,145 @@
+[
+  {
+    "film_id": "film:636695a31480b2f7afaf5faa",
+    "title": "Shuddh Desi Romance",
+    "wikidata_id": "Q14786843",
+    "place_id": "heritage-landmark:nahargarh",
+    "source_url": "https://en.wikipedia.org/wiki/Nahargarh_Fort",
+    "source_snapshot": "nahargarh.json",
+    "verify_text": "Shuddh Desi Romance",
+    "evidence": "The site article identifies this film among productions shot at the fort.",
+    "retrieved_at": "2026-11-05T09:16:09.219587+00:00"
+  },
+  {
+    "film_id": "film:c9e85392f565ceb4406e535d",
+    "title": "Rang De Basanti",
+    "wikidata_id": "Q924135",
+    "place_id": "heritage-landmark:nahargarh",
+    "source_url": "https://www.tourism.rajasthan.gov.in/film-tourism.html",
+    "source_snapshot": "rajasthan_films.json",
+    "verify_text": "Shot on the majestic Nahargarh fort",
+    "evidence": "Rajasthan Tourism describes filming at Nahargarh Fort.",
+    "retrieved_at": "2026-11-05T09:16:16.230687+00:00"
+  },
+  {
+    "film_id": "film:c9e85392f565ceb4406e535d",
+    "title": "Rang De Basanti",
+    "wikidata_id": "Q924135",
+    "place_id": "place:18d63e763dbfd718c178bdb5",
+    "source_url": "https://en.wikipedia.org/wiki/Pataudi_Palace",
+    "source_snapshot": "pataudi.json",
+    "verify_text": "Rang De Basanti",
+    "evidence": "The palace article lists the film among productions shot at the palace.",
+    "retrieved_at": "2026-11-05T09:16:13.389966+00:00"
+  },
+  {
+    "film_id": "film:c872bc2bdc194c9868608cb6",
+    "title": "Mere Brother Ki Dulhan",
+    "wikidata_id": "Q3306436",
+    "place_id": "place:18d63e763dbfd718c178bdb5",
+    "source_url": "https://en.wikipedia.org/wiki/Pataudi_Palace",
+    "source_snapshot": "pataudi.json",
+    "verify_text": "Mere Brother Ki Dulhan",
+    "evidence": "The palace article lists the film among productions shot at the palace.",
+    "retrieved_at": "2026-11-05T09:16:13.389966+00:00"
+  },
+  {
+    "film_id": "film:ccefd781604d6a4425d4287a",
+    "title": "Hum Dil De Chuke Sanam",
+    "wikidata_id": "Q1326725",
+    "place_id": "place:a0f42cc32d7d3637346c95a7",
+    "source_url": "https://en.wikipedia.org/wiki/Vijay_Vilas_Palace",
+    "source_snapshot": "vijay.json",
+    "verify_text": "Hum Dil De Chuke Sanam",
+    "evidence": "The palace article identifies scenes from this film as shot at the palace.",
+    "retrieved_at": "2026-11-05T09:16:13.745600+00:00"
+  },
+  {
+    "film_id": "film:6d9feb2e1b6b717694532b07",
+    "title": "Bhoomi (2017 film)",
+    "wikidata_id": "Q28529484",
+    "place_id": "place:3cf8f053248206e0a0128542",
+    "source_url": "https://en.wikipedia.org/wiki/Chand_Baori",
+    "source_snapshot": "chand.json",
+    "verify_text": "Bhoomi",
+    "evidence": "The stepwell article lists the film as a location credit. The linked film is the 2017 Hindi production.",
+    "retrieved_at": "2026-11-05T09:16:14.706407+00:00"
+  },
+  {
+    "film_id": "film:576a4dc92671597f5c546cc5",
+    "title": "Bhool Bhulaiyaa",
+    "wikidata_id": "Q3764588",
+    "place_id": "place:3cf8f053248206e0a0128542",
+    "source_url": "https://en.wikipedia.org/wiki/Chand_Baori",
+    "source_snapshot": "chand.json",
+    "verify_text": "Bhool Bhulaiyaa",
+    "evidence": "The stepwell article lists the film as a location credit.",
+    "retrieved_at": "2026-11-05T09:16:14.706407+00:00"
+  },
+  {
+    "film_id": "film:e4453963107da5d244e79d5b",
+    "title": "Thugs of Hindostan",
+    "wikidata_id": "Q38160453",
+    "place_id": "place:fe1b26c658de520c359df60a",
+    "source_url": "https://en.wikipedia.org/wiki/Mehrangarh",
+    "source_snapshot": "mehrangarh.json",
+    "verify_text": "In March 2018",
+    "evidence": "The fort article records the film crew using the fort in March 2018.",
+    "retrieved_at": "2026-11-05T09:16:09.341559+00:00"
+  },
+  {
+    "film_id": "film:2a03e034285b7cbfde1676c8",
+    "title": "Dil Chahta Hai",
+    "wikidata_id": "Q370313",
+    "place_id": "place:60ba03a9bebc7d3f8f241bb2",
+    "source_url": "https://goa-tourism.com/fort/chapora-fort/",
+    "source_snapshot": "chapora.json",
+    "verify_text": "filming of the Hindi blockbuster",
+    "evidence": "Goa Tourism identifies the fort as a filming location for the 2001 film.",
+    "retrieved_at": "2026-11-05T09:16:10.197243+00:00"
+  },
+  {
+    "film_id": "film:2bfdc8f32d77fd6753618596",
+    "title": "Yeh Jawaani Hai Deewani",
+    "wikidata_id": "Q8051196",
+    "place_id": "L_838d584439a18424",
+    "source_url": "https://www.tourism.rajasthan.gov.in/film-tourism.html",
+    "source_snapshot": "rajasthan_films.json",
+    "verify_text": "Shot in the Bagore ki Haveli",
+    "evidence": "Rajasthan Tourism identifies the haveli as a filming location.",
+    "retrieved_at": "2026-11-05T09:16:16.230687+00:00"
+  },
+  {
+    "film_id": "film:28b91f5fd521e6d2bbee9415",
+    "title": "Awarapan",
+    "wikidata_id": "Q4829827",
+    "place_id": "place:fe1b26c658de520c359df60a",
+    "source_url": "https://en.wikipedia.org/wiki/Mehrangarh",
+    "source_snapshot": "mehrangarh.json",
+    "verify_text": "Awarapan was also shot here",
+    "evidence": "The fort article records filming of Awarapan at the fort.",
+    "retrieved_at": "2026-11-05T09:16:09.341559+00:00"
+  },
+  {
+    "film_id": "film:795d195b620d05af3aaac0ec",
+    "title": "Bajirao Mastani",
+    "wikidata_id": "Q16837125",
+    "place_id": "heritage-component:247rev-005",
+    "source_url": "https://www.tourism.rajasthan.gov.in/film-tourism.html",
+    "source_snapshot": "rajasthan_films.json",
+    "verify_text": "Parts of Bajirao Mastani have been shot",
+    "evidence": "Rajasthan Tourism identifies Amber Palace as a filming location for Bajirao Mastani.",
+    "retrieved_at": "2026-11-05T09:16:16.230687+00:00"
+  },
+  {
+    "film_id": "film:ccefd781604d6a4425d4287a",
+    "title": "Hum Dil De Chuke Sanam",
+    "wikidata_id": "Q1326725",
+    "place_id": "place:4a3a11d21ccf2b7057e69665",
+    "source_url": "https://en.wikipedia.org/wiki/Prag_Mahal",
+    "source_snapshot": "prag.json",
+    "verify_text": "Hum Dil De Chuke Sanam",
+    "evidence": "The palace article identifies scenes from this film as shot at Prag Mahal.",
+    "retrieved_at": "2026-11-05T09:16:13.374411+00:00"
+  }
+]

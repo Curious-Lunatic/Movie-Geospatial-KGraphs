@@ -33,7 +33,8 @@ def main():
     summary = json.loads((directory / "summary.json").read_text(encoding="utf-8"))
     for type_name, expected in [("Film", summary["films"]), ("Song", summary["songs"]),
                                 ("Person", summary["people"]), ("HeritageSite", summary["heritage_properties"]),
-                                ("HeritageComponent", summary["heritage_components"]),
+                                ("HeritageComponent", summary["heritage_components"] + summary.get("historic_heritage_components", 0)),
+                                ("HeritageLandmark", summary.get("historic_heritage_sites", 0)),
                                 ("Character", summary["characters"]), ("Genre", summary["genres"])]:
         actual = len(set(graph.subjects(RDF.type, gwm[type_name])))
         if actual != expected:
