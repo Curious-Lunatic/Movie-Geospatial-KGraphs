@@ -1,12 +1,12 @@
 PREFIX gwm: <https://w3id.org/gwm/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-# Component-level filming rolls up to the UNESCO parent property.
+# Component-level filming rolls up to its parent heritage site.
 SELECT ?site (COUNT(DISTINCT ?film) AS ?filmCount) ?genreCount ?genres WHERE {
   # Compute genre coverage from known tags, then count all linked films.
   # A film without genre metadata still contributes to filmCount.
   { SELECT ?property (COUNT(DISTINCT ?genre) AS ?genreCount)
            (GROUP_CONCAT(DISTINCT ?genreLabel; separator=" | ") AS ?genres) WHERE {
-      ?property a gwm:HeritageSite .
+      ?property a/rdfs:subClassOf* gwm:HeritageSite .
       ?taggedLocation gwm:partOfHeritage? ?property .
       ?taggedFilm gwm:filmedAt ?taggedLocation ; gwm:hasGenre ?genre .
       ?genre rdfs:label ?genreLabel .

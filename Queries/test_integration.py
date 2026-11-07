@@ -28,6 +28,17 @@ class IntegrationTests(unittest.TestCase):
         row = list(graph.query(query))[0].asdict()
         self.assertEqual(int(row['filmCount']), 3)
         self.assertEqual(int(row['genreCount']), 2)
+        # Historic landmarks share the heritage query without requiring inference.
+        from rdflib import Namespace
+        from rdflib.namespace import RDF, RDFS
+        gwm = Namespace('https://w3id.org/gwm/')
+        example = Namespace('https://example.org/')
+        graph.remove((example.site, RDF.type, gwm.HeritageSite))
+        graph.add((example.site, RDF.type, gwm.HeritageLandmark))
+        graph.add((gwm.HeritageLandmark, RDFS.subClassOf, gwm.HeritageSite))
+        expanded = list(graph.query(query))
+        self.assertEqual(len(expanded), 1)
+        self.assertEqual(int(expanded[0].asdict()['filmCount']), 3)
 
     def test_default_cohort_matches_1970_project_scope_and_remains_configurable(self):
         with tempfile.TemporaryDirectory() as tmp:
