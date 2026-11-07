@@ -1,33 +1,52 @@
 film_id,film,site_id,site,addition_type,evidence_sources
+film:0bdec6009470fdf7f4fe9b45,Eklavya: The Royal Guard,place:ba2c1038efda0c00a86af51e,Devigarh Fort Palace,newly_sourced,https://en.wikipedia.org/wiki/Devigarh
 film:0d28b437481ff3623ebdf19f,Tarazu,L_1256bae649d228bf,Madh Fort,recovered_existing,https://en.wikipedia.org/wiki/Tarazu
 film:151bb05f31aaaf5a7e11578d,The Rising: Ballad of Mangal Pandey,place:18d63e763dbfd718c178bdb5,Pataudi Palace,recovered_existing,filmapia_film_locations.csv:40
 film:161f4942bb50adb1e4389d8f,Deewana,L_1256bae649d228bf,Madh Fort,recovered_existing,https://en.wikipedia.org/wiki/Deewana_(1992_film)
 film:22704ebeb85b4a12247be815,Animal (2023 Indian film),place:18d63e763dbfd718c178bdb5,Pataudi Palace,recovered_existing,filmapia_film_locations.csv:233
 film:27f6a3355a464a1710e1c86d,Manikarnika: The Queen of Jhansi,place:1f7c7f7dde3ceb917433c9cb,Gwalior Fort,recovered_existing,filmapia_film_locations.csv:205
 film:27f6a3355a464a1710e1c86d,Manikarnika: The Queen of Jhansi,place:48a24b1c5d11a7fa4a510984,Junagarh Fort,recovered_existing,filmapia_film_locations.csv:205
+film:27f6a3355a464a1710e1c86d,Manikarnika: The Queen of Jhansi,place:58be14f9dd9c6d4219ddc42f,Lalgarh Palace,recovered_existing,filmapia_film_locations.csv:205
 film:27f6a3355a464a1710e1c86d,Manikarnika: The Queen of Jhansi,place:fe1b26c658de520c359df60a,Mehrangarh Fort,recovered_existing,filmapia_film_locations.csv:205
 film:28b91f5fd521e6d2bbee9415,Awarapan,place:fe1b26c658de520c359df60a,Mehrangarh Fort,recovered_existing,filmapia_film_locations.csv:56 | https://en.wikipedia.org/wiki/Mehrangarh
 film:2a03e034285b7cbfde1676c8,Dil Chahta Hai,place:60ba03a9bebc7d3f8f241bb2,Chapora Fort,recovered_existing,filmapia_film_locations.csv:10 | https://goa-tourism.com/fort/chapora-fort/
+film:2a03e034285b7cbfde1676c8,Dil Chahta Hai,place:dbd193e4e7ff7705be0dab2d,Bandra Fort,newly_sourced,https://www.incredibleindia.gov.in/en/maharashtra/mumbai/bandra-fort
 film:2bfdc8f32d77fd6753618596,Yeh Jawaani Hai Deewani,L_838d584439a18424,Bagore-ki-Haveli,recovered_existing,filmapia_film_locations.csv:141 | https://en.wikipedia.org/wiki/List_of_films_shot_in_Rajasthan | https://www.tourism.rajasthan.gov.in/film-tourism.html
+film:2bfdc8f32d77fd6753618596,Yeh Jawaani Hai Deewani,place:47356d42942ae10bef20e263,Hadimba Temple,recovered_existing,filmapia_film_locations.csv:141
 film:304a2a34a7d889d3c916b702,Lakshya (2004 film),place:a321d9c4460937ce539d7c06,Tughlaqabad Fort,recovered_existing,filmapia_film_locations.csv:25
+film:332a917bc7dc54062c1ac2a6,Buddha Mil Gaya,place:dbd193e4e7ff7705be0dab2d,Bandra Fort,newly_sourced,https://www.incredibleindia.gov.in/en/maharashtra/mumbai/bandra-fort
+film:3c167cd74eefe8aef7e807f0,Rab Ne Bana Di Jodi,place:a658bdb0dceb5d0eadb26f49,Golden Temple,recovered_existing,filmapia_film_locations.csv:78
 film:404c813d70e337700ed1bd95,Veer-Zaara,place:18d63e763dbfd718c178bdb5,Pataudi Palace,recovered_existing,filmapia_film_locations.csv:30
+film:46c1ca82d59e31959662c9de,The Archies (film),place:54c492587e47c04d6886d366,Hotel Fernhill Palace,recovered_existing,filmapia_film_locations.csv:238
 film:576a4dc92671597f5c546cc5,Bhool Bhulaiyaa,place:3cf8f053248206e0a0128542,Chand Baori,newly_sourced,https://en.wikipedia.org/wiki/Chand_Baori
+film:59a63667b72a8773d49ea506,Super 30 (film),place:83cfbb19717fd7575a5f55b4,Ramnagar Fort Palace,recovered_existing,filmapia_film_locations.csv:216
 film:636695a31480b2f7afaf5faa,Shuddh Desi Romance,heritage-landmark:nahargarh,Nahargarh Fort,newly_sourced,https://en.wikipedia.org/wiki/Nahargarh_Fort
 film:6d9feb2e1b6b717694532b07,Bhoomi (2017 film),place:3cf8f053248206e0a0128542,Chand Baori,newly_sourced,https://en.wikipedia.org/wiki/Chand_Baori
 film:7133593de83fcc54970d0a74,Raanjhanaa,place:18d63e763dbfd718c178bdb5,Pataudi Palace,recovered_existing,filmapia_film_locations.csv:136
+film:7133593de83fcc54970d0a74,Raanjhanaa,place:83cfbb19717fd7575a5f55b4,Ramnagar Fort Palace,recovered_existing,filmapia_film_locations.csv:136
 film:73c720a670ecd7082cfa5774,Dor,place:fe1b26c658de520c359df60a,Mehrangarh Fort,recovered_existing,filmapia_film_locations.csv:23
 film:7888e7347c4cab8053a9342d,Wanted (2009 film),place:48f5559f027304744c569f77,Golconda Fort,recovered_existing,filmapia_film_locations.csv:93
+film:7888e7347c4cab8053a9342d,Wanted (2009 film),place:dbd193e4e7ff7705be0dab2d,Bandra Fort,recovered_existing,filmapia_film_locations.csv:93 | https://www.incredibleindia.gov.in/en/maharashtra/mumbai/bandra-fort
 film:795d195b620d05af3aaac0ec,Bajirao Mastani,heritage:247,Hill Forts of Rajasthan,newly_sourced,https://www.tourism.rajasthan.gov.in/film-tourism.html
 film:7d81106f3bccf993002b9e3f,Dabangg 3,place:9f54387320a5b4ef4c6876e2,Jaigarh Fort,recovered_existing,filmapia_film_locations.csv:192
 film:8950cedfe1ae9cd065bd5eda,Shatranj,L_1256bae649d228bf,Madh Fort,recovered_existing,https://en.wikipedia.org/wiki/Shatranj_(1993_film)
+film:8f747594d39db2db2bb62cf9,Laaga Chunari Mein Daag,place:83cfbb19717fd7575a5f55b4,Ramnagar Fort Palace,recovered_existing,filmapia_film_locations.csv:63
+film:9253cb38ceee099f7a68b32c,Ekalavya,L_3735ebcbd03d2d7c,"City Palace, Jaipur",recovered_existing,filmapia_film_locations.csv:59
+film:9253cb38ceee099f7a68b32c,Ekalavya,place:ba2c1038efda0c00a86af51e,Devigarh Fort Palace,recovered_existing,filmapia_film_locations.csv:59
+film:92fd20a17c91ffe4bf9c75e8,Lamhaa,place:28c18e4fa72b6522da2a7a12,Pari Mahal,recovered_existing,filmapia_film_locations.csv:103 | https://en.wikipedia.org/wiki/Pari_Mahal
+film:93da54921d103c893bff5fb6,Bade Miyan Chote Miyan,L_3735ebcbd03d2d7c,"City Palace, Jaipur",recovered_existing,https://en.wikipedia.org/wiki/List_of_films_shot_in_Rajasthan
 film:94197f5407c3d97e30a415d0,Bhaag Milkha Bhaag,place:18d63e763dbfd718c178bdb5,Pataudi Palace,recovered_existing,filmapia_film_locations.csv:127
 film:94197f5407c3d97e30a415d0,Bhaag Milkha Bhaag,place:a321d9c4460937ce539d7c06,Tughlaqabad Fort,recovered_existing,filmapia_film_locations.csv:127
+film:9659f3f2452650c61de00e4e,Jawan (film),place:dbd193e4e7ff7705be0dab2d,Bandra Fort,recovered_existing,filmapia_film_locations.csv:235
 film:9acf4dc2b2ac7bc7a95900a2,Baazigar,L_1256bae649d228bf,Madh Fort,recovered_existing,https://en.wikipedia.org/wiki/Baazigar
 film:9c75c3f8d347f67b7279b381,Lagaan,place:4a3a11d21ccf2b7057e69665,Prag Mahal,recovered_existing,filmapia_film_locations.csv:6
 film:9c75c3f8d347f67b7279b381,Lagaan,place:a0f42cc32d7d3637346c95a7,Vijay Vilas Palace,recovered_existing,filmapia_film_locations.csv:6
 film:9dfe6ca82a2e8bfbdc9fb68e,Sam Bahadur (film),place:18d63e763dbfd718c178bdb5,Pataudi Palace,recovered_existing,filmapia_film_locations.csv:237
+film:9dfe6ca82a2e8bfbdc9fb68e,Sam Bahadur (film),place:bb3c74051066cd4a059d9c64,Umaid Bhawan Palace,recovered_existing,filmapia_film_locations.csv:237
+film:9f48ee5f93a5815cd1a475a7,Haider (film),place:0989f643f2325061a34e807c,Martand Sun Temple,recovered_existing,filmapia_film_locations.csv:144
 film:9f50e7a2e4af263d4c14d695,Game Paisa Ladki,L_1256bae649d228bf,Madh Fort,recovered_existing,https://en.wikipedia.org/wiki/Game_Paisa_Ladki
 film:9ff14c454a154985af698b90,Saand Ki Aankh,place:18d63e763dbfd718c178bdb5,Pataudi Palace,recovered_existing,filmapia_film_locations.csv:213
+film:a8825cd3356050057cdfce65,The Dirty Picture,place:e6483db3f0132d7b632bd912,Bidar Fort,recovered_existing,filmapia_film_locations.csv:114 | https://en.wikipedia.org/wiki/Bidar_Fort
 film:aa20a046f4fa07aa5b8f6d68,Zamaana Deewana,L_1256bae649d228bf,Madh Fort,recovered_existing,https://en.wikipedia.org/wiki/Zamaana_Deewana
 film:ace3f6414392a1ab2f1e5f52,Khalnayak,L_1256bae649d228bf,Madh Fort,recovered_existing,https://en.wikipedia.org/wiki/Khal_Nayak
 film:b0b963cc477e78a1eb018ffc,Love Ke Liye Kuch Bhi Karega,L_1256bae649d228bf,Madh Fort,recovered_existing,https://en.wikipedia.org/wiki/Love_Ke_Liye_Kuch_Bhi_Karega
@@ -35,14 +54,24 @@ film:b147e4e6e9a324d8e8332f37,Mimi (2021 Hindi film),heritage-landmark:nahargarh
 film:b1b5db0d032a02b979568fab,Dhadak,place:3cf8f053248206e0a0128542,Chand Baori,recovered_existing,filmapia_film_locations.csv:166
 film:b599ea2789a2f81c75051567,Jab We Met,place:e334f56355f00808f8242bd7,Naggar Castle,recovered_existing,filmapia_film_locations.csv:62
 film:b8166a2a0f9672027bfa2c78,Dhurandhar,L_1256bae649d228bf,Madh Fort,recovered_existing,https://en.wikipedia.org/wiki/Dhurandhar
+film:c8030ed53d520b25011747e7,Chef (2017 film),place:a658bdb0dceb5d0eadb26f49,Golden Temple,recovered_existing,filmapia_film_locations.csv:154
 film:c872bc2bdc194c9868608cb6,Mere Brother Ki Dulhan,place:18d63e763dbfd718c178bdb5,Pataudi Palace,newly_sourced,https://en.wikipedia.org/wiki/Pataudi_Palace
 film:c9e85392f565ceb4406e535d,Rang De Basanti,heritage-landmark:nahargarh,Nahargarh Fort,recovered_existing,filmapia_film_locations.csv:54 | https://www.tourism.rajasthan.gov.in/film-tourism.html
 film:c9e85392f565ceb4406e535d,Rang De Basanti,place:18d63e763dbfd718c178bdb5,Pataudi Palace,newly_sourced,https://en.wikipedia.org/wiki/Pataudi_Palace
+film:c9e85392f565ceb4406e535d,Rang De Basanti,place:a658bdb0dceb5d0eadb26f49,Golden Temple,recovered_existing,filmapia_film_locations.csv:54
 film:ccefd781604d6a4425d4287a,Hum Dil De Chuke Sanam,place:4a3a11d21ccf2b7057e69665,Prag Mahal,newly_sourced,https://en.wikipedia.org/wiki/Prag_Mahal
 film:ccefd781604d6a4425d4287a,Hum Dil De Chuke Sanam,place:a0f42cc32d7d3637346c95a7,Vijay Vilas Palace,newly_sourced,https://en.wikipedia.org/wiki/Vijay_Vilas_Palace
 film:d05108db89e795c8db04b87c,Shootout at Wadala,L_1256bae649d228bf,Madh Fort,recovered_existing,https://en.wikipedia.org/wiki/Shootout_at_Wadala
 film:d0afe2a75413eccf20b13c26,Mard,L_1256bae649d228bf,Madh Fort,recovered_existing,https://en.wikipedia.org/wiki/Mard_(1985_film)
+film:d1748907bb61512ae6d3ba34,Black (2005 film),place:4b7c2cbdc0f88e901a3bbbd1,Afghan Church,recovered_existing,filmapia_film_locations.csv:32
+film:d3d136239559b640e8167db0,Baaghi 2,place:dd7364fcadc871ddcb07e1a3,Fort Aguada,recovered_existing,filmapia_film_locations.csv:165
+film:d607a1327beb1df6e2367c40,Banaras (2006 film),place:83cfbb19717fd7575a5f55b4,Ramnagar Fort Palace,newly_sourced,https://en.wikipedia.org/wiki/Ramnagar_Fort
+film:d96ed504e66856cb41243eb0,Rockstar (2011 film),place:a8e4f341e60588e336d74c2d,Gloria Church,recovered_existing,filmapia_film_locations.csv:112
 film:dbee4e968973824ac496cae4,Paheli,place:3cf8f053248206e0a0128542,Chand Baori,recovered_existing,filmapia_film_locations.csv:53
 film:e4453963107da5d244e79d5b,Thugs of Hindostan,place:fe1b26c658de520c359df60a,Mehrangarh Fort,recovered_existing,filmapia_film_locations.csv:182 | https://en.wikipedia.org/wiki/Mehrangarh
+film:e61818134a47a62210ed37b8,Jaane Tu... Ya Jaane Na,place:dbd193e4e7ff7705be0dab2d,Bandra Fort,recovered_existing,filmapia_film_locations.csv:75 | https://www.incredibleindia.gov.in/en/maharashtra/mumbai/bandra-fort
 film:e9acd9fae23d3efb957f4eb4,Jodhaa Akbar,place:e4b7e42555621527cb91686c,Roopangarh Palace,recovered_existing,filmapia_film_locations.csv:76
+film:faa3349986713bf4cd56cc92,David (2013 Hindi film),place:54c492587e47c04d6886d366,Hotel Fernhill Palace,recovered_existing,filmapia_film_locations.csv:129
+film:fd27e255ac0d1d1b42999c88,Band Baaja Baaraat,place:58be14f9dd9c6d4219ddc42f,Lalgarh Palace,recovered_existing,filmapia_film_locations.csv:96
 film:fe80ca652c581529d8abcd65,PM Narendra Modi (film),place:4a3a11d21ccf2b7057e69665,Prag Mahal,recovered_existing,filmapia_film_locations.csv:207
+film:ffd8877b96e6a52087feec51,Guru (2007 film),place:046f7706f6e4d302737515ee,Thirumalai Nayak Palace,recovered_existing,filmapia_film_locations.csv:60

@@ -5,7 +5,7 @@ place:60ba03a9bebc7d3f8f241bb2,Chapora Fort,15.60611,73.73639,https://goa-touris
 place:a321d9c4460937ce539d7c06,Tughlaqabad Fort,28.51194,77.26083,https://en.wikipedia.org/wiki/Tughlaqabad_Fort,https://en.wikipedia.org/wiki/Tughlaqabad_Fort,tughlaqabad.json,,,historic_landmark
 place:18d63e763dbfd718c178bdb5,Pataudi Palace,28.322,76.783,https://www.incredibleindia.gov.in/en/haryana/gurugram/pataudi-palace,https://en.wikipedia.org/wiki/Pataudi_Palace,pataudi_official.json,,,historic_landmark
 place:4a3a11d21ccf2b7057e69665,Prag Mahal,23.25479,69.66833,https://en.wikipedia.org/wiki/Prag_Mahal,https://en.wikipedia.org/wiki/Prag_Mahal,prag.json,,,historic_landmark
-place:a0f42cc32d7d3637346c95a7,Vijay Vilas Palace,,,https://gujarattourism.com/kutch-zone/kutch/vijay-vilas-palace.html,,vijay_official.json,,,historic_landmark
+place:a0f42cc32d7d3637346c95a7,Vijay Vilas Palace,22.8340908,69.2825773,https://gujarattourism.com/kutch-zone/kutch/vijay-vilas-palace.html,https://kachchh.nic.in/tourist-place/vijay-vilas-palace/,vijay_official.json,,,historic_landmark
 place:1f7c7f7dde3ceb917433c9cb,Gwalior Fort,26.2303,78.1689,https://en.wikipedia.org/wiki/Gwalior_Fort,https://en.wikipedia.org/wiki/Gwalior_Fort,gwalior.json,,,historic_landmark
 place:48a24b1c5d11a7fa4a510984,Junagarh Fort,28.02,73.32,https://en.wikipedia.org/wiki/Junagarh_Fort,https://en.wikipedia.org/wiki/Junagarh_Fort,junagarh.json,,,historic_landmark
 place:9f54387320a5b4ef4c6876e2,Jaigarh Fort,26.9859,75.8507,https://en.wikipedia.org/wiki/Jaigarh_Fort,https://en.wikipedia.org/wiki/Jaigarh_Fort,jaigarh.json,,,historic_landmark
@@ -20,3 +20,21 @@ place:ae45a30c1fc2920e5a22d604,Mehrangarh Fort - Jhanki Mahal Courtyard,,,https:
 place:0b29fba21732424e364c8986,Mehrangarh Fort - Jay (Victory) Pol,,,https://en.wikipedia.org/wiki/Mehrangarh,,mehrangarh.json,place:fe1b26c658de520c359df60a,,historic_component
 place:79acc9037b1c6fc509ab6a26,Nahargarh Fort Stepwell,,,https://en.wikipedia.org/wiki/Nahargarh_Fort,,nahargarh.json,heritage-landmark:nahargarh,,historic_component
 place:b6a6eb7aae9159be1fce9f42,Bagore ki Haveli,,,https://en.wikipedia.org/wiki/Bagore-ki-Haveli,,bagore.json,,L_838d584439a18424,same_site_alias
+place:dbd193e4e7ff7705be0dab2d,Bandra Fort,19.041770,72.818580,https://en.wikipedia.org/wiki/Castella_de_Aguada,https://en.wikipedia.org/wiki/Castella_de_Aguada,bandra.json,,,historic_landmark
+place:a658bdb0dceb5d0eadb26f49,Golden Temple,31.62000,74.87639,https://en.wikipedia.org/wiki/Golden_Temple,https://en.wikipedia.org/wiki/Golden_Temple,golden.json,,,historic_landmark
+place:83cfbb19717fd7575a5f55b4,Ramnagar Fort Palace,25.28,83.03,https://en.wikipedia.org/wiki/Ramnagar_Fort,https://en.wikipedia.org/wiki/Ramnagar_Fort,ramnagar.json,,,historic_landmark
+place:54c492587e47c04d6886d366,Hotel Fernhill Palace,11.3970473,76.6835775,https://en.wikipedia.org/wiki/Fernhills_Palace,https://en.wikipedia.org/wiki/Fernhills_Palace,fernhill.json,,,historic_landmark
+L_3735ebcbd03d2d7c,"City Palace, Jaipur",26.9257,75.8236,"https://en.wikipedia.org/wiki/City_Palace,_Jaipur","https://en.wikipedia.org/wiki/City_Palace,_Jaipur",city_jaipur.json,,,historic_landmark
+place:4b7c2cbdc0f88e901a3bbbd1,Afghan Church,18.903648,72.815076,https://en.wikipedia.org/wiki/Afghan_Church,https://en.wikipedia.org/wiki/Afghan_Church,afghan.json,,,historic_landmark
+place:ba2c1038efda0c00a86af51e,Devigarh Fort Palace,24.7725,73.7493,https://en.wikipedia.org/wiki/Devigarh,https://en.wikipedia.org/wiki/Devigarh,devigarh.json,,,historic_landmark
+place:046f7706f6e4d302737515ee,Thirumalai Nayak Palace,9.9148,78.1243,https://en.wikipedia.org/wiki/Thirumalai_Nayakkar_Mahal,https://en.wikipedia.org/wiki/Thirumalai_Nayakkar_Mahal,thirumalai.json,,,historic_landmark
+place:58be14f9dd9c6d4219ddc42f,Lalgarh Palace,28.0410,73.3316,https://en.wikipedia.org/wiki/Lalgarh_Palace,https://en.wikipedia.org/wiki/Lalgarh_Palace,lalgarh.json,,,historic_landmark
+place:28c18e4fa72b6522da2a7a12,Pari Mahal,34.08098,74.87714,https://en.wikipedia.org/wiki/Pari_Mahal,https://en.wikipedia.org/wiki/Pari_Mahal,pari.json,,,historic_landmark
+place:a8e4f341e60588e336d74c2d,Gloria Church,18.975,72.834167,https://en.wikipedia.org/wiki/Gloria_Church,https://en.wikipedia.org/wiki/Gloria_Church,gloria.json,,,historic_landmark
+place:e6483db3f0132d7b632bd912,Bidar Fort,17.92444,77.52667,https://en.wikipedia.org/wiki/Bidar_Fort,https://en.wikipedia.org/wiki/Bidar_Fort,bidar.json,,,historic_landmark
+place:47356d42942ae10bef20e263,Hadimba Temple,32.24228,77.187366,https://en.wikipedia.org/wiki/Hidimba_Devi_Temple,https://en.wikipedia.org/wiki/Hidimba_Devi_Temple,hadimba.json,,,historic_landmark
+place:0989f643f2325061a34e807c,Martand Sun Temple,33.74556,75.22028,https://en.wikipedia.org/wiki/Martand_Sun_Temple,https://en.wikipedia.org/wiki/Martand_Sun_Temple,martand.json,,,historic_landmark
+place:dd7364fcadc871ddcb07e1a3,Fort Aguada,15.488,73.763,https://en.wikipedia.org/wiki/Fort_Aguada,https://en.wikipedia.org/wiki/Fort_Aguada,aguada.json,,,historic_landmark
+place:bb3c74051066cd4a059d9c64,Umaid Bhawan Palace,26.28083,73.04694,https://en.wikipedia.org/wiki/Umaid_Bhawan_Palace,https://en.wikipedia.org/wiki/Umaid_Bhawan_Palace,umaid.json,,,historic_landmark
+place:1412324ec6c0f9bad864f32e,Jaipur City Palace,,,"https://en.wikipedia.org/wiki/City_Palace,_Jaipur",,city_jaipur.json,,L_3735ebcbd03d2d7c,same_site_alias
+place:203f7723e7d62385a0d938f3,Laxmi Niwas Palace Hotel,,,https://en.wikipedia.org/wiki/Lalgarh_Palace,,lalgarh.json,place:58be14f9dd9c6d4219ddc42f,,historic_component

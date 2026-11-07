@@ -1,0 +1,37 @@
+{
+  "before_sites": 25,
+  "after_sites": 41,
+  "before_films": 60,
+  "after_films": 81,
+  "before_connections": 72,
+  "after_connections": 101,
+  "added_connections": 29,
+  "recovered_existing_connections": 25,
+  "newly_sourced_connections": 4,
+  "added_coordinates": 16,
+  "coordinate_places": [
+    "Vijay Vilas Palace",
+    "Afghan Church",
+    "Golden Temple",
+    "Devigarh Fort Palace",
+    "Thirumalai Nayak Palace",
+    "Ramnagar Fort Palace",
+    "Bandra Fort",
+    "Lalgarh Palace",
+    "Pari Mahal",
+    "Gloria Church",
+    "Bidar Fort",
+    "Hotel Fernhill Palace",
+    "Hadimba Temple",
+    "Martand Sun Temple",
+    "Fort Aguada",
+    "Umaid Bhawan Palace"
+  ],
+  "unresolved_historic_points": [
+    "Nahargarh Fort Stepwell",
+    "Mehrangarh Fort - Sheesh Mahal",
+    "Mehrangarh Fort - Jhanki Mahal Courtyard",
+    "Mehrangarh Fort - Jay (Victory) Pol",
+    "Laxmi Niwas Palace Hotel"
+  ]
+}

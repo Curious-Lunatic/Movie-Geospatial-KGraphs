@@ -3,6 +3,7 @@
 import argparse
 import collections
 import csv
+import html
 import json
 import math
 import re
@@ -45,7 +46,7 @@ def build(directory, poster_source=ROOT / 'Queries' / 'tmdb_details.jsonl'):
             index[nid] = len(nodes)
             nodes.append([nid, row[label_col], actual, row.get('release_year', ''),
                           row.get('coordinate_scope', '') or row.get('identity_scope', ''),
-                          posters.get(row.get('tmdb_id', ''), '') if kind == 'Film' else '', row.get('heritage_source', '')])
+                          posters.get(row.get('tmdb_id', ''), '') if kind == 'Film' else '', row.get('heritage_source', '') or (row.get('coordinate_source', '') if actual == 'Heritage' else '')])
     claims = read(directory, 'claims.csv')
     edges, edge_index = [], {}
     for c in claims:
@@ -54,7 +55,13 @@ def build(directory, poster_source=ROOT / 'Queries' / 'tmdb_details.jsonl'):
             edge_index[signature] = len(edges)
             edges.append([index[c['subject_id']], c['relation'], index[c['object_id']], 0,
                           c['source_file'] + ':' + c['source_row'], c['source_url'], c['evidence'][:400]])
-        edges[edge_index[signature]][3] += 1
+        edge = edges[edge_index[signature]]
+        edge[3] += 1
+        if c['relation'] in ('filming', 'narrative') and c['source_url'] and c['source_url'] != edge[5]:
+            if len(edge) == 7:
+                edge.append([])
+            if c['source_url'] not in edge[7]:
+                edge[7].append(c['source_url'])
     places = {p['place_id']: p for p in read(directory, 'places.csv')}
     geo = []
     for pid, p in places.items():
@@ -86,7 +93,9 @@ def build(directory, poster_source=ROOT / 'Queries' / 'tmdb_details.jsonl'):
     for pid, p in places.items():
         if p['heritage_parent_id']:
             edges.append([index[pid], 'part_of_heritage', index[p['heritage_parent_id']], 1,
-                          'whc001.csv (component metadata)', p['coordinate_source'], 'UNESCO component/property membership'])
+                          'heritage identity registry' if p.get('heritage_kind') else 'whc001.csv (component metadata)',
+                          p.get('heritage_source') or p['coordinate_source'],
+                          'Documented historic-site membership' if p.get('heritage_kind') else 'UNESCO component/property membership'])
     genres = collections.defaultdict(set)
     for e in edges:
         if e[1] == 'genre':
@@ -117,7 +126,21 @@ def build(directory, poster_source=ROOT / 'Queries' / 'tmdb_details.jsonl'):
     summary['linked_heritage_sites'] = len(heritage)
     summary['heritage_film_site_connections'] = sum(len(value['films']) for value in heritage.values())
     summary['heritage_films'] = len(set().union(*(value['films'] for value in heritage.values())))
-    payload = json.dumps(dict(nodes=nodes, edges=edges, summary={k: v for k, v in summary.items() if k != 'sources'},
+    details_path = ROOT / 'Queries' / 'heritage_expansion' / 'place_details.json'
+    details = json.loads(details_path.read_text()) if details_path.exists() else {}
+    # Reuse the attributed descriptions already supplied with the UNESCO dataset.
+    with (ROOT / 'Dataset' / 'whc001.csv').open(encoding='utf-8-sig', newline='') as stream:
+        for site in csv.DictReader(stream):
+            pid = 'heritage:' + site['ID']
+            if pid not in places:
+                continue
+            text = html.unescape(re.sub(r'<[^>]+>', ' ', site['Short Description EN']))
+            text = ' '.join(text.split())
+            if len(text) > 500:
+                text = text[:500].rsplit(' ', 1)[0] + '…'
+            if text:
+                details.setdefault(pid, dict(description=text, source_url=places[pid]['coordinate_source']))
+    payload = json.dumps(dict(placeDetails=details, nodes=nodes, edges=edges, summary={k: v for k, v in summary.items() if k != 'sources'},
                               romance=romance_rows[:30], heritage=heritage_rows, geo=geo), ensure_ascii=False, separators=(',', ':'))
     # Escaping '<' prevents source strings from ending the embedded script tag.
     payload = payload.replace('<', '\\u003c').replace('\u2028', '\\u2028').replace('\u2029', '\\u2029')
@@ -131,7 +154,7 @@ def build(directory, poster_source=ROOT / 'Queries' / 'tmdb_details.jsonl'):
                                 '<script type="text/plain" id="tajQueryText">' + query + '</script>')
     for name in ('india_regions.geojson', 'region_membership.json', 'boundary_sources.json'):
         shutil.copyfile(webmap / 'data' / name, directory / name)
-    scripts = '\n'.join((webmap / file).read_text() for file in ('vendor/leaflet.js', 'vendor/turf.min.js', 'spatial_tools.js', 'spatial_engine.js', 'place_panel.js', 'spatial_ui.js'))
+    scripts = '\n'.join((webmap / file).read_text() for file in ('vendor/leaflet.js', 'vendor/turf.min.js', 'spatial_tools.js', 'spatial_engine.js', 'place_context.js', 'place_panel.js', 'spatial_ui.js'))
     # Keep redistribution notices in the deployed bundle as well as the source tree.
     licenses = '\n\n'.join((webmap / 'vendor' / name).read_text()
                             for name in ('LEAFLET-LICENSE', 'TURF-LICENSE'))

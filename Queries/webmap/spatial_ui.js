@@ -20,9 +20,9 @@ function initSpatialExplorer({data,openFilm}){
  const mapsUrl=p=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.lat+','+p.lon);
  const scope=p=>p.heritage?'Heritage reference point':'City / region reference point';
  const point=p=>[p.lat,p.lon];
- const explore=initPlacePanel((p,r)=>{switchTool('nearby');choose(point(p),p.name);$('radiusKm').value=r;run(true);});
+ const explore=initPlacePanel((p,r)=>{switchTool('nearby');choose(point(p),p.name);$('radiusKm').value=r;run(true);},{describe:createPlaceContext(data),openFilm});
  const discover=(parent,p)=>{const b=el('button','Explore this place',parent);b.type='button';b.onclick=()=>explore(p);};
- $('discoverCenter').onclick=()=>{if(center)explore({name:centerName,lat:center[0],lon:center[1]});};
+ $('discoverCenter').onclick=()=>{if(center)explore(engine.places.find(p=>p.name===centerName&&p.lat===center[0]&&p.lon===center[1])||{name:centerName,lat:center[0],lon:center[1]});};
  function error(message){$('spatialError').hidden=!message;$('spatialError').textContent=message||'';}
  function controls(){return {center,radiusKm:Number($('radiusKm').value),relation:$('spatialRelation').value,genre:$('spatialGenre').value,yearFrom:Number($('yearFrom').value),yearTo:Number($('yearTo').value),heritageOnly:$('heritageOnly').checked};}
  function apply(o){for(const [id,key] of [['radiusKm','radiusKm'],['spatialRelation','relation'],['spatialGenre','genre'],['yearFrom','yearFrom'],['yearTo','yearTo']])$(id).value=o[key];$('heritageOnly').checked=!!o.heritageOnly;}

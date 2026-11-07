@@ -2,6 +2,8 @@ import csv,json
 from pathlib import Path
 root=Path(__file__).resolve().parents[2]
 work=root/'Queries/heritage_expansion'
+if (work/'round2_baseline.json').exists():
+ raise SystemExit('The initial review recipe would overwrite the expanded registry. Use the accepted sites.csv/reviewed_claims.json for normal builds; review_round2.py records the later additions.')
 sources={p.stem:json.loads(p.read_text()) for p in (work/'sources').glob('*.json')}
 places=list(csv.DictReader((root/'Dataset/integrated/places.csv').open()))
 films=list(csv.DictReader((root/'Dataset/integrated/films.csv').open()))

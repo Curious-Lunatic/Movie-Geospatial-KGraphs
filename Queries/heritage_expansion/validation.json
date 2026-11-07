@@ -1,7 +1,7 @@
 {
   "heritage_rdf_csv_match": true,
-  "matched_rows": 24,
-  "relevant_rdf_triples": 50418,
-  "graph_sha256": "3ee4918a176bd0f6245e274396cc72c4dd6a338a9d7b9977dfe1de3f140b5158",
+  "matched_rows": 39,
+  "relevant_rdf_triples": 50491,
+  "graph_sha256": "f039df3ef9879ccd8d785c60bad25d50565206e28cf72e36cd4f2dc32739efd5",
   "scope": "Heritage aggregate reconciliation on projected actual RDF triples"
 }

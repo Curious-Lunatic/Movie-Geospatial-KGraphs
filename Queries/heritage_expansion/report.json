@@ -1,21 +1,33 @@
 {
   "before_sites": 9,
-  "after_sites": 25,
+  "after_sites": 41,
   "before_connections": 25,
-  "after_connections": 72,
-  "added_connections": 47,
-  "films": 60,
-  "recovered_existing_connections": 39,
-  "newly_sourced_connections": 8,
-  "new_source_assertions": 13,
+  "after_connections": 101,
+  "added_connections": 76,
+  "films": 81,
+  "recovered_existing_connections": 64,
+  "newly_sourced_connections": 12,
+  "new_source_assertions": 21,
   "counting_rule": "Distinct film and parent-site pairs. Aliases and components do not inflate site counts.",
   "sites": [
+    {
+      "site": "Afghan Church",
+      "films": 1
+    },
     {
       "site": "Agra Fort",
       "films": 1
     },
     {
       "site": "Bagore-ki-Haveli",
+      "films": 1
+    },
+    {
+      "site": "Bandra Fort",
+      "films": 5
+    },
+    {
+      "site": "Bidar Fort",
       "films": 1
     },
     {
@@ -31,20 +43,48 @@
       "films": 1
     },
     {
+      "site": "City Palace, Jaipur",
+      "films": 2
+    },
+    {
+      "site": "Devigarh Fort Palace",
+      "films": 2
+    },
+    {
       "site": "Fatehpur Sikri",
       "films": 2
+    },
+    {
+      "site": "Fort Aguada",
+      "films": 1
+    },
+    {
+      "site": "Gloria Church",
+      "films": 1
     },
     {
       "site": "Golconda Fort",
       "films": 1
     },
     {
+      "site": "Golden Temple",
+      "films": 3
+    },
+    {
       "site": "Gwalior Fort",
+      "films": 1
+    },
+    {
+      "site": "Hadimba Temple",
       "films": 1
     },
     {
       "site": "Hill Forts of Rajasthan",
       "films": 6
+    },
+    {
+      "site": "Hotel Fernhill Palace",
+      "films": 2
     },
     {
       "site": "Humayun's Tomb, Delhi",
@@ -59,8 +99,16 @@
       "films": 1
     },
     {
+      "site": "Lalgarh Palace",
+      "films": 2
+    },
+    {
       "site": "Madh Fort",
       "films": 11
+    },
+    {
+      "site": "Martand Sun Temple",
+      "films": 1
     },
     {
       "site": "Mehrangarh Fort",
@@ -79,6 +127,10 @@
       "films": 3
     },
     {
+      "site": "Pari Mahal",
+      "films": 1
+    },
+    {
       "site": "Pataudi Palace",
       "films": 9
     },
@@ -95,6 +147,10 @@
       "films": 3
     },
     {
+      "site": "Ramnagar Fort Palace",
+      "films": 4
+    },
+    {
       "site": "Red Fort Complex",
       "films": 2
     },
@@ -103,8 +159,16 @@
       "films": 1
     },
     {
+      "site": "Thirumalai Nayak Palace",
+      "films": 1
+    },
+    {
       "site": "Tughlaqabad Fort",
       "films": 2
+    },
+    {
+      "site": "Umaid Bhawan Palace",
+      "films": 1
     },
     {
       "site": "Vijay Vilas Palace",

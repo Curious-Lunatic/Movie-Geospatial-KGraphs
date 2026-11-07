@@ -141,5 +141,93 @@
     "verify_text": "Hum Dil De Chuke Sanam",
     "evidence": "The palace article identifies scenes from this film as shot at Prag Mahal.",
     "retrieved_at": "2026-11-05T09:16:13.374411+00:00"
+  },
+  {
+    "film_id": "film:2a03e034285b7cbfde1676c8",
+    "title": "Dil Chahta Hai",
+    "wikidata_id": "Q370313",
+    "place_id": "place:dbd193e4e7ff7705be0dab2d",
+    "source_url": "https://www.incredibleindia.gov.in/en/maharashtra/mumbai/bandra-fort",
+    "source_snapshot": "bandra_official.json",
+    "verify_text": "Dil Chahta Hai",
+    "evidence": "Official tourism page lists the film as filmed at Bandra Fort.",
+    "retrieved_at": "2026-11-07T07:36:11.568846+00:00"
+  },
+  {
+    "film_id": "film:7888e7347c4cab8053a9342d",
+    "title": "Wanted (2009 film)",
+    "wikidata_id": "Q2622347",
+    "place_id": "place:dbd193e4e7ff7705be0dab2d",
+    "source_url": "https://www.incredibleindia.gov.in/en/maharashtra/mumbai/bandra-fort",
+    "source_snapshot": "bandra_official.json",
+    "verify_text": "Wanted",
+    "evidence": "Official tourism page lists Wanted among films shot at Bandra Fort; joined to the 2009 film.",
+    "retrieved_at": "2026-11-07T07:36:11.568846+00:00"
+  },
+  {
+    "film_id": "film:e61818134a47a62210ed37b8",
+    "title": "Jaane Tu... Ya Jaane Na",
+    "wikidata_id": "Q1262452",
+    "place_id": "place:dbd193e4e7ff7705be0dab2d",
+    "source_url": "https://www.incredibleindia.gov.in/en/maharashtra/mumbai/bandra-fort",
+    "source_snapshot": "bandra_official.json",
+    "verify_text": "Jane Tu Ya Jane Na",
+    "evidence": "Official tourism page lists the film among Bandra Fort shoots.",
+    "retrieved_at": "2026-11-07T07:36:11.568846+00:00"
+  },
+  {
+    "film_id": "film:332a917bc7dc54062c1ac2a6",
+    "title": "Buddha Mil Gaya",
+    "wikidata_id": "Q10975672",
+    "place_id": "place:dbd193e4e7ff7705be0dab2d",
+    "source_url": "https://www.incredibleindia.gov.in/en/maharashtra/mumbai/bandra-fort",
+    "source_snapshot": "bandra_official.json",
+    "verify_text": "Buddha Mil Gaya",
+    "evidence": "Official tourism page lists the film among Bandra Fort shoots.",
+    "retrieved_at": "2026-11-07T07:36:11.568846+00:00"
+  },
+  {
+    "film_id": "film:d607a1327beb1df6e2367c40",
+    "title": "Banaras (2006 film)",
+    "wikidata_id": "Q944949",
+    "place_id": "place:83cfbb19717fd7575a5f55b4",
+    "source_url": "https://en.wikipedia.org/wiki/Ramnagar_Fort",
+    "source_snapshot": "ramnagar.json",
+    "verify_text": "The film titled Banaras is one of the popular movies shot here.",
+    "evidence": "Site article identifies Banaras as filmed at Ramnagar Fort.",
+    "retrieved_at": "2026-11-07T07:36:06.535836+00:00"
+  },
+  {
+    "film_id": "film:0bdec6009470fdf7f4fe9b45",
+    "title": "Eklavya: The Royal Guard",
+    "wikidata_id": "Q542698",
+    "place_id": "place:ba2c1038efda0c00a86af51e",
+    "source_url": "https://en.wikipedia.org/wiki/Devigarh",
+    "source_snapshot": "devigarh.json",
+    "verify_text": "was set and extensively shot at Devigarh.",
+    "evidence": "Site article describes Eklavya as extensively filmed at Devigarh.",
+    "retrieved_at": "2026-11-07T07:36:09.041878+00:00"
+  },
+  {
+    "film_id": "film:a8825cd3356050057cdfce65",
+    "title": "The Dirty Picture",
+    "wikidata_id": "Q3090065",
+    "place_id": "place:e6483db3f0132d7b632bd912",
+    "source_url": "https://en.wikipedia.org/wiki/Bidar_Fort",
+    "source_snapshot": "bidar.json",
+    "verify_text": "The Dirty Picture was shot in the Bidar Fort.",
+    "evidence": "Site article locates the Ishq Sufiyaana song sequence at Bidar Fort.",
+    "retrieved_at": "2026-11-07T07:36:11.229513+00:00"
+  },
+  {
+    "film_id": "film:92fd20a17c91ffe4bf9c75e8",
+    "title": "Lamhaa",
+    "wikidata_id": "Q3633996",
+    "place_id": "place:28c18e4fa72b6522da2a7a12",
+    "source_url": "https://en.wikipedia.org/wiki/Pari_Mahal",
+    "source_snapshot": "pari.json",
+    "verify_text": "including the Bollywood movie Lamhaa",
+    "evidence": "Site article identifies Lamhaa among productions filmed at Pari Mahal.",
+    "retrieved_at": "2026-11-07T07:36:09.323382+00:00"
   }
 ]
