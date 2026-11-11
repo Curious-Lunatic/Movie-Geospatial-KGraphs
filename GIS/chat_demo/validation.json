@@ -1,0 +1,14 @@
+{
+  "qgis_version": "4.0.0-Norrk\u00f6ping",
+  "input_file": "taj_mahal_heritage_analysis.geojson",
+  "layers": {
+    "search_area": 1,
+    "movie_locations": 1
+  },
+  "layer_crs": "EPSG:4326",
+  "relative_paths": true,
+  "reopened_with_valid_layers": true,
+  "all_geometries_valid": true,
+  "native_qgis_buffer_reexecuted": false,
+  "method": "Imported actual web chat export; split polygon and point roles for QGIS. Web radius uses spherical reference-point distances."
+}

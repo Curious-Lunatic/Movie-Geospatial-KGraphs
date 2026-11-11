@@ -14,7 +14,7 @@ def apply(graph):
     aliases = {}
     for site in sites:
         snapshot = directory / "sources" / site["source_snapshot"]
-        source = json.loads(snapshot.read_text())
+        source = json.loads(snapshot.read_text(encoding='utf-8'))
         if source["url"] != site["heritage_source"]:
             raise ValueError("Heritage identity source mismatch")
         if site["canonical_id"]:
@@ -48,7 +48,7 @@ def apply(graph):
     graph.inputs[filename] = dict(rows=len(records), sha256=hashlib.sha256(raw).hexdigest())
     for row, record in enumerate(records, 1):
         source_path = directory / "sources" / record["source_snapshot"]
-        source = json.loads(source_path.read_text())
+        source = json.loads(source_path.read_text(encoding='utf-8'))
         if record["verify_text"] not in source["text"] or record["source_url"] != source["url"]:
             raise ValueError("Filming evidence does not match the reviewed snapshot")
         film = graph.lookup("wikidata", record["wikidata_id"]) if record["wikidata_id"] else record["film_id"]

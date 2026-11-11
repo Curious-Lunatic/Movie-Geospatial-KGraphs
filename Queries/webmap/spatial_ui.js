@@ -258,6 +258,18 @@ function initSpatialExplorer({data,openFilm}){
  $('cancelSpatial').onclick=()=>invalidate('Calculation cancelled.');$('fitAnalysis').onclick=()=>{initializeMap();fitSelection();};
  $('resetMap').onclick=()=>{center=end=null;centerName=endName='';drawPoints=[];drawn=null;drawing=false;apply({radiusKm:10,relation:'filming',genre:'',yearFrom:years[0],yearTo:years[1]});$('placeSearch').value='';$('spatialQuery').value='';switchTool('nearby');map.setView([22.5,79],5);};
  $('moreSpatial').onclick=more;apply({radiusKm:10,relation:'filming',genre:'',yearFrom:years[0],yearTo:years[1]});for(const genre of engine.genres)option($('spatialGenre'),genre,genre);$('spatialControls').disabled=false;
+ initCinemaChat({data,engine,getRegions:loadRegions,openFilm,syncSpatial:async answer=>{
+  const p=answer.plan;
+  await switchTool(p.intent==='region'?'region':'nearby');
+  apply(p);
+  if(p.intent==='region'){
+   const r=await loadRegions(),f=r.byId.get(p.regionId);
+   $('stateRegion').value=p.stateId;populateDistricts();$('districtRegion').value=f.properties.level==='ADM2'?p.regionId:'';regionContext();
+  }else choose(p.center,p.placeText,true);
+  await run(true);
+  if(!last)throw Error('The map selection could not be completed. Check the map controls and try again.');
+  if(results.length!==answer.results.length)throw Error('The map filters changed during the question. Please ask again.');
+ }});
  if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){initializeMap();observer.disconnect();}},{rootMargin:'100px'});observer.observe($('cinemaMap'));}else initializeMap();
  return {engine,focusPlace(node){const p=engine.byNode.get(node);if(!p)return;switchTool('nearby');choose(point(p),p.name);$('spatial').scrollIntoView({behavior:'smooth'});run(true);}};
 }

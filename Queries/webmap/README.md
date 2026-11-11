@@ -1,5 +1,40 @@
 # Cinema atlas: spatial tools
 
+## Conversational interface
+
+The prominent chat above the atlas adds session-only history, context-preserving
+follow-ups and evidence-backed film questions. It shares the existing spatial
+engine, map, filters and exports. It needs no API key or language-model service.
+
+| Example | Operation |
+|---|---|
+| Movies within 5 km of Taj Mahal | Spherical radius selection |
+| Only heritage / within 10 km / only Romance / after 2010 | Refine the previous spatial question |
+| Romance movies in Rajasthan | Published state boundary overlay |
+| Movies in Agra district | District overlay with broad-reference exclusions |
+| Tell me about Fanaa 2006 | Film's recorded graph connections |
+| Where was Fanaa filmed? | Filming links, separate from story settings |
+| Songs / characters / heritage sites in Fanaa | Category-specific film connections |
+| Show songs, following a film question | Retain the film context |
+
+Unknown/ambiguous places, film remakes without a year, invalid filters and
+unsupported questions produce explanations. The parser does not answer arbitrary
+language or road-network questions; use existing Route/Travel time controls.
+No chat question calls the routing provider. Place/source strings are rendered
+as text, and the transcript is kept in memory until New conversation or reload.
+Use a local server for boundary fetches: `python Queries/serve_demo.py`.
+
+See `Docs/FINAL_DEMO.md`, `Docs/FINAL_PRESENTATION_HANDOFF.md` and
+`Dataset/chat_demo/` for the tested presentation sequence and results.
+
+```sh
+node --test Queries/webmap/chat_engine.test.cjs Queries/webmap/spatial_engine.test.cjs Queries/webmap/spatial_tools.test.cjs Queries/webmap/place_context.test.cjs Queries/place_tools/places.test.cjs
+```
+
+The nine chat tests cover interpretation, contextual filters, unsupported input,
+ambiguity, missing data, film remakes, evidence, region selection and real graph
+benchmarks. The complete command currently runs 32 tests.
+
 The atlas is part of the existing graph explorer. The statistics and movie graph remain above it. Six tools share the same movie filters, graph IDs, evidence and result renderer.
 
 | Tool | Calculation | Inputs |

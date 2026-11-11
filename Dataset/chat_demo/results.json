@@ -1,0 +1,353 @@
+{
+  "date": "2026-11-11",
+  "upstream": "1094d0a",
+  "summary": {
+    "year_range": [
+      1970,
+      2025
+    ],
+    "heritage_inscribed_by": 2025,
+    "films": 9509,
+    "songs": 10708,
+    "people": 33524,
+    "places": 8578,
+    "characters": 44416,
+    "genres": 19,
+    "events": 0,
+    "landscapes": 0,
+    "distinct_relationships": 211310,
+    "heritage_properties": 1248,
+    "historic_heritage_sites": 32,
+    "historic_heritage_components": 5,
+    "heritage_components": 5645,
+    "claims": 219014,
+    "location_claims": 15374,
+    "source_attributes": 281650,
+    "films_with_filming_locations": 1719,
+    "films_with_narrative_locations": 1608,
+    "geocoded_places": 7372,
+    "review_only_location_claims": 5365,
+    "issue_counts": {
+      "ambiguous_title_year": 24,
+      "identifier_conflict": 20,
+      "release_year_disagreement": 424,
+      "song_location_needs_review": 48,
+      "song_row_needs_review": 2659,
+      "standalone_song_needs_mapping": 27,
+      "unresolved_song_film": 335
+    },
+    "linked_heritage_sites": 41,
+    "heritage_film_site_connections": 101,
+    "heritage_films": 81
+  },
+  "checks": [
+    {
+      "question": "Movies within 5 km of Taj Mahal",
+      "summary": "14 distinct movies · 2 matching places",
+      "interpretation": "Within 5 km of Taj Mahal · filming · all genres · 1970–2025",
+      "sample": [
+        {
+          "film": "Jodhaa Akbar",
+          "places": [
+            {
+              "place": "Agra Fort",
+              "distance_km": 2.1406259164090535,
+              "source": "filmapia_film_locations.csv:76"
+            }
+          ]
+        },
+        {
+          "film": "Agra (2023 film)",
+          "places": [
+            {
+              "place": "Agra",
+              "distance_km": 2.2915871701100654,
+              "source": "enriched/location_assertions.csv:9832"
+            }
+          ]
+        },
+        {
+          "film": "Atrangi Re",
+          "places": [
+            {
+              "place": "Agra",
+              "distance_km": 2.2915871701100654,
+              "source": "enriched/location_assertions.csv:9432"
+            }
+          ]
+        }
+      ],
+      "items": []
+    },
+    {
+      "question": "Only heritage",
+      "summary": "1 distinct movie · 1 matching place",
+      "interpretation": "Within 5 km of Taj Mahal · filming · all genres · 1970–2025 · heritage locations only",
+      "sample": [
+        {
+          "film": "Jodhaa Akbar",
+          "places": [
+            {
+              "place": "Agra Fort",
+              "distance_km": 2.1406259164090535,
+              "source": "filmapia_film_locations.csv:76"
+            }
+          ]
+        }
+      ],
+      "items": []
+    },
+    {
+      "question": "Romance movies in Rajasthan",
+      "summary": "46 distinct movies · 16 matching places",
+      "interpretation": "Inside the Rajasthan boundary · filming · Romance · 1970–2025",
+      "sample": [
+        {
+          "film": "Ae Dil Hai Mushkil",
+          "places": [
+            {
+              "place": "Mandawa",
+              "distance_km": null,
+              "source": "enriched/location_assertions.csv:8391"
+            }
+          ]
+        },
+        {
+          "film": "Anamika (2008 film)",
+          "places": [
+            {
+              "place": "Bikaner",
+              "distance_km": null,
+              "source": "enriched/location_assertions.csv:16353"
+            },
+            {
+              "place": "Gajner Palace",
+              "distance_km": null,
+              "source": "enriched/location_assertions.csv:16365"
+            },
+            {
+              "place": "Rajasthan",
+              "distance_km": null,
+              "source": "enriched/location_assertions.csv:6819"
+            }
+          ]
+        },
+        {
+          "film": "Asoka (2001 film)",
+          "places": [
+            {
+              "place": "Jaipur",
+              "distance_km": null,
+              "source": "enriched/location_assertions.csv:6018"
+            },
+            {
+              "place": "Rajasthan",
+              "distance_km": null,
+              "source": "enriched/location_assertions.csv:6024"
+            }
+          ]
+        }
+      ],
+      "items": []
+    },
+    {
+      "question": "After 2010",
+      "summary": "20 distinct movies · 11 matching places",
+      "interpretation": "Inside the Rajasthan boundary · filming · Romance · 2011–2025",
+      "sample": [
+        {
+          "film": "Ae Dil Hai Mushkil",
+          "places": [
+            {
+              "place": "Mandawa",
+              "distance_km": null,
+              "source": "enriched/location_assertions.csv:8391"
+            }
+          ]
+        },
+        {
+          "film": "Badrinath Ki Dulhania",
+          "places": [
+            {
+              "place": "Rajasthan",
+              "distance_km": null,
+              "source": "enriched/location_assertions.csv:8639"
+            }
+          ]
+        },
+        {
+          "film": "Bajirao Mastani",
+          "places": [
+            {
+              "place": "Amber Fort",
+              "distance_km": null,
+              "source": "../Queries/heritage_expansion/reviewed_claims.json:12"
+            },
+            {
+              "place": "Jaipur",
+              "distance_km": null,
+              "source": "enriched/location_assertions.csv:8147"
+            },
+            {
+              "place": "Rajasthan",
+              "distance_km": null,
+              "source": "enriched/location_assertions.csv:8139"
+            }
+          ]
+        }
+      ],
+      "items": []
+    },
+    {
+      "question": "Movies in Agra district",
+      "summary": "15 distinct movies · 3 matching places",
+      "interpretation": "Inside the Agra boundary · filming · all genres · 1970–2025",
+      "sample": [
+        {
+          "film": "Agra (2023 film)",
+          "places": [
+            {
+              "place": "Agra",
+              "distance_km": null,
+              "source": "enriched/location_assertions.csv:9832"
+            }
+          ]
+        },
+        {
+          "film": "Atrangi Re",
+          "places": [
+            {
+              "place": "Agra",
+              "distance_km": null,
+              "source": "enriched/location_assertions.csv:9432"
+            }
+          ]
+        },
+        {
+          "film": "Bhoomi (2017 film)",
+          "places": [
+            {
+              "place": "Agra",
+              "distance_km": null,
+              "source": "enriched/location_assertions.csv:8652"
+            }
+          ]
+        }
+      ],
+      "items": []
+    },
+    {
+      "question": "Tell me about Fanaa 2006",
+      "summary": "Fanaa (2006 film) · 2006 · 59 recorded connections",
+      "counts": {
+        "Place": 14,
+        "Heritage": 2,
+        "Person": 16,
+        "Character": 15,
+        "Genre": 4,
+        "Song": 7
+      },
+      "sample": [],
+      "items": [
+        {
+          "name": "Delhi",
+          "type": "Place",
+          "relation": "filming"
+        },
+        {
+          "name": "Jammu and Kashmir",
+          "type": "Place",
+          "relation": "narrative"
+        },
+        {
+          "name": "Jammu and Kashmir",
+          "type": "Place",
+          "relation": "narrative"
+        },
+        {
+          "name": "Poland",
+          "type": "Place",
+          "relation": "filming"
+        },
+        {
+          "name": "Delhi",
+          "type": "Place",
+          "relation": "narrative"
+        },
+        {
+          "name": "Srinagar",
+          "type": "Place",
+          "relation": "filming"
+        }
+      ]
+    },
+    {
+      "question": "Songs in Fanaa",
+      "summary": "Fanaa (2006 film) · 2006 · 7 recorded songs",
+      "counts": {
+        "Song": 7
+      },
+      "sample": [],
+      "items": [
+        {
+          "name": "Chand Sifarish",
+          "type": "Song",
+          "relation": "in_film"
+        },
+        {
+          "name": "Mere Haath Mein\" ( poetry by Aamir Khan and Kajol )",
+          "type": "Song",
+          "relation": "in_film"
+        },
+        {
+          "name": "Des Rangila",
+          "type": "Song",
+          "relation": "in_film"
+        },
+        {
+          "name": "Dekho Na",
+          "type": "Song",
+          "relation": "in_film"
+        },
+        {
+          "name": "Chanda Chamke\" ( poetry by Aamir Khan and Kajol )",
+          "type": "Song",
+          "relation": "in_film"
+        },
+        {
+          "name": "Destroyed in Love",
+          "type": "Song",
+          "relation": "in_film"
+        }
+      ]
+    },
+    {
+      "question": "Heritage sites in Fanaa",
+      "summary": "Fanaa (2006 film) · 2006 · 2 recorded heritage",
+      "counts": {
+        "Heritage": 2
+      },
+      "sample": [],
+      "items": [
+        {
+          "name": "Qutb Minar and its Monuments, Delhi",
+          "type": "Heritage",
+          "relation": "filming"
+        },
+        {
+          "name": "Humayun's Tomb, Delhi",
+          "type": "Heritage",
+          "relation": "filming"
+        }
+      ]
+    },
+    {
+      "question": "Tell me about Jeans",
+      "error": "No matching film record for “Jeans” in this build. Try Fanaa (2006) or another exact title. Missing records do not establish that a film has no locations."
+    },
+    {
+      "question": "Tell me about Genie",
+      "error": "No matching film record for “Genie” in this build. Try Fanaa (2006) or another exact title. Missing records do not establish that a film has no locations."
+    }
+  ]
+}
