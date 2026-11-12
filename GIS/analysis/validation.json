@@ -1,0 +1,28 @@
+{
+  "qgis_version": "4.0.0-Norrköping",
+  "algorithms": [
+    "native:fixgeometries",
+    "native:countpointsinpolygon",
+    "native:reprojectlayer",
+    "qgis:heatmapkerneldensityestimation"
+  ],
+  "unique_filming_points": 152,
+  "distinct_film_place_links": 2225,
+  "song_place_references": 28,
+  "regions": 771,
+  "native_counts_reconciled": true,
+  "project_reopened": true,
+  "relative_paths": true,
+  "radius_metres": 100000,
+  "pixel_metres": 5000,
+  "kernel": "quartic",
+  "weights": "one per unique place",
+  "crs_proj": "+proj=aeqd +lat_0=22 +lon_0=79 +datum=WGS84 +units=m +no_defs",
+  "boundary_sha256": "28a2804b0adef554b05689ad632866764faff15ec032147507779af4ac4c365d",
+  "limitations": [
+    "Reference point density, not filming event counts.",
+    "City/region reference points can create artificial clusters.",
+    "Custom AEQD is metre based; distance distortion varies away from its centre.",
+    "Historic administrative boundaries retain source dates."
+  ]
+}

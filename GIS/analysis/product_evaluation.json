@@ -1,0 +1,98 @@
+{
+  "generated_at": "2026-11-12T16:24:58.673224+00:00",
+  "graph_sha256": "b8974cd007aaeb94f59fde3984f8a2239bc8018eedb0f4d583a61ff1799fd11b",
+  "checks": [
+    {
+      "check": "python_regressions",
+      "passed": true
+    },
+    {
+      "check": "javascript_regressions",
+      "passed": true
+    },
+    {
+      "check": "no_orphan_edges",
+      "passed": true,
+      "count": 0
+    },
+    {
+      "check": "Fanaa_six_relationship_categories",
+      "passed": true,
+      "categories": [
+        "Character",
+        "Film",
+        "Genre",
+        "Heritage",
+        "Person",
+        "Place",
+        "Song"
+      ]
+    },
+    {
+      "check": "song_specific_evidence",
+      "passed": true
+    },
+    {
+      "check": "initial_public_catalogue_budget",
+      "passed": true,
+      "bytes": 1190797,
+      "budget_bytes": 1500000,
+      "excludes_external_map_tiles": true
+    },
+    {
+      "check": "native_QGIS_counts_and_portable_project",
+      "passed": true
+    }
+  ],
+  "all_passed": true,
+  "nodes": {
+    "Character": 44416,
+    "Film": 9509,
+    "Genre": 19,
+    "Heritage": 6931,
+    "Person": 33524,
+    "Place": 1664,
+    "Song": 10742
+  },
+  "distinct_relationships": 217048,
+  "search_median_ms": 5.74,
+  "search_cold_ms": 6.22,
+  "song_location_links": 54,
+  "songs_with_location_evidence": 49,
+  "qgis": {
+    "qgis_version": "4.0.0-Norrköping",
+    "algorithms": [
+      "native:fixgeometries",
+      "native:countpointsinpolygon",
+      "native:reprojectlayer",
+      "qgis:heatmapkerneldensityestimation"
+    ],
+    "unique_filming_points": 152,
+    "distinct_film_place_links": 2225,
+    "song_place_references": 28,
+    "regions": 771,
+    "native_counts_reconciled": true,
+    "project_reopened": true,
+    "relative_paths": true,
+    "radius_metres": 100000,
+    "pixel_metres": 5000,
+    "kernel": "quartic",
+    "weights": "one per unique place",
+    "crs_proj": "+proj=aeqd +lat_0=22 +lon_0=79 +datum=WGS84 +units=m +no_defs",
+    "boundary_sha256": "28a2804b0adef554b05689ad632866764faff15ec032147507779af4ac4c365d",
+    "limitations": [
+      "Reference point density, not filming event counts.",
+      "City/region reference points can create artificial clusters.",
+      "Custom AEQD is metre based; distance distortion varies away from its centre.",
+      "Historic administrative boundaries retain source dates."
+    ]
+  },
+  "limitations": [
+    "Coordinates are reference points unless a reviewed scene source explicitly provides shooting coordinates.",
+    "A missing link means a coverage gap, not evidence of absence.",
+    "Published administrative boundaries may differ from current divisions.",
+    "Hindi-cinema project scope follows the team list; missing language metadata and multilingual productions are explicitly flagged.",
+    "Browser screenshots document exercised UI flows; unit tests do not prove every possible user interaction.",
+    "Search timings describe this machine and snapshot, not a universal performance guarantee."
+  ]
+}

@@ -7,6 +7,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs,urlsplit
 from local_place_details import lookup
+from atlas_api import handle_get,handle_post
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -14,6 +15,9 @@ ROOT = Path(__file__).resolve().parents[1]
 class DemoHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         url=urlsplit(self.path)
+        if handle_get(self,url.path,parse_qs(url.query)):return
+        if url.path=='/' and (ROOT/'Dataset/integrated/atlas.html').exists():
+            self.send_response(302);self.send_header('Location','/atlas.html');self.end_headers();return
         if url.path!='/api/places':
             return super().do_GET()
         try:
@@ -27,6 +31,8 @@ class DemoHandler(SimpleHTTPRequestHandler):
         self.send_header('Cache-Control','no-store')
         self.end_headers()
         self.wfile.write(raw)
+
+    def do_POST(self):handle_post(self)
 
 
 def main():
@@ -44,7 +50,7 @@ def main():
         server = ThreadingHTTPServer(('127.0.0.1', args.port), handler)
     except OSError as error:
         parser.error(f'Cannot open the local demo port: {error}. Try --port 8768.')
-    print(f'Cinema chat demo: http://127.0.0.1:{args.port}/graph_explorer.html#chat', flush=True)
+    print(f'Cinema atlas: http://127.0.0.1:{args.port}/atlas.html', flush=True)
     print('Local machine only. Press Ctrl+C to stop.', flush=True)
     try:
         server.serve_forever()

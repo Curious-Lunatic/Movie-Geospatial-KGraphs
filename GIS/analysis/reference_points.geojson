@@ -1,0 +1,2437 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.8519444444,
+          26.9847222222
+        ]
+      },
+      "properties": {
+        "place_id": "heritage-component:247rev-005",
+        "name": "Amber Fort",
+        "precision": "site_reference",
+        "film_count": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          70.9125,
+          26.9125
+        ]
+      },
+      "properties": {
+        "place_id": "heritage-component:247rev-006",
+        "name": "Jaisalmer Fort",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.6461111111,
+          24.8833333333
+        ]
+      },
+      "properties": {
+        "place_id": "heritage-component:247rev-001",
+        "name": "Chittorgarh Fort",
+        "precision": "site_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2408333333,
+          28.6555555556
+        ]
+      },
+      "properties": {
+        "place_id": "heritage:231",
+        "name": "Red Fort Complex",
+        "precision": "site_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8362027777,
+          18.9401222222
+        ]
+      },
+      "properties": {
+        "place_id": "heritage:945",
+        "name": "Chhatrapati Shivaji Terminus (formerly Victoria Terminus)",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9316666667,
+          11.5102777778
+        ]
+      },
+      "properties": {
+        "place_id": "heritage-component:944ter-002",
+        "name": "Nilgiri Mountain Railway",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.46,
+          26.68
+        ]
+      },
+      "properties": {
+        "place_id": "heritage-component:944ter-001",
+        "name": "Darjeeling Himalayan Railway",
+        "precision": "site_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.25056,
+          28.59333
+        ]
+      },
+      "properties": {
+        "place_id": "heritage:232",
+        "name": "Humayun's Tomb, Delhi",
+        "precision": "site_reference",
+        "film_count": 7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.18528,
+          28.52583
+        ]
+      },
+      "properties": {
+        "place_id": "heritage:233",
+        "name": "Qutb Minar and its Monuments, Delhi",
+        "precision": "site_reference",
+        "film_count": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.6665,
+          27.097528
+        ]
+      },
+      "properties": {
+        "place_id": "heritage:255",
+        "name": "Fatehpur Sikri",
+        "precision": "site_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.021528,
+          27.179806
+        ]
+      },
+      "properties": {
+        "place_id": "heritage:251",
+        "name": "Agra Fort",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8775,
+          19.075833333
+        ]
+      },
+      "properties": {
+        "place_id": "Q1156",
+        "name": "Mumbai",
+        "precision": "locality_reference",
+        "film_count": 540
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.866666666,
+          16.85
+        ]
+      },
+      "properties": {
+        "place_id": "Q1159",
+        "name": "Andhra Pradesh",
+        "precision": "region_reference",
+        "film_count": 7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.13,
+          25.37
+        ]
+      },
+      "properties": {
+        "place_id": "Q1165",
+        "name": "Bihar",
+        "precision": "region_reference",
+        "film_count": 15
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.043333333,
+          15.401944444
+        ]
+      },
+      "properties": {
+        "place_id": "Q1171",
+        "name": "Goa",
+        "precision": "region_reference",
+        "film_count": 66
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.172222222,
+          31.103333333
+        ]
+      },
+      "properties": {
+        "place_id": "Q1177",
+        "name": "Himachal Pradesh",
+        "precision": "region_reference",
+        "film_count": 74
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.0,
+          15.0
+        ]
+      },
+      "properties": {
+        "place_id": "Q1185",
+        "name": "Karnataka",
+        "precision": "region_reference",
+        "film_count": 7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.713888055,
+          19.75148
+        ]
+      },
+      "properties": {
+        "place_id": "Q1191",
+        "name": "Maharashtra",
+        "precision": "region_reference",
+        "film_count": 55
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.37,
+          22.5675
+        ]
+      },
+      "properties": {
+        "place_id": "Q1348",
+        "name": "Kolkata",
+        "precision": "locality_reference",
+        "film_count": 32
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.216666666,
+          28.666666666
+        ]
+      },
+      "properties": {
+        "place_id": "Q1353",
+        "name": "Delhi",
+        "precision": "locality_reference",
+        "film_count": 155
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.474722222,
+          17.361666666
+        ]
+      },
+      "properties": {
+        "place_id": "Q1361",
+        "name": "Hyderabad",
+        "precision": "locality_reference",
+        "film_count": 48
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.838888888,
+          26.572777777
+        ]
+      },
+      "properties": {
+        "place_id": "Q1437",
+        "name": "Rajasthan",
+        "precision": "region_reference",
+        "film_count": 120
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.91,
+          26.85
+        ]
+      },
+      "properties": {
+        "place_id": "Q1498",
+        "name": "Uttar Pradesh",
+        "precision": "region_reference",
+        "film_count": 67
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.953888888,
+          30.511111111
+        ]
+      },
+      "properties": {
+        "place_id": "Q1499",
+        "name": "Uttarakhand",
+        "precision": "region_reference",
+        "film_count": 46
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8253194,
+          19.0523641
+        ]
+      },
+      "properties": {
+        "place_id": "Q15252736",
+        "name": "Mehboob Studio",
+        "precision": "unknown_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.222,
+          28.728
+        ]
+      },
+      "properties": {
+        "place_id": "Q18394677",
+        "name": "Wazirabad",
+        "precision": "unknown_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.466666666,
+          30.766666666
+        ]
+      },
+      "properties": {
+        "place_id": "Q22424",
+        "name": "Punjab",
+        "precision": "region_reference",
+        "film_count": 45
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.17,
+          22.27
+        ]
+      },
+      "properties": {
+        "place_id": "Q2726074",
+        "name": "Rairangpur",
+        "precision": "locality_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8867,
+          19.1613
+        ]
+      },
+      "properties": {
+        "place_id": "Q3072027",
+        "name": "Film City",
+        "precision": "site_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.947,
+          26.847
+        ]
+      },
+      "properties": {
+        "place_id": "Q47916",
+        "name": "Lucknow",
+        "precision": "locality_reference",
+        "film_count": 61
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.0,
+          22.8
+        ]
+      },
+      "properties": {
+        "place_id": "Q668",
+        "name": "India",
+        "precision": "country_reference",
+        "film_count": 94
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.188205,
+          32.244964
+        ]
+      },
+      "properties": {
+        "place_id": "Q83443",
+        "name": "Manali",
+        "precision": "unknown_reference",
+        "film_count": 22
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.208888888,
+          28.613888888
+        ]
+      },
+      "properties": {
+        "place_id": "Q987",
+        "name": "New Delhi",
+        "precision": "locality_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.693888888,
+          11.408611111
+        ]
+      },
+      "properties": {
+        "place_id": "Q9888",
+        "name": "Ooty",
+        "precision": "locality_reference",
+        "film_count": 138
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.3,
+          10.0
+        ]
+      },
+      "properties": {
+        "place_id": "Q1186",
+        "name": "Kerala",
+        "precision": "region_reference",
+        "film_count": 16
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          71.838,
+          23.156444444
+        ]
+      },
+      "properties": {
+        "place_id": "Q1061",
+        "name": "Gujarat",
+        "precision": "region_reference",
+        "film_count": 36
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.86,
+          19.23
+        ]
+      },
+      "properties": {
+        "place_id": "Q4945504",
+        "name": "Borivali",
+        "precision": "unknown_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.83,
+          19.1
+        ]
+      },
+      "properties": {
+        "place_id": "Q674362",
+        "name": "Juhu",
+        "precision": "unknown_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.02,
+          27.18
+        ]
+      },
+      "properties": {
+        "place_id": "Q42941",
+        "name": "Agra",
+        "precision": "locality_reference",
+        "film_count": 13
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.0,
+          11.0
+        ]
+      },
+      "properties": {
+        "place_id": "Q1445",
+        "name": "Tamil Nadu",
+        "precision": "region_reference",
+        "film_count": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.78,
+          28.32
+        ]
+      },
+      "properties": {
+        "place_id": "Q1025646",
+        "name": "Pataudi",
+        "precision": "locality_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.0,
+          34.5
+        ]
+      },
+      "properties": {
+        "place_id": "Q43100",
+        "name": "Kashmir",
+        "precision": "region_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3,
+          12.716666666
+        ]
+      },
+      "properties": {
+        "place_id": "Q13371953",
+        "name": "Ramanagara",
+        "precision": "unknown_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5912997,
+          12.9791198
+        ]
+      },
+      "properties": {
+        "place_id": "Q1355",
+        "name": "Bengaluru",
+        "precision": "locality_reference",
+        "film_count": 10
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.275,
+          13.0825
+        ]
+      },
+      "properties": {
+        "place_id": "Q1352",
+        "name": "Chennai",
+        "precision": "locality_reference",
+        "film_count": 10
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.806111111,
+          34.091111111
+        ]
+      },
+      "properties": {
+        "place_id": "Q170115",
+        "name": "Srinagar",
+        "precision": "locality_reference",
+        "film_count": 21
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.579722222,
+          23.021944444
+        ]
+      },
+      "properties": {
+        "place_id": "Q1070",
+        "name": "Ahmedabad",
+        "precision": "locality_reference",
+        "film_count": 10
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          87.0,
+          23.0
+        ]
+      },
+      "properties": {
+        "place_id": "Q1356",
+        "name": "West Bengal",
+        "precision": "region_reference",
+        "film_count": 8
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.33,
+          21.83
+        ]
+      },
+      "properties": {
+        "place_id": "Q1648551",
+        "name": "Khandwa",
+        "precision": "locality_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.653055555,
+          12.308611111
+        ]
+      },
+      "properties": {
+        "place_id": "Q10086",
+        "name": "Mysore",
+        "precision": "locality_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.324722222,
+          29.184166666
+        ]
+      },
+      "properties": {
+        "place_id": "Q1174",
+        "name": "Haryana",
+        "precision": "region_reference",
+        "film_count": 12
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.407219444,
+          18.748061111
+        ]
+      },
+      "properties": {
+        "place_id": "Q1929511",
+        "name": "Lonavala",
+        "precision": "unknown_reference",
+        "film_count": 14
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.183333333,
+          22.8
+        ]
+      },
+      "properties": {
+        "place_id": "Q200054",
+        "name": "Jamshedpur",
+        "precision": "locality_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.0,
+          29.4
+        ]
+      },
+      "properties": {
+        "place_id": "Q1945425",
+        "name": "Pithoragarh district",
+        "precision": "region_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.2,
+          22.3
+        ]
+      },
+      "properties": {
+        "place_id": "Q11909",
+        "name": "Vadodara",
+        "precision": "locality_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.37212,
+          23.91783
+        ]
+      },
+      "properties": {
+        "place_id": "Q2572203",
+        "name": "Siddhpur",
+        "precision": "locality_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.84,
+          21.205
+        ]
+      },
+      "properties": {
+        "place_id": "Q4629",
+        "name": "Surat",
+        "precision": "locality_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.500122,
+          31.025721
+        ]
+      },
+      "properties": {
+        "place_id": "Q6809874",
+        "name": "Mehsampur",
+        "precision": "unknown_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.848611111,
+          30.908333333
+        ]
+      },
+      "properties": {
+        "place_id": "Q200123",
+        "name": "Ludhiana",
+        "precision": "locality_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.21438889,
+          10.52761111
+        ]
+      },
+      "properties": {
+        "place_id": "Q163798",
+        "name": "Thrissur",
+        "precision": "locality_reference",
+        "film_count": 15
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.33,
+          10.3
+        ]
+      },
+      "properties": {
+        "place_id": "Q861830",
+        "name": "Chalakudy",
+        "precision": "locality_reference",
+        "film_count": 15
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.8,
+          17.925
+        ]
+      },
+      "properties": {
+        "place_id": "Q463437",
+        "name": "Panchgani",
+        "precision": "locality_reference",
+        "film_count": 6
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.89,
+          17.95
+        ]
+      },
+      "properties": {
+        "place_id": "Q1748687",
+        "name": "Wai, Maharashtra",
+        "precision": "locality_reference",
+        "film_count": 15
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.794785,
+          19.132283
+        ]
+      },
+      "properties": {
+        "place_id": "L_1256bae649d228bf",
+        "name": "Madh Fort",
+        "precision": "site_reference",
+        "film_count": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          91.77,
+          26.14
+        ]
+      },
+      "properties": {
+        "place_id": "Q1164",
+        "name": "Assam",
+        "precision": "region_reference",
+        "film_count": 4
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.70472222,
+          10.79027778
+        ]
+      },
+      "properties": {
+        "place_id": "Q207754",
+        "name": "Tiruchirappalli",
+        "precision": "locality_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.85527778,
+          18.52111111
+        ]
+      },
+      "properties": {
+        "place_id": "Q1538",
+        "name": "Pune",
+        "precision": "locality_reference",
+        "film_count": 17
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.33,
+          9.49
+        ]
+      },
+      "properties": {
+        "place_id": "Q585026",
+        "name": "Alappuzha",
+        "precision": "unknown_reference",
+        "film_count": 6
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.94,
+          9.85
+        ]
+      },
+      "properties": {
+        "place_id": "Q301821",
+        "name": "Idukki",
+        "precision": "region_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.02083333,
+          9.57777778
+        ]
+      },
+      "properties": {
+        "place_id": "Q3530859",
+        "name": "Peermade",
+        "precision": "locality_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.7797,
+          30.7333
+        ]
+      },
+      "properties": {
+        "place_id": "Q43433",
+        "name": "Chandigarh",
+        "precision": "locality_reference",
+        "film_count": 16
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.58472222,
+          34.16416667
+        ]
+      },
+      "properties": {
+        "place_id": "Q200667",
+        "name": "Ladakh",
+        "precision": "region_reference",
+        "film_count": 20
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.37,
+          27.06
+        ]
+      },
+      "properties": {
+        "place_id": "Q1162",
+        "name": "Arunachal Pradesh",
+        "precision": "region_reference",
+        "film_count": 4
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.05972222,
+          10.08916667
+        ]
+      },
+      "properties": {
+        "place_id": "Q1025124",
+        "name": "Munnar",
+        "precision": "locality_reference",
+        "film_count": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.029,
+          28.456
+        ]
+      },
+      "properties": {
+        "place_id": "Q238508",
+        "name": "Gurgaon",
+        "precision": "locality_reference",
+        "film_count": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.82,
+          26.915
+        ]
+      },
+      "properties": {
+        "place_id": "Q66485",
+        "name": "Jaipur",
+        "precision": "locality_reference",
+        "film_count": 26
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.48,
+          10.23
+        ]
+      },
+      "properties": {
+        "place_id": "Q253851",
+        "name": "Kodaikanal",
+        "precision": "locality_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.029,
+          30.345
+        ]
+      },
+      "properties": {
+        "place_id": "Q199528",
+        "name": "Dehradun",
+        "precision": "locality_reference",
+        "film_count": 7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          91.89444444,
+          25.58222222
+        ]
+      },
+      "properties": {
+        "place_id": "Q207752",
+        "name": "Shillong",
+        "precision": "locality_reference",
+        "film_count": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.08,
+          30.45
+        ]
+      },
+      "properties": {
+        "place_id": "Q668395",
+        "name": "Mussoorie",
+        "precision": "locality_reference",
+        "film_count": 13
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.01277778,
+          25.31888889
+        ]
+      },
+      "properties": {
+        "place_id": "Q79980",
+        "name": "Varanasi",
+        "precision": "locality_reference",
+        "film_count": 46
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.93661111,
+          8.52411111
+        ]
+      },
+      "properties": {
+        "place_id": "Q167715",
+        "name": "Thiruvananthapuram",
+        "precision": "locality_reference",
+        "film_count": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.33,
+          23.35
+        ]
+      },
+      "properties": {
+        "place_id": "Q1184",
+        "name": "Jharkhand",
+        "precision": "region_reference",
+        "film_count": 12
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.82,
+          20.27
+        ]
+      },
+      "properties": {
+        "place_id": "Q22048",
+        "name": "Odisha",
+        "precision": "region_reference",
+        "film_count": 8
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.26305556,
+          27.0375
+        ]
+      },
+      "properties": {
+        "place_id": "Q169997",
+        "name": "Darjeeling",
+        "precision": "locality_reference",
+        "film_count": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.73,
+          19.08
+        ]
+      },
+      "properties": {
+        "place_id": "Q223517",
+        "name": "Ahmednagar",
+        "precision": "locality_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.78980556,
+          19.9975
+        ]
+      },
+      "properties": {
+        "place_id": "Q200235",
+        "name": "Nashik",
+        "precision": "locality_reference",
+        "film_count": 4
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.6575,
+          17.925
+        ]
+      },
+      "properties": {
+        "place_id": "Q463273",
+        "name": "Mahabaleshwar",
+        "precision": "locality_reference",
+        "film_count": 4
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.85,
+          18.17
+        ]
+      },
+      "properties": {
+        "place_id": "Q797462",
+        "name": "Bhor",
+        "precision": "locality_reference",
+        "film_count": 10
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.008,
+          10.659
+        ]
+      },
+      "properties": {
+        "place_id": "Q298780",
+        "name": "Pollachi",
+        "precision": "locality_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.15,
+          28.05
+        ]
+      },
+      "properties": {
+        "place_id": "Q1710558",
+        "name": "Mandawa",
+        "precision": "locality_reference",
+        "film_count": 11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.1198,
+          9.9252
+        ]
+      },
+      "properties": {
+        "place_id": "Q228405",
+        "name": "Madurai",
+        "precision": "locality_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.331874,
+          26.449923
+        ]
+      },
+      "properties": {
+        "place_id": "Q66568",
+        "name": "Kanpur",
+        "precision": "locality_reference",
+        "film_count": 10
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.26730556,
+          9.93119444
+        ]
+      },
+      "properties": {
+        "place_id": "Q1800",
+        "name": "Kochi",
+        "precision": "locality_reference",
+        "film_count": 7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.7732,
+          10.0735
+        ]
+      },
+      "properties": {
+        "place_id": "Q1023693",
+        "name": "Karaikudi",
+        "precision": "locality_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.29988889,
+          9.98161111
+        ]
+      },
+      "properties": {
+        "place_id": "Q1025408",
+        "name": "Ernakulam",
+        "precision": "unknown_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.61411111,
+          8.89319444
+        ]
+      },
+      "properties": {
+        "place_id": "Q321475",
+        "name": "Kollam",
+        "precision": "locality_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.8425,
+          12.8717
+        ]
+      },
+      "properties": {
+        "place_id": "Q127041",
+        "name": "Mangaluru",
+        "precision": "locality_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.32,
+          19.88
+        ]
+      },
+      "properties": {
+        "place_id": "Q200713",
+        "name": "Aurangabad",
+        "precision": "locality_reference",
+        "film_count": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          91.88,
+          25.57
+        ]
+      },
+      "properties": {
+        "place_id": "Q1195",
+        "name": "Meghalaya",
+        "precision": "region_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.88,
+          18.64
+        ]
+      },
+      "properties": {
+        "place_id": "Q385394",
+        "name": "Alibag",
+        "precision": "locality_reference",
+        "film_count": 4
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          82.255,
+          16.96611111
+        ]
+      },
+      "properties": {
+        "place_id": "Q59018",
+        "name": "Kakinada",
+        "precision": "locality_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.52219444,
+          9.59161111
+        ]
+      },
+      "properties": {
+        "place_id": "Q659887",
+        "name": "Kottayam",
+        "precision": "locality_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.583,
+          16.853
+        ]
+      },
+      "properties": {
+        "place_id": "Q429215",
+        "name": "Sangli",
+        "precision": "locality_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.23333333,
+          16.69166667
+        ]
+      },
+      "properties": {
+        "place_id": "Q209698",
+        "name": "Kolhapur",
+        "precision": "locality_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3,
+          16.99444444
+        ]
+      },
+      "properties": {
+        "place_id": "Q1922257",
+        "name": "Ratnagiri",
+        "precision": "locality_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.461416,
+          16.043769
+        ]
+      },
+      "properties": {
+        "place_id": "Q13413791",
+        "name": "Sindhudurg",
+        "precision": "unknown_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.29222222,
+          17.69388889
+        ]
+      },
+      "properties": {
+        "place_id": "Q200016",
+        "name": "Visakhapatnam",
+        "precision": "locality_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.68,
+          24.58
+        ]
+      },
+      "properties": {
+        "place_id": "L_1547a8e88aeb8204",
+        "name": "Udaipur",
+        "precision": "unknown_reference",
+        "film_count": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.02,
+          26.28
+        ]
+      },
+      "properties": {
+        "place_id": "L_c75b802cbbc5fadc",
+        "name": "Jodhpur",
+        "precision": "unknown_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          70.915,
+          26.913
+        ]
+      },
+      "properties": {
+        "place_id": "L_a63f3910fccb85f0",
+        "name": "Jaisalmer",
+        "precision": "unknown_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.31194,
+          28.01667
+        ]
+      },
+      "properties": {
+        "place_id": "L_029dbbb8885bf0cc",
+        "name": "Bikaner",
+        "precision": "unknown_reference",
+        "film_count": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0527,
+          27.9453
+        ]
+      },
+      "properties": {
+        "place_id": "L_8b8f50de2d6acf24",
+        "name": "Gajner Palace",
+        "precision": "unknown_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.8236,
+          26.9257
+        ]
+      },
+      "properties": {
+        "place_id": "L_3735ebcbd03d2d7c",
+        "name": "City Palace, Jaipur",
+        "precision": "site_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.6800357,
+          24.5796687
+        ]
+      },
+      "properties": {
+        "place_id": "L_838d584439a18424",
+        "name": "Bagore-ki-Haveli",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.8155,
+          26.8921
+        ]
+      },
+      "properties": {
+        "place_id": "L_863125eab312e9cf",
+        "name": "Birla Mandir, Jaipur",
+        "precision": "unknown_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.73,
+          27.2
+        ]
+      },
+      "properties": {
+        "place_id": "L_b24578b693b8de0a",
+        "name": "Nagaur",
+        "precision": "unknown_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.222,
+          28.728
+        ]
+      },
+      "properties": {
+        "place_id": "place:578eee240ac60453866259e3",
+        "name": "Wazirabad",
+        "precision": "unknown_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.0,
+          29.4
+        ]
+      },
+      "properties": {
+        "place_id": "place:c8f13c575bad805485371918",
+        "name": "Mahipalpur",
+        "precision": "unknown_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8775,
+          19.075833333
+        ]
+      },
+      "properties": {
+        "place_id": "place:20ed8929d3d89aaff253d28d",
+        "name": "Film City",
+        "precision": "unknown_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.713888055,
+          19.75148
+        ]
+      },
+      "properties": {
+        "place_id": "place:b6905376a9c221c557f70882",
+        "name": "Hollywood",
+        "precision": "unknown_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.0,
+          22.8
+        ]
+      },
+      "properties": {
+        "place_id": "place:69067283c5f94fc7fb2c2e03",
+        "name": "New York",
+        "precision": "unknown_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.188205,
+          32.244964
+        ]
+      },
+      "properties": {
+        "place_id": "place:94d01a4efb57d6795e6a5417",
+        "name": "Manali",
+        "precision": "unknown_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8867,
+          19.1613
+        ]
+      },
+      "properties": {
+        "place_id": "place:bc91390696ab4a4defb10bd1",
+        "name": "Mehboob Studio",
+        "precision": "unknown_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.2825773,
+          22.8340908
+        ]
+      },
+      "properties": {
+        "place_id": "place:a0f42cc32d7d3637346c95a7",
+        "name": "Vijay Vilas Palace",
+        "precision": "site_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.66833,
+          23.25479
+        ]
+      },
+      "properties": {
+        "place_id": "place:4a3a11d21ccf2b7057e69665",
+        "name": "Prag Mahal",
+        "precision": "site_reference",
+        "film_count": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.73639,
+          15.60611
+        ]
+      },
+      "properties": {
+        "place_id": "place:60ba03a9bebc7d3f8f241bb2",
+        "name": "Chapora Fort",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.01889,
+          26.29806
+        ]
+      },
+      "properties": {
+        "place_id": "place:fe1b26c658de520c359df60a",
+        "name": "Mehrangarh Fort",
+        "precision": "site_reference",
+        "film_count": 4
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.26083,
+          28.51194
+        ]
+      },
+      "properties": {
+        "place_id": "place:a321d9c4460937ce539d7c06",
+        "name": "Tughlaqabad Fort",
+        "precision": "site_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.783,
+          28.322
+        ]
+      },
+      "properties": {
+        "place_id": "place:18d63e763dbfd718c178bdb5",
+        "name": "Pataudi Palace",
+        "precision": "site_reference",
+        "film_count": 9
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.815076,
+          18.903648
+        ]
+      },
+      "properties": {
+        "place_id": "place:4b7c2cbdc0f88e901a3bbbd1",
+        "name": "Afghan Church",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.6065,
+          27.0073
+        ]
+      },
+      "properties": {
+        "place_id": "place:3cf8f053248206e0a0128542",
+        "name": "Chand Baori",
+        "precision": "site_reference",
+        "film_count": 4
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.87639,
+          31.62
+        ]
+      },
+      "properties": {
+        "place_id": "place:a658bdb0dceb5d0eadb26f49",
+        "name": "Golden Temple",
+        "precision": "site_reference",
+        "film_count": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.7493,
+          24.7725
+        ]
+      },
+      "properties": {
+        "place_id": "place:ba2c1038efda0c00a86af51e",
+        "name": "Devigarh Fort Palace",
+        "precision": "site_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.1243,
+          9.9148
+        ]
+      },
+      "properties": {
+        "place_id": "place:046f7706f6e4d302737515ee",
+        "name": "Thirumalai Nayak Palace",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.165,
+          32.112
+        ]
+      },
+      "properties": {
+        "place_id": "place:e334f56355f00808f8242bd7",
+        "name": "Naggar Castle",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.03,
+          25.28
+        ]
+      },
+      "properties": {
+        "place_id": "place:83cfbb19717fd7575a5f55b4",
+        "name": "Ramnagar Fort Palace",
+        "precision": "site_reference",
+        "film_count": 4
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.81858,
+          19.04177
+        ]
+      },
+      "properties": {
+        "place_id": "place:dbd193e4e7ff7705be0dab2d",
+        "name": "Bandra Fort",
+        "precision": "site_reference",
+        "film_count": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.85056,
+          26.796582
+        ]
+      },
+      "properties": {
+        "place_id": "place:e4b7e42555621527cb91686c",
+        "name": "Roopangarh Palace",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.40111,
+          17.38306
+        ]
+      },
+      "properties": {
+        "place_id": "place:48f5559f027304744c569f77",
+        "name": "Golconda Fort",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3316,
+          28.041
+        ]
+      },
+      "properties": {
+        "place_id": "place:58be14f9dd9c6d4219ddc42f",
+        "name": "Lalgarh Palace",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.87714,
+          34.08098
+        ]
+      },
+      "properties": {
+        "place_id": "place:28c18e4fa72b6522da2a7a12",
+        "name": "Pari Mahal",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.834167,
+          18.975
+        ]
+      },
+      "properties": {
+        "place_id": "place:a8e4f341e60588e336d74c2d",
+        "name": "Gloria Church",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.52667,
+          17.92444
+        ]
+      },
+      "properties": {
+        "place_id": "place:e6483db3f0132d7b632bd912",
+        "name": "Bidar Fort",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.6835775,
+          11.3970473
+        ]
+      },
+      "properties": {
+        "place_id": "place:54c492587e47c04d6886d366",
+        "name": "Hotel Fernhill Palace",
+        "precision": "site_reference",
+        "film_count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.187366,
+          32.24228
+        ]
+      },
+      "properties": {
+        "place_id": "place:47356d42942ae10bef20e263",
+        "name": "Hadimba Temple",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.22028,
+          33.74556
+        ]
+      },
+      "properties": {
+        "place_id": "place:0989f643f2325061a34e807c",
+        "name": "Martand Sun Temple",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.8507,
+          26.9859
+        ]
+      },
+      "properties": {
+        "place_id": "place:9f54387320a5b4ef4c6876e2",
+        "name": "Jaigarh Fort",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.32,
+          28.02
+        ]
+      },
+      "properties": {
+        "place_id": "place:48a24b1c5d11a7fa4a510984",
+        "name": "Junagarh Fort",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.1689,
+          26.2303
+        ]
+      },
+      "properties": {
+        "place_id": "place:1f7c7f7dde3ceb917433c9cb",
+        "name": "Gwalior Fort",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.04694,
+          26.28083
+        ]
+      },
+      "properties": {
+        "place_id": "place:bb3c74051066cd4a059d9c64",
+        "name": "Umaid Bhawan Palace",
+        "precision": "site_reference",
+        "film_count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.81549,
+          26.937255
+        ]
+      },
+      "properties": {
+        "place_id": "heritage-landmark:nahargarh",
+        "name": "Nahargarh Fort",
+        "precision": "site_reference",
+        "film_count": 2
+      }
+    }
+  ]
+}

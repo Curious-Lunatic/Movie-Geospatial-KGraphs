@@ -1,0 +1,397 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.9316666667,
+          11.5102777778
+        ]
+      },
+      "properties": {
+        "song_id": "song:477bcff388c5986c9be8e72e",
+        "place_id": "heritage-component:944ter-002"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8775,
+          19.075833333
+        ]
+      },
+      "properties": {
+        "song_id": "song:17348ede955dc91468070a91",
+        "place_id": "Q1156"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8775,
+          19.075833333
+        ]
+      },
+      "properties": {
+        "song_id": "song:e53432b9091e87344efffcfc",
+        "place_id": "Q1156"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8775,
+          19.075833333
+        ]
+      },
+      "properties": {
+        "song_id": "song:ac77078928a18f45416ca119",
+        "place_id": "Q1156"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8775,
+          19.075833333
+        ]
+      },
+      "properties": {
+        "song_id": "song:faef300f419b2ff5c1770990",
+        "place_id": "Q1156"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8775,
+          19.075833333
+        ]
+      },
+      "properties": {
+        "song_id": "song:05abc2587132dfc6d1dea6c6",
+        "place_id": "Q1156"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.13,
+          25.37
+        ]
+      },
+      "properties": {
+        "song_id": "song:c6148a5554a10885a01ed195",
+        "place_id": "Q1165"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.474722222,
+          17.361666666
+        ]
+      },
+      "properties": {
+        "song_id": "song:682db99be9c59eda39fa90cc",
+        "place_id": "Q1361"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8867,
+          19.1613
+        ]
+      },
+      "properties": {
+        "song_id": "song:2f9a1c41a4fc21a5ae9f6ec3",
+        "place_id": "Q3072027"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8867,
+          19.1613
+        ]
+      },
+      "properties": {
+        "song_id": "song:2ffbdd05716c37eaa835aed6",
+        "place_id": "Q3072027"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8867,
+          19.1613
+        ]
+      },
+      "properties": {
+        "song_id": "song:d882c21b0306722c39fefe2f",
+        "place_id": "Q3072027"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8867,
+          19.1613
+        ]
+      },
+      "properties": {
+        "song_id": "song:dbc2a0af0c0a15e8356f74f3",
+        "place_id": "Q3072027"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.3,
+          10.0
+        ]
+      },
+      "properties": {
+        "song_id": "song:aa742fce03d5378400042997",
+        "place_id": "Q1186"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          71.838,
+          23.156444444
+        ]
+      },
+      "properties": {
+        "song_id": "song:3b4fea6acff7c380f0e85c15",
+        "place_id": "Q1061"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.0,
+          34.5
+        ]
+      },
+      "properties": {
+        "song_id": "song:56d20e965f4f49dd03eb97c9",
+        "place_id": "Q43100"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.806111111,
+          34.091111111
+        ]
+      },
+      "properties": {
+        "song_id": "song:343f2ac770c61d3b954552de",
+        "place_id": "Q170115"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.8,
+          17.925
+        ]
+      },
+      "properties": {
+        "song_id": "song:653562014273a5780752826d",
+        "place_id": "Q463437"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.029,
+          28.456
+        ]
+      },
+      "properties": {
+        "song_id": "song:e8adb0e560d727029e70a47b",
+        "place_id": "Q238508"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.6575,
+          17.925
+        ]
+      },
+      "properties": {
+        "song_id": "song:bf28c9abe68c9e765e45ef70",
+        "place_id": "Q463273"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.52667,
+          17.92444
+        ]
+      },
+      "properties": {
+        "song_id": "song:e588593a95604ea5acc5f06a",
+        "place_id": "place:e6483db3f0132d7b632bd912"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.22028,
+          33.74556
+        ]
+      },
+      "properties": {
+        "song_id": "song:d0f91525915c3b30cb7fee70",
+        "place_id": "place:0989f643f2325061a34e807c"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.801,
+          23.132
+        ]
+      },
+      "properties": {
+        "song_id": "song:783d7be7068a929a24d3a019",
+        "place_id": "Q158455"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.8968,
+          33.71794167
+        ]
+      },
+      "properties": {
+        "song_id": "song:a1f1c1d018294298acb9ff1f",
+        "place_id": "Q1032254"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.46222222,
+          15.33444444
+        ]
+      },
+      "properties": {
+        "song_id": "song:3fe68b7cf2b43b2f54eb5e83",
+        "place_id": "Q26732"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.02,
+          26.28
+        ]
+      },
+      "properties": {
+        "song_id": "song:ab7e06e0f720058c13f90b30",
+        "place_id": "Q200019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.80722222,
+          15.48305556
+        ]
+      },
+      "properties": {
+        "song_id": "song:5abb6e82f89c9669c8929c09",
+        "place_id": "Q6872686"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.22930556,
+          28.61286389
+        ]
+      },
+      "properties": {
+        "song_id": "song:1d2fc812e33e9b778089f4e4",
+        "place_id": "Q245347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          81.7784,
+          17.00911556
+        ]
+      },
+      "properties": {
+        "song_id": "song:b020b8ef4b7735bdace36fb8",
+        "place_id": "Q1639492"
+      }
+    }
+  ]
+}

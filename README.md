@@ -1,5 +1,21 @@
 # Good Will Mapping: dataset integration
 
+The new lightweight **Places & Stories** atlas adds indexed search, a local
+review desk, map clustering and filters, multi-stop journeys, graph paths,
+release-year maps and executed regional QGIS analysis. Film scope remains
+Bollywood/Hindi cinema, with filming references worldwide.
+Read [the atlas guide](Docs/ATLAS_GUIDE.md) and
+[the requested-upgrade audit](Docs/UPGRADE_STATUS.md).
+After the normal integration/explorer build, run:
+
+```sh
+python Queries/build_atlas_product.py
+python Queries/serve_demo.py --port 8769
+```
+
+Open `http://127.0.0.1:8769/atlas.html`. Review candidates remain separate from
+the accepted graph until their source is checked and an approved rebuild runs.
+
 The latest reviewed scrape adds 52 source-supported song-location links. The
 current graph has **54 links across 49 songs**. See
 [the 437-row review and evidence limits](Docs/SONG_CANDIDATE_REVIEW.md).
