@@ -1,0 +1,304 @@
+{
+  "year_range": [
+    1970,
+    2025
+  ],
+  "heritage_inscribed_by": 2025,
+  "films": 9509,
+  "songs": 10709,
+  "people": 33524,
+  "places": 8579,
+  "songs_with_filming_locations": 2,
+  "song_filming_claims": 2,
+  "characters": 44416,
+  "genres": 19,
+  "events": 0,
+  "landscapes": 0,
+  "distinct_relationships": 211313,
+  "heritage_properties": 1248,
+  "historic_heritage_sites": 33,
+  "historic_heritage_components": 5,
+  "heritage_components": 5645,
+  "claims": 219017,
+  "location_claims": 15374,
+  "source_attributes": 281650,
+  "films_with_filming_locations": 1719,
+  "films_with_narrative_locations": 1608,
+  "geocoded_places": 7373,
+  "review_only_location_claims": 5365,
+  "issue_counts": {
+    "ambiguous_title_year": 24,
+    "identifier_conflict": 20,
+    "release_year_disagreement": 424,
+    "song_location_needs_review": 48,
+    "song_row_needs_review": 2659,
+    "standalone_song_needs_mapping": 27,
+    "unresolved_song_film": 335
+  },
+  "sources": {
+    "enriched/films_enriched.csv": {
+      "rows": 6069,
+      "sha256": "4f72ae8aaed7a8e13c870883073086959cfa05f0ed27db3f8b9f6ecb9a4eebf5"
+    },
+    "tmdb_movies.csv": {
+      "rows": 9611,
+      "sha256": "970cdbe630c7a06217dd3ac96d964c5f8181889a0f3b01274b2ce42032bbe14d"
+    },
+    "wikidata_movies.csv": {
+      "rows": 3171,
+      "sha256": "7888d75df9b94c5d4f71cb2afed12a4ae408d690542bfe01dd178c8af8ca952d"
+    },
+    "bf_2K-25.csv": {
+      "rows": 3216,
+      "sha256": "fed9358805d2b32eda2410787dba6f85c06c9c9c2e46dd1546ef367b95bce865"
+    },
+    "bollywood_films_1970_2000.csv": {
+      "rows": 2960,
+      "sha256": "f3143a73d74694f0e0a499154d9700b0cbb4b44605e4a837e8d7648a69a36a37"
+    },
+    "movies_with_locations.csv": {
+      "rows": 9611,
+      "sha256": "35d7b00b468a2c5f853b9131ceec92fb9388ca2b4c3e7d3ef2001223d799b844"
+    },
+    "filmapia_film_locations.csv": {
+      "rows": 240,
+      "sha256": "c8c55dedecc0711a539c6509933bc93d71c9144a032bc1d53b5c0570c3a51717"
+    },
+    "whc001.csv": {
+      "rows": 1273,
+      "sha256": "24d4d1c64b09e9615b32bd5fd3e7b59a9c278cac9fe8aa7babbd7e5f1a2587b5"
+    },
+    "enriched/places.csv": {
+      "rows": 508,
+      "sha256": "0586bae46feb4830d6365a7c412446d4893af0ef5592b2c977d61d2c56755b93"
+    },
+    "../Queries/heritage_enrichment/site_aliases.csv": {
+      "rows": 6,
+      "sha256": "72d3ddb39642780468a0044a924e4310e20aeddc9afafde1891d8ef011d9a062"
+    },
+    "enriched/location_assertions.csv": {
+      "rows": 16380,
+      "sha256": "437339fc446c63c5b3482585d9f366bfc5c7c7952b535be4187ecd8161acdf43"
+    },
+    "wikidata_cache.json": {
+      "rows": 6244,
+      "sha256": "9aeba3a272c3694c8be1454b18ef4f95812b955c95ea46946ad3791a0c2ea61b"
+    },
+    "../Queries/heritage_expansion/sites.csv": {
+      "rows": 39,
+      "sha256": "36913609ffdcef4d443cbbc8bb3ebf7ff467b986ec4072ca8a787d9c6cd96472"
+    },
+    "../Queries/heritage_expansion/reviewed_claims.json": {
+      "rows": 21,
+      "sha256": "e6d828c375bee22949e541b0b7bc814bc4f17614d981cac1c10600d6bb90f7e5"
+    },
+    "../Queries/heritage_expansion/sources/afghan.json": {
+      "rows": 1,
+      "sha256": "f0b74dabe77e8f942fc10d9785fef8e0399eb01ef5133d167d69aae58c625c70"
+    },
+    "../Queries/heritage_expansion/sources/aguada.json": {
+      "rows": 1,
+      "sha256": "34925cd38a0d809b7f48ffb876556e5809009e06f0bd1b3b33996f9c7bae0269"
+    },
+    "../Queries/heritage_expansion/sources/bagore.json": {
+      "rows": 1,
+      "sha256": "7454ecbe9f05d63bc969ed867d889c7d2e512892a3c6581f5e2910ce8e41214f"
+    },
+    "../Queries/heritage_expansion/sources/bandra.json": {
+      "rows": 1,
+      "sha256": "62c6987b40afa16dc04a9b1c0daf861f8c6b57cd08d5c19ba08149c906a119b8"
+    },
+    "../Queries/heritage_expansion/sources/bandra_official.json": {
+      "rows": 1,
+      "sha256": "b4ba77f9a8c90cfbf164ee4dbb1686374bd32587895e5864203b5e8f89c4571b"
+    },
+    "../Queries/heritage_expansion/sources/bidar.json": {
+      "rows": 1,
+      "sha256": "4793a3a72878a2e5167d055705b558cb589004fd800d7d32c2227ccb2a5b68f8"
+    },
+    "../Queries/heritage_expansion/sources/chand.json": {
+      "rows": 1,
+      "sha256": "ab125b8785b7777bc4785ca9c506123ce570d344fd75fa05e46d521724c685a0"
+    },
+    "../Queries/heritage_expansion/sources/chapora.json": {
+      "rows": 1,
+      "sha256": "8a1783610d03893606dd4e40ff1c0ed245abb6fb4f2b7c8a205301ec1c7c371b"
+    },
+    "../Queries/heritage_expansion/sources/chapora_coordinates.json": {
+      "rows": 1,
+      "sha256": "15ed462830fde93a38affcabc9a943f531ae1bcea85afc4bedecdaf7a29aaf9d"
+    },
+    "../Queries/heritage_expansion/sources/city_jaipur.json": {
+      "rows": 1,
+      "sha256": "ccbd264f7e618c302b9fe056d47d98eb517e066c1e0bc6bbe43efaadf746145f"
+    },
+    "../Queries/heritage_expansion/sources/devigarh.json": {
+      "rows": 1,
+      "sha256": "c916af3ca52abbe64d06adeb9b9948110b7d27596e1c31de70802747a4ac9b06"
+    },
+    "../Queries/heritage_expansion/sources/fernhill.json": {
+      "rows": 1,
+      "sha256": "5a86957d370e74aa8bd4c29a9e142e1b7c7e8a80dc5280395eccf8932aadf880"
+    },
+    "../Queries/heritage_expansion/sources/gloria.json": {
+      "rows": 1,
+      "sha256": "336b8440f6292da06c9bb4335eaf1218ef65eee61987272eaa015acf7444ce2d"
+    },
+    "../Queries/heritage_expansion/sources/golconda.json": {
+      "rows": 1,
+      "sha256": "ec36ff7909f6dccb13da778635f61f4fc8631c836f42937615a21bf1573a794d"
+    },
+    "../Queries/heritage_expansion/sources/golden.json": {
+      "rows": 1,
+      "sha256": "9b57087a1553d72b1978aa2bccf564d2e5cf63e4a93f7b075a0c1a88dcb875eb"
+    },
+    "../Queries/heritage_expansion/sources/gwalior.json": {
+      "rows": 1,
+      "sha256": "f10fb204d57bd7420f44a6084f75706ea8fec18f744008ea8968e9528393a738"
+    },
+    "../Queries/heritage_expansion/sources/hadimba.json": {
+      "rows": 1,
+      "sha256": "dd67e4dd06a39dc0e75e189ff62909977e2cfe72dcce43ccd68ebb6681ff1f48"
+    },
+    "../Queries/heritage_expansion/sources/jaigarh.json": {
+      "rows": 1,
+      "sha256": "beb10482d52c6ed9224508920d8f3a402a970c0216b84cda2a49a59b919b1b99"
+    },
+    "../Queries/heritage_expansion/sources/junagarh.json": {
+      "rows": 1,
+      "sha256": "914dfa1c27e406c71722b7ec0125408d8df9611f48ecc8c058f00fd3262a8c5a"
+    },
+    "../Queries/heritage_expansion/sources/lalgarh.json": {
+      "rows": 1,
+      "sha256": "3bda02786dde53034fa9296c74309cdaaf2b9d8b41954b9de7c4d285b03f40b1"
+    },
+    "../Queries/heritage_expansion/sources/madh.json": {
+      "rows": 1,
+      "sha256": "b8642938bfa6c02980caac418907f8940914c773e1791e7ef3e74e95b0b1b0d6"
+    },
+    "../Queries/heritage_expansion/sources/martand.json": {
+      "rows": 1,
+      "sha256": "015752af407b21872ee809a7d49ae7793f6c675cacbe110b6a65a86ff3913e59"
+    },
+    "../Queries/heritage_expansion/sources/mehrangarh.json": {
+      "rows": 1,
+      "sha256": "40633d1177749f915cf9bc2955582403c10f2e7538a030c5ddf7561bc7cdb907"
+    },
+    "../Queries/heritage_expansion/sources/naggar.json": {
+      "rows": 1,
+      "sha256": "1a12bb9bebf67cf18ecbb6931dbe6269d8c6f232e173e77d1a5981ea45b8aaf8"
+    },
+    "../Queries/heritage_expansion/sources/nahargarh.json": {
+      "rows": 1,
+      "sha256": "e42a95443c60d87bf76a62dc1a3d9ca2c58122348ff0bb24f238836e22614be4"
+    },
+    "../Queries/heritage_expansion/sources/pari.json": {
+      "rows": 1,
+      "sha256": "f20b7c09d745e0e9226687b6b9d4a74abe131fc680aa5c92f13934a978e92e8b"
+    },
+    "../Queries/heritage_expansion/sources/pataudi.json": {
+      "rows": 1,
+      "sha256": "250af0095d695c3aec91ec528acd33a0063b9473ff1d34498afac7b22a78b402"
+    },
+    "../Queries/heritage_expansion/sources/pataudi_official.json": {
+      "rows": 1,
+      "sha256": "f645c8d11acbe6ad804c0105b984bd2cb5a0179a5768fd7ebe143adbc5f015e5"
+    },
+    "../Queries/heritage_expansion/sources/prag.json": {
+      "rows": 1,
+      "sha256": "eff1cd86591db1a799b34ec7f33adf6e7859988fc95c8ad1d57b90531ccd8dce"
+    },
+    "../Queries/heritage_expansion/sources/rajasthan_films.json": {
+      "rows": 1,
+      "sha256": "816114f49a7fa72f45e5df058aff1867af5382dc4401f8427a90f7f0ca46483b"
+    },
+    "../Queries/heritage_expansion/sources/ramnagar.json": {
+      "rows": 1,
+      "sha256": "08603d94aa7d467be0c55c32e2cf9433192c88a6a517b1100d61243ed1b8d515"
+    },
+    "../Queries/heritage_expansion/sources/roopangarh.json": {
+      "rows": 1,
+      "sha256": "5784317b2e3e9df48dd4c814f994f14cfb746c2e518a162ecc5185e970a05020"
+    },
+    "../Queries/heritage_expansion/sources/thirumalai.json": {
+      "rows": 1,
+      "sha256": "a676c0e94fa0ffcee96f202da1fa4087d51606f1f03f20772692173b770bb6be"
+    },
+    "../Queries/heritage_expansion/sources/tughlaqabad.json": {
+      "rows": 1,
+      "sha256": "8c9800057503f07f95dce9318924d8f8826038461bb219231c2ec4df6ee800e8"
+    },
+    "../Queries/heritage_expansion/sources/umaid.json": {
+      "rows": 1,
+      "sha256": "d049d02d1cb9f5e28f3286df0450e1a06379d7e994ae066861ac6a7abac9c02b"
+    },
+    "../Queries/heritage_expansion/sources/vijay.json": {
+      "rows": 1,
+      "sha256": "d3b48f33e57fb9d23162ebd4c22dc1be80004af4e037fc30187e41cc0aadcdc6"
+    },
+    "../Queries/heritage_expansion/sources/vijay_district.json": {
+      "rows": 1,
+      "sha256": "fb9d2007dc4c14dd5ed875e694078b5d3e773e3c5d4820d04bf223e54e569745"
+    },
+    "../Queries/heritage_expansion/sources/vijay_official.json": {
+      "rows": 1,
+      "sha256": "f4f7f6b6b183e295a4f963efcba8262850eb03364be947b790747d54c00854e7"
+    },
+    "../Queries/heritage_expansion/sources/vijaya_coordinates.json": {
+      "rows": 1,
+      "sha256": "99b80d3282b037da47e94cf21e3e0e46fc3b3bd7637b6f87caf1005a2f4d0fee"
+    },
+    "../Queries/place_profiles/wikidata.json": {
+      "rows": 431,
+      "sha256": "7212ba8486e289a3ca7f6f072549e3b1b74a91b2ca114b04c934be1965672805"
+    },
+    "../Queries/place_profiles/reviewed.json": {
+      "rows": 3,
+      "sha256": "741ac66c819297379973230e224f154969315fadf9fd33e57dadf685cefea614"
+    },
+    "tmdb_cast.csv": {
+      "rows": 70142,
+      "sha256": "0c7adef36ee51c2a5ca82947504ec243bff6aa4e4ffa2a938c0a524662137956"
+    },
+    "tmdb_directors.csv": {
+      "rows": 9237,
+      "sha256": "7b3eb7d9ce4d893b8c6e1ca826b0c4170bc1913416c41a424d5b2a62d02a23df"
+    },
+    "songs_2000_2004.csv": {
+      "rows": 2775,
+      "sha256": "2e813644b03863d99e9a8862b84fba4985bb040f1df8adb5f5b650be097cd6af"
+    },
+    "songs_2005_2009.csv": {
+      "rows": 2727,
+      "sha256": "62072192da9659ab474a4b4c5a700f1b90ed0777d2983f2039d25aa240c5c27a"
+    },
+    "songs_2010_2014.csv": {
+      "rows": 3341,
+      "sha256": "577b6f862f93b0174b6b40a70748213a7710de334cfc662aeb9e3aeb7d6d0f6e"
+    },
+    "songs_2015_2019.csv": {
+      "rows": 3170,
+      "sha256": "2eac9460b7ea8591d6881c53773607422213b7b6db911c6c87ab302ca93fcec6"
+    },
+    "songs_2020_2025.csv": {
+      "rows": 1690,
+      "sha256": "b13f683ab325fe3d16e4bd60f6237c98172c0f6d8b04eb902f2fe8ea3a297c3d"
+    },
+    "bollywood_songs_1970_2026.csv": {
+      "rows": 28,
+      "sha256": "b23a16963d2edc95a8af8895569b1c93ba0de1fc6482308ce582b2d78c21817f"
+    },
+    "../Queries/song_locations/reviewed.json": {
+      "rows": 2,
+      "sha256": "953be99e8ada64ffd070445c1027a313c9ab35580fcc23e9600a757c6beead2a"
+    },
+    "../Queries/song_locations/../heritage_enrichment/snapshots/nilgiri_x_class.html": {
+      "rows": 1,
+      "sha256": "8f6848ad5fb8f43492d414944062f5c1c16d0fba1288986d7680092be1304652"
+    },
+    "../Queries/song_locations/iceland_source.json": {
+      "rows": 1,
+      "sha256": "46177631b000223fb6c3f4c57b1fa881ebfce807bd973bc94a3c078c070f5a79"
+    }
+  }
+}

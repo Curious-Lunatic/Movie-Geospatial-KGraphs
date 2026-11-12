@@ -1,5 +1,10 @@
 # Good Will Mapping: dataset integration
 
+The latest update adds named place identities and coordinate precision, custom
+nearby buffers up to 2,000 km, route corridors up to 250 km, explicit song-location
+evidence and review-only geotag proposals. See the
+[November 12 demo and coverage notes](Docs/ATLAS_IMPROVEMENTS_2026-11-12.md).
+
 ## Final demo: conversational geospatial exploration
 
 The November contribution adds an evidence-backed chat interface to the existing

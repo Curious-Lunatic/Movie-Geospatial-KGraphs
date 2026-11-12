@@ -2,25 +2,34 @@
 (function(root){
 'use strict';
 const Spatial=typeof module==='object'&&module.exports?require('./spatial_engine.js'):root.SpatialSearch;
-const normalize=s=>String(s).normalize('NFKD').replace(/\p{M}/gu,'').toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+const SongTools=typeof module==='object'&&module.exports?require('./song_geo.js'):root.SongGeo;
+const normalize=Spatial.normalize;
 const help='Try “Movies within 5 km of Taj Mahal”, “Romance movies in Rajasthan”, “Where was Fanaa filmed?” or “Songs in Fanaa”. Follow a spatial search with “within 10 km”, “only heritage”, “only Romance” or “between 2000 and 2020”. Road routes and travel-time questions use the map tools.';
 function defaults(years){return {radiusKm:10,relation:'filming',genre:'',yearFrom:years[0],yearTo:years[1],heritageOnly:false};}
 function genreName(text,genres){const g=genres.find(g=>normalize(g)===normalize(text));if(!g)throw Error('Unknown genre. Recorded genres: '+genres.join(', ')+'.');return g;}
 function validate(plan){
  if(plan.yearFrom>plan.yearTo)throw Error('The start year must not be later than the end year.');
- if(!Number.isFinite(plan.radiusKm)||plan.radiusKm<.1||plan.radiusKm>500)throw Error('Choose a radius between 0.1 and 500 km.');
+ if(!Number.isFinite(plan.radiusKm)||plan.radiusKm<.1||plan.radiusKm>Spatial.MAX_RADIUS_KM)throw Error('Choose a radius between 0.1 and '+Spatial.MAX_RADIUS_KM+' km.');
  return plan;
 }
 function parseQuestion(text,{previous=null,genres=[],years=[1970,2025]}={}){
  let q=String(text).trim().replace(/[?.!]+$/,'').trim();
  if(!q||q.length>500)throw Error('Enter a question between 1 and 500 characters.');
  if(/^(help|examples|what can (?:you|i) (?:do|ask))$/i.test(q))return {intent:'help'};
- const base=defaults(years),spatial=previous&&['nearby','region'].includes(previous.intent);
+ const base=defaults(years),spatial=previous&&['nearby','region','catalog'].includes(previous.intent);
  let m;
+ if(/^(?:which |what )?songs (?:were |are )?(?:filmed|shot|taken) where$/i.test(q)||/^song locations$/i.test(q))return {intent:'song_locations'};
+ if((m=q.match(/^song locations (?:in|of|for) (.+)$/i)))return {intent:'song_locations',filmText:m[1]};
+ if((m=q.match(/^(?:(?:which|what|show|find|list) )?songs (?:were |are )?(?:filmed|shot|taken) (?:in|at|on) (.+)$/i)))return {intent:'song_at',placeText:m[1]};
+ if((m=q.match(/^where (?:was|is) (?:the )?song (.+?) (?:filmed|shot|taken)$/i))){const parts=m[1].match(/^(.+?) from (.+)$/i);return {intent:'song_locations',songText:parts?parts[1]:m[1],filmText:parts?parts[2]:undefined};}
+ if((m=q.match(/^where (?:was|is) (.+?) song (?:filmed|shot|taken)$/i)))return {intent:'song_locations',songText:m[1]};
+ if(/^(?:(?:show|find|list|which) )?songs(?: filmed| shot)? (?:within|near|around) /i.test(q)){const p=Spatial.parseQuery(q.replace(/^which /i,'').replace(/songs/i,'movies'),[],years);return {...p,intent:'song_nearby',placeText:p.place};}
  if((m=q.match(/^(?:show\s+)?(cast|actors|songs|characters|genres|heritage(?: sites)?|locations)$/i))&&previous?.intent==='movie')return {...previous,category:normalize(m[1]).split(' ')[0]};
  if(spatial){
   let patch=null;
-  if((m=q.match(/^(?:within|radius(?: of)?|make (?:it|that))\s+([\d.]+)\s*km$/i))){if(previous.intent!=='nearby')throw Error('A radius applies to a nearby search. Ask for movies near a named place first.');patch={radiusKm:Number(m[1])};}
+  if((m=q.match(/^(?:within|radius(?: of)?|make (?:it|that))\s+([\d.]+)\s*km$/i))){if(!['nearby','catalog'].includes(previous.intent))throw Error('A radius applies to a nearby search. Ask for movies or heritage sites near a named place first.');patch={radiusKm:Number(m[1])};}
+  else if(/^(?:hide|exclude) (?:broad|city|city and region)(?: references| points| locations)?$/i.test(q))patch={excludeBroad:true};
+  else if(/^include broad(?: references| points| locations)?$/i.test(q))patch={excludeBroad:false};
   else if(/^(?:only )?heritage(?: (?:locations|sites))?(?: only)?$/i.test(q))patch={heritageOnly:true};
   else if(/^(?:all|any) (?:locations|places)$/i.test(q))patch={heritageOnly:false};
   else if(/^(?:only )?(?:filming(?: locations)?|shot)$/i.test(q))patch={relation:'filming'};
@@ -29,9 +38,10 @@ function parseQuestion(text,{previous=null,genres=[],years=[1970,2025]}={}){
   else if(/^(?:all|any) genres$/i.test(q))patch={genre:''};
   else if((m=q.match(/^(?:between|from) (\d{4}) (?:and|to) (\d{4})$/i)))patch={yearFrom:+m[1],yearTo:+m[2]};
   else if((m=q.match(/^(after|before|in) (\d{4})$/i)))patch=m[1].toLowerCase()==='after'?{yearFrom:+m[2]+1}:m[1].toLowerCase()==='before'?{yearTo:+m[2]-1}:{yearFrom:+m[2],yearTo:+m[2]};
-  else if((m=q.match(/^only (.+?)(?: movies| films)?$/i)))patch={genre:genreName(m[1],genres)};
-  if(patch)return validate({...previous,...patch});
+  else if((m=q.match(/^only (.+?)(?: movies| films)?$/i))){if(previous.intent==='catalog')throw Error('Movie genre/year filters apply to movie searches. Heritage reference questions support radius follow-ups.');patch={genre:genreName(m[1],genres)};}
+  if(patch){if(previous.intent==='catalog'&&!Object.hasOwn(patch,'radiusKm'))throw Error('Heritage catalogue questions support radius follow-ups. Movie genre/year filters apply to movie searches.');return validate({...previous,...patch});}
  }
+ if((m=q.match(/^(?:(?:show|find|list)\s+)?heritage(?: sites| places)?\s+(?:within\s+([\d.]+)\s*km\s+of|near|around)\s+(.+)$/i)))return validate({...base,intent:'catalog',radiusKm:m[1]?Number(m[1]):10,placeText:m[2]});
  if((m=q.match(/^where (?:was|is|were) (.+?) (filmed|shot|set)$/i)))return {intent:'movie',filmText:m[1],category:'locations',relation:m[2].toLowerCase()==='set'?'narrative':'filming'};
  if((m=q.match(/^(?:show\s+)?(?:the\s+)?(cast|actors|songs|characters|genres|heritage(?: sites)?|locations) (?:of|in|for) (.+)$/i)))return {intent:'movie',filmText:m[2],category:normalize(m[1]).split(' ')[0]};
  if((m=q.match(/^(?:tell me about|show (?:the )?connections (?:of|for)|explore) (.+)$/i)))return {intent:'movie',filmText:m[1],category:'overview'};
@@ -52,6 +62,7 @@ function parseQuestion(text,{previous=null,genres=[],years=[1970,2025]}={}){
 }
 function createAssistant(data,{engine=Spatial.createEngine(data),getRegions=async()=>{throw Error('Region boundaries are unavailable. Open through the local demo server.');}}={}){
  const nodes=data.nodes,edges=data.edges,years=data.summary.year_range,adj=new Map();
+ const songIndex=SongTools.createIndex(data);
  edges.forEach((e,i)=>{for(const n of [e[0],e[2]]){if(!adj.has(n))adj.set(n,[]);adj.get(n).push(i);}});
  const films=nodes.map((n,i)=>({node:i,name:n[1],year:n[3]})).filter(f=>nodes[f.node][2]==='Film');
  const title=s=>normalize(s.replace(/\s*\(.*?\)\s*/g,' '));
@@ -77,16 +88,37 @@ function createAssistant(data,{engine=Spatial.createEngine(data),getRegions=asyn
   const counts=Object.fromEntries([...grouped].map(([kind,ids])=>[kind,ids.size]));
   return {kind:'movie',plan,film:f,items,counts,summary:f.name+' · '+f.year+' · '+items.length+' recorded '+(category==='overview'?'connections':category),note:items.length?'Connections come from the supplied graph. Filming and story settings are distinct; film locations are not inherited by individual songs.':'No corresponding links are recorded in this build. This is a data gap, not evidence that the film has none.'};
  }
- async function answer(text,previous=null){
+ async function answer(text,previous=null,selection={}){
   const plan=parseQuestion(text,{previous,genres:engine.genres,years});
   if(plan.intent==='help')return {kind:'help',plan,summary:help};
   if(plan.intent==='movie')return movie(plan);
+  if(['song_locations','song_nearby','song_at'].includes(plan.intent)){
+   let items=songIndex.locations;
+   if(plan.songText){const song=songIndex.resolve(plan.songText,plan.filmText);items=items.filter(l=>l.song===song.node);}
+   else if(plan.filmText){const f=film(plan.filmText);items=items.filter(l=>l.film===f.node);}
+   if(['song_nearby','song_at'].includes(plan.intent)){
+    const choices=engine.findPlaces(plan.placeText);if(!choices.length)throw Error('No matching geocoded place.');
+    if(choices.length>1&&selection.placeNode==null)throw Object.assign(Error('Several places match. Choose a reference point.'),{choices});
+    const p=selection.placeNode==null?choices[0]:choices.find(p=>p.node===selection.placeNode);if(!p)throw Error('Choose a matching place.');plan.center=[p.lat,p.lon];plan.placeText=p.name;
+    if(plan.intent==='song_at')items=items.filter(l=>l.place===p.node);
+    else items=items.filter(l=>!['country_reference','locality_reference','unknown_reference'].includes(l.precision)).map(l=>({...l,distanceKm:engine.byNode.has(l.place)?Spatial.distanceKm(plan.center,[engine.byNode.get(l.place).lat,engine.byNode.get(l.place).lon]):Infinity})).filter(l=>l.distanceKm<=plan.radiusKm);
+   }
+   return {kind:'song_locations',plan,items,summary:items.length+' source-supported song-location links'+(plan.songText?' for '+plan.songText:plan.filmText?' in '+plan.filmText:''),note:'Song locations use explicit song-level evidence, never inherited film locations. Country/route tags do not identify exact camera positions. Broad country/locality tags are excluded from nearby-song searches. No results means no accepted tags in this build.'};
+  }
   let results;
-  if(plan.intent==='nearby'){
+  if(plan.intent==='nearby'||plan.intent==='catalog'){
    const found=engine.findPlaces(plan.placeText);
    if(!found.length)throw Error('No geocoded place matches “'+plan.placeText+'”. Use its recorded name, or choose a point with the map tools.');
-   if(found.length>1)throw Error('Several places match “'+plan.placeText+'”. Refine the name: '+found.slice(0,6).map(p=>p.name+' ('+(p.country||'country not recorded')+', '+p.lat.toFixed(3)+', '+p.lon.toFixed(3)+')').join('; '));
-   const p=found[0];plan.center=[p.lat,p.lon];plan.placeText=p.name;plan.placeNode=p.node;
+   if(found.length>1&&selection.placeNode==null)throw Object.assign(Error('Several places match “'+plan.placeText+'”. Choose the intended record.'),{choices:found.slice(0,20)});
+   const p=selection.placeNode==null?found[0]:found.find(p=>p.node===selection.placeNode);
+   if(!p)throw Error('The selected place does not match this question. Please choose again.');
+   plan.center=[p.lat,p.lon];plan.placeText=p.name;plan.placeNode=p.node;
+   if(plan.intent==='catalog'){
+    const catalog=engine.heritageNearby(plan);
+    return {kind:'catalog',plan,items:catalog.items,total:catalog.total,summary:catalog.total+' heritage references within '+plan.radiusKm+' km of '+p.name,
+      interpretation:'Named UNESCO properties and documented historic sites. Components are grouped under their parent property.',
+      note:'These are reference sites, not inferred film locations. Counts identify direct recorded film links; zero is a coverage gap. Distances use representative points.'};
+   }
    results=engine.search(plan);
   }else{
    const r=await getRegions();let text=plan.regionText,level;
@@ -103,7 +135,7 @@ function createAssistant(data,{engine=Spatial.createEngine(data),getRegions=asyn
    results=engine.searchArea(plan,f);
   }
   const count=new Set(results.flatMap(r=>r.matches.map(m=>m.place.node))).size;
-  return {kind:'spatial',plan,results,summary:results.length+' distinct movie'+(results.length===1?'':'s')+' · '+count+' matching place'+(count===1?'':'s'),interpretation:(plan.intent==='nearby'?'Within '+plan.radiusKm+' km of '+plan.placeText:'Inside the '+plan.regionText+' boundary')+' · '+({filming:'filming',narrative:'story settings',both:'filming and story settings'}[plan.relation])+' · '+(plan.genre||'all genres')+' · '+plan.yearFrom+'–'+plan.yearTo+(plan.heritageOnly?' · heritage locations only':''),note:(plan.intent==='nearby'?'Spherical reference-point distance; proximity does not establish filming at the centre.':'Point-in-polygon overlay using the published research boundaries; these may differ from current boundaries.')+' Missing coordinates and missing relationships cannot appear.'};
+  return {kind:'spatial',plan,results,summary:results.length+' distinct movie'+(results.length===1?'':'s')+' · '+count+' matching place'+(count===1?'':'s'),interpretation:(plan.intent==='nearby'?'Within '+plan.radiusKm+' km of '+plan.placeText:'Inside the '+plan.regionText+' boundary')+' · '+({filming:'filming',narrative:'story settings',both:'filming and story settings'}[plan.relation])+' · '+(plan.genre||'all genres')+' · '+plan.yearFrom+'–'+plan.yearTo+(plan.heritageOnly?' · heritage locations only':'')+(plan.excludeBroad?' · broad references hidden':''),note:(plan.intent==='nearby'?'Spherical reference-point distance; proximity does not establish filming at the centre.':'Point-in-polygon overlay using the published research boundaries; these may differ from current boundaries.')+' Missing coordinates and missing relationships cannot appear.'};
  }
  return {answer,engine};
 }

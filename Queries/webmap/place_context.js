@@ -18,7 +18,8 @@ function createPlaceContext(data){
    if(!films.has(e[0]))films.set(e[0],{node:e[0],name:nodes[e[0]][1],year:nodes[e[0]][3],connections:[]});
    films.get(e[0]).connections.push({relation:e[1],place:nodes[e[2]][1],sourceUrl:e[5],sourceUrls:[...new Set([e[5],...(e[7]||[])].filter(Boolean))],sourceRecord:e[4],evidence:e[6],assertions:e[3]});
   }
-  return {id:n[0],name:n[1],heritage:n[2]==='Heritage',heritageSource:n[6]||'',...(data.placeDetails?.[n[0]]||{}),films:[...films.values()].sort((a,b)=>a.name.localeCompare(b.name))};
+  const songs=(data.songLocations||[]).filter(s=>ids.has(s.place)).map(s=>({...s,title:nodes[s.song][1],filmTitle:nodes[s.film][1],placeName:nodes[s.place][1]}));
+  return {id:n[0],name:n[1],heritage:n[2]==='Heritage',heritageSource:n[6]||'',...(n[7]||{}),...(data.placeDetails?.[n[0]]||{}),songs,films:[...films.values()].sort((a,b)=>a.name.localeCompare(b.name))};
  };
 }
 if(typeof module==='object'&&module.exports)module.exports={createPlaceContext};else root.createPlaceContext=createPlaceContext;

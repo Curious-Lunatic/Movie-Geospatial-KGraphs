@@ -1,0 +1,29 @@
+{
+  "reviewed_at": "2026-11-12",
+  "records": {
+    "Q1352": {
+      "type": "city",
+      "locality": "Tamil Nadu, India",
+      "aliases": ["Madras", "சென்னை"],
+      "description": "Chennai is a city in Tamil Nadu. Its point represents the city; it does not identify a heritage monument or an exact filming address.",
+      "identity_source": "https://chennai.nic.in/about-district/"
+    },
+    "heritage:249": {
+      "type": "heritage_property",
+      "locality": "Mamallapuram, Tamil Nadu, India",
+      "aliases": ["Mahabalipuram", "Mamallapuram"],
+      "description": "A UNESCO World Heritage property at Mamallapuram, with Pallava-period temples, rock-cut monuments and reliefs. This is a named heritage property, separate from the city of Chennai.",
+      "identity_source": "https://whc.unesco.org/en/list/249/"
+    },
+    "Q1438739": {
+      "create_reference": true,
+      "name": "Fort St. George",
+      "type": "historic_site",
+      "heritage_kind": "historic_landmark",
+      "locality": "Chennai, Tamil Nadu, India",
+      "aliases": ["Fort St George", "Fort Saint George", "Fort St. George, Chennai"],
+      "description": "A named historic fort in Chennai, described by the Chennai District administration and maintained by the Archaeological Survey of India. Its inclusion is a heritage reference, not evidence that a film was shot there.",
+      "identity_source": "https://chennai.nic.in/tourism/places-of-interest/"
+    }
+  }
+}

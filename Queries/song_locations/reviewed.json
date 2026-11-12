@@ -1,0 +1,24 @@
+[
+  {
+    "song": "Chaiyya Chaiyya",
+    "film_wikidata_id": "Q944356",
+    "film_year": 1998,
+    "place_id": "heritage-component:944ter-002",
+    "location_precision": "route_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Nilgiri_Mountain_Railway_X_class",
+    "source_snapshot": "../heritage_enrichment/snapshots/nilgiri_x_class.html",
+    "verify_tokens": ["Chaiyya Chaiyya", "Dil Se", "was shot"],
+    "evidence": "The existing reviewed railway article explicitly identifies Chaiyya Chaiyya from Dil Se as filmed on the Nilgiri Mountain Railway train. The coordinate is the railway component's representative point, not a train position or exact filming segment."
+  },
+  {
+    "song": "Gerua",
+    "film_wikidata_id": "Q19264035",
+    "film_year": 2015,
+    "place_id": "Q189",
+    "location_precision": "country_reference",
+    "source_url": "https://filminiceland.com/made-in-iceland/dilwale",
+    "source_snapshot": "iceland_source.json",
+    "verify_tokens": ["Dilwale", "Gerua", "Iceland"],
+    "evidence": "The official Film in Iceland production listing connects the Dilwale lead-pair sequence and Gerua music video to Iceland. The tag is country-level; it does not identify a waterfall, beach or camera position."
+  }
+]

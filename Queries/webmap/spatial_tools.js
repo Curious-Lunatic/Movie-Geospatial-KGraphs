@@ -2,6 +2,7 @@
 (function(root){
 'use strict';
 const T=typeof module==='object'&&module.exports?require('./vendor/turf.min.js'):root.turf;
+const MAX_CORRIDOR_KM=250;
 function polygon(points){
  if(points.length<3)throw Error('Add at least three points to finish your area.');
  if(points.length>100)throw Error('Use at most 100 points for one area.');
@@ -14,7 +15,7 @@ function polygon(points){
 function contains(geometry,point){return T.booleanPointInPolygon([point.lon,point.lat],geometry);}
 function circle(center,radiusKm){return T.circle([center[1],center[0]],radiusKm,{steps:128,units:'kilometers'});}
 function corridor(route,width){
- if(!Number.isFinite(width)||width<.1||width>25)throw Error('Choose a corridor width between 0.1 and 25 km.');
+ if(!Number.isFinite(width)||width<.1||width>MAX_CORRIDOR_KM)throw Error('Choose a corridor width between 0.1 and '+MAX_CORRIDOR_KM+' km.');
  if(route?.type!=='LineString'||route.coordinates.length<2)throw Error('The routing service did not return a usable road route.');
  const area=T.buffer(T.feature(route),width,{units:'kilometers',steps:12});
  if(!area)throw Error('Could not create the route corridor. Try a shorter route.');
@@ -58,6 +59,6 @@ function createRouter({base='https://valhalla1.openstreetmap.de',fetcher=globalT
  }
  };
 }
-const api={polygon,contains,circle,corridor,routeDistance,polygonFeatures,createRouter};
+const api={MAX_CORRIDOR_KM,polygon,contains,circle,corridor,routeDistance,polygonFeatures,createRouter};
 if(typeof module==='object'&&module.exports)module.exports=api;else root.SpatialTools=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

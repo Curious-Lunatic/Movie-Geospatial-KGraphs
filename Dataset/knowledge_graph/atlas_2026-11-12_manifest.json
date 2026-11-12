@@ -1,0 +1,60 @@
+{
+  "snapshot": "2026-11-12",
+  "files": {
+    "graph.ttl": "ed68de17356d2db0703ff0a69dee5feb11a1db7f60d56fa650b13be20756e849",
+    "graph_explorer.html": "d9b37f4dea1d3fff5d0d7e9aa7296c37881c23104caf66acfe1c8f3fcdc8bbad",
+    "films.csv": "57385d5a1dfb61df4b077b67ee4e7678b79e78c8a00cb6408eb04dd6c127b410",
+    "film_crosswalk.csv": "1ba691b80337b235c11ebae8cf7d6c79848c457d59cdaca63641ffabe04deac4",
+    "film_attributes.csv": "253c0a14c9bd07152d2f4a069e2bb586ac607fbea1de89c19776e5354006b907",
+    "places.csv": "339052af5026d8063743f418c6d926310f3e34ef2f4239c107ceb21057114802",
+    "places.geojson": "baa86349bee6c5d0ab938eeb344186d6284768f6718025e50ca059336c45bc38",
+    "people.csv": "09c46b42c726232a9c2a765143262c9740138d0d61419b32d5bc1817ea40788a",
+    "characters.csv": "60444a3a1a71baec5340ed13cc54418b5c986876a8c0f811f9010a6c48f3497b",
+    "genres.csv": "94a01654b3c5656cb41956dc54a4d429fbfa01ccf92061702531ecd93e96f65b",
+    "songs.csv": "e76d9a39096960caae43c5bbd5a9ccf76313a6b93ad7aaef57529b1e7a673238",
+    "claims.csv": "5f25f5297a6c782db8d4188081a7cc61d88da6cf085c37b858372b0f1d9c893f",
+    "location_review.csv": "d3db41888172e4a68f8a239ba3a9b8f7d64031193cee34aa5d51993c494523ac",
+    "issues.csv": "cbdd7e861fde81a196bae731ed7deb2d840e5456062f6f22020f9efecdce1263",
+    "summary.json": "807472f15e59bc6bd63613fbb7b13e395449a3ff6a01fdff24499ff5d6bddd36",
+    "romance_places.csv": "51a5aa3a90a3e79c9c97aca3196367f083cba02ae7523827965abd7b891b6fc4",
+    "heritage_genres.csv": "5682a7084318a1599b09ea4589c020a31924b86f916c82e15673fee72195d18d",
+    "graph_verification.json": "4c6f8387f2996863e666a73e0c716f3c95e920a5f698dab1cf151f67b617b1cd",
+    "place_quality.json": "74b2775a0ee11c6a5399d33ca82f84ddbd7bfe0f741c8cdb21a562be7061af67",
+    "song_locations.csv": "042a09df4bb8395bc1eaa069bf90bcede7e16fa731222cd17928af0c6f70dfe1",
+    "song_location_review.csv": "9d0f8e6e0d465542b1d568e7487b2c35d7d271eeb63b15d953f87de09b706fe1",
+    "song_location_query.json": "c0a0907111a15dc932f517b9aec64b0048ae77484532f988ae288b73e62150cb",
+    "spatial_locations.geojson": "d1aa4767ba39af50fa571b44431cfc1554da0d464e79dd2c96bddf3137abfffd",
+    "india_regions.geojson": "28a2804b0adef554b05689ad632866764faff15ec032147507779af4ac4c365d",
+    "region_membership.json": "e08ac242c07f6ae0d92977d10854adbe45bead202055c2367e29afdf774380df",
+    "boundary_sources.json": "6cd74ee2952bf940d3815ecab0551869ae52ef2252251f4e2f97fa653917a470"
+  },
+  "verification": {
+    "full_rdf_syntax_parsed": false,
+    "direct_graph_syntax_parsed": true,
+    "query_projection_and_sample_triples": 577025,
+    "provenance_statements": 219017,
+    "provenance_records_sampled": 219,
+    "entity_counts_match": true,
+    "rdf_csv_query_results_match": true,
+    "query_result_rows": {
+      "romance": 946,
+      "heritage": 39,
+      "characters": 15,
+      "song_locations": 2
+    },
+    "shacl_executed": false,
+    "song_shape_executed": true,
+    "song_shape_conforms": true,
+    "song_provenance_records_checked": 2,
+    "graph_sha256": "ed68de17356d2db0703ff0a69dee5feb11a1db7f60d56fa650b13be20756e849",
+    "query_sha256": {
+      "romance": "bb54e728eb66e132e81521a3994ada290ab6e55b457fe71cb0cc926b2ed942f4",
+      "heritage": "762a4bd61e33631e3135e1d6069e0dceb4b52c2bf0033cbd08a69f0b8e6654be",
+      "characters": "a1376a6ec5712546d5c4166363d17ac456b0a130d83b246f1977776c930029a2"
+    }
+  },
+  "validation_scope": "Direct RDF projection; sampled provenance plus both song claims; aggregate reconciliation; all songs checked with SongShape. Full-graph provenance SHACL not rerun.",
+  "archive": "atlas_2026-11-12.zip",
+  "archive_sha256": "0da6b9fd61c84475b460b3d9efb3d3ebb196fbeccb8b336b0afddc16d970dc83",
+  "zip_round_trip_hashes_match": true
+}

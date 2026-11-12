@@ -1,11 +1,32 @@
 #!/usr/bin/env python3
 """Serve only the generated cinema demo on the local machine."""
 import argparse
+import json
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from urllib.parse import parse_qs,urlsplit
+from local_place_details import lookup
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+class DemoHandler(SimpleHTTPRequestHandler):
+    def do_GET(self):
+        url=urlsplit(self.path)
+        if url.path!='/api/places':
+            return super().do_GET()
+        try:
+            status,body=lookup(parse_qs(url.query))
+        except ValueError as error:
+            status,body=400,dict(error=str(error))
+        raw=json.dumps(body,ensure_ascii=False).encode('utf-8')
+        self.send_response(status)
+        self.send_header('Content-Type','application/json; charset=utf-8')
+        self.send_header('Content-Length',str(len(raw)))
+        self.send_header('Cache-Control','no-store')
+        self.end_headers()
+        self.wfile.write(raw)
 
 
 def main():
@@ -18,7 +39,7 @@ def main():
     for name in ['graph_explorer.html', 'india_regions.geojson', 'region_membership.json']:
         if not (directory / name).is_file():
             parser.error('Build the data and explorer first: python Queries/build_integrated_graph.py, then python Queries/build_graph_explorer.py')
-    handler = partial(SimpleHTTPRequestHandler, directory=str(directory))
+    handler = partial(DemoHandler, directory=str(directory))
     try:
         server = ThreadingHTTPServer(('127.0.0.1', args.port), handler)
     except OSError as error:
