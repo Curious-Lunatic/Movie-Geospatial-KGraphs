@@ -1,0 +1,38 @@
+{
+  "candidate_csv_sha256": "46b8c97e02d8dacb45b8bac21070698fa90f974d7a173b5752a4c4f74c4f52c6",
+  "reviewed_rows": 437,
+  "distinct_candidate_songs": 124,
+  "evidence_groups": 132,
+  "imported_pairs": 52,
+  "imported_songs": 47,
+  "decision_counts": {
+    "rejected": 294,
+    "rejected_or_duplicate": 72,
+    "source_supported": 52,
+    "needs_review": 19
+  },
+  "verification_scope": "Human review against cached source statements and retained primary-coordinate responses; source-supported claims, not independent filming/GPS verification.",
+  "source_run_hit_page_ceiling": true,
+  "source_discovery_complete": false,
+  "javascript_tests_passed": 42,
+  "python_tests_passed": 40,
+  "graph_song_links": 54,
+  "graph_songs_with_location": 49,
+  "graph_total_songs": 10742,
+  "source_supported_not_independent_filming_verification": true,
+  "full_graph_shacl_rerun": false,
+  "native_qgis_run": false,
+  "public_deployment": false,
+  "screenshots": [
+    {
+      "file": "01-bismil-reviewed-site.jpg",
+      "sha256": "ed16e64b11d29cedd2411d9196489d9ca77d5bcd0938297646d370935b203914",
+      "source": "Actual local in-app browser"
+    },
+    {
+      "file": "02-sab-tera-reviewed-site.jpg",
+      "sha256": "52baecec77aa05521add5479e6aae04d9b1fc277f10debe6d228fabd2f9e6d7f",
+      "source": "Actual local in-app browser"
+    }
+  ]
+}

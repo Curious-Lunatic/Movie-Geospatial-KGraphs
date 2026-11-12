@@ -1,0 +1,246 @@
+{
+  "records": {
+    "Q158455": {
+      "name": "Bhedaghat",
+      "kind": "city",
+      "precision": "locality_reference",
+      "country": "India",
+      "latitude": 23.132,
+      "longitude": 79.801,
+      "coordinate_source": "https://en.wikipedia.org/wiki/Bhedaghat",
+      "identity_source": "https://en.wikipedia.org/wiki/Bhedaghat",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q5617474": {
+      "name": "Poda Island",
+      "kind": "venue",
+      "precision": "site_reference",
+      "country": "Thailand",
+      "latitude": 7.97138889,
+      "longitude": 98.80861111,
+      "coordinate_source": "https://en.wikipedia.org/wiki/Ko_Poda",
+      "identity_source": "https://en.wikipedia.org/wiki/Ko_Poda",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q1447": {
+      "name": "Apulia",
+      "kind": "region",
+      "precision": "region_reference",
+      "country": "Italy",
+      "latitude": 41.008611111,
+      "longitude": 16.512777777,
+      "coordinate_source": "https://www.wikidata.org/wiki/Q1447",
+      "identity_source": "https://www.wikidata.org/wiki/Q1447",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q223969": {
+      "name": "Arches National Park",
+      "kind": "venue",
+      "precision": "site_reference",
+      "country": "United States",
+      "latitude": 38.72805556,
+      "longitude": -109.54,
+      "coordinate_source": "https://en.wikipedia.org/wiki/Arches_National_Park",
+      "identity_source": "https://en.wikipedia.org/wiki/Arches_National_Park",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q829": {
+      "name": "Utah",
+      "kind": "region",
+      "precision": "region_reference",
+      "country": "United States",
+      "latitude": 39.0,
+      "longitude": -111.0,
+      "coordinate_source": "https://en.wikipedia.org/wiki/Utah",
+      "identity_source": "https://en.wikipedia.org/wiki/Utah",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q829432": {
+      "name": "Mount Marcus Baker",
+      "kind": "venue",
+      "precision": "site_reference",
+      "country": "United States",
+      "latitude": 61.4377778,
+      "longitude": -147.7505556,
+      "coordinate_source": "https://en.wikipedia.org/wiki/Mount_Marcus_Baker",
+      "identity_source": "https://en.wikipedia.org/wiki/Mount_Marcus_Baker",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q463437": {
+      "name": "Panchgani",
+      "kind": "city",
+      "precision": "locality_reference",
+      "country": "India",
+      "latitude": 17.925,
+      "longitude": 73.8,
+      "coordinate_source": "https://en.wikipedia.org/wiki/Panchgani",
+      "identity_source": "https://en.wikipedia.org/wiki/Panchgani",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q1207562": {
+      "name": "Dhanushkodi",
+      "kind": "city",
+      "precision": "locality_reference",
+      "country": "India",
+      "latitude": 9.152011,
+      "longitude": 79.445851,
+      "coordinate_source": "https://en.wikipedia.org/wiki/Dhanushkodi",
+      "identity_source": "https://en.wikipedia.org/wiki/Dhanushkodi",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q1032254": {
+      "name": "Pangong Lake",
+      "kind": "venue",
+      "precision": "site_reference",
+      "country": "",
+      "latitude": 33.71794167,
+      "longitude": 78.8968,
+      "coordinate_source": "https://en.wikipedia.org/wiki/Pangong_Tso",
+      "identity_source": "https://en.wikipedia.org/wiki/Pangong_Tso",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q3072027": {
+      "name": "Film City",
+      "kind": "venue",
+      "precision": "site_reference",
+      "country": "India",
+      "latitude": 19.1613,
+      "longitude": 72.8867,
+      "coordinate_source": "https://www.wikidata.org/wiki/Q3072027",
+      "identity_source": "https://www.wikidata.org/wiki/Q3072027",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q26732": {
+      "name": "Hampi",
+      "kind": "city",
+      "precision": "locality_reference",
+      "country": "India",
+      "latitude": 15.33444444,
+      "longitude": 76.46222222,
+      "coordinate_source": "https://en.wikipedia.org/wiki/Hampi",
+      "identity_source": "https://en.wikipedia.org/wiki/Hampi",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q3826": {
+      "name": "Muscat, Oman",
+      "kind": "city",
+      "precision": "locality_reference",
+      "country": "Oman",
+      "latitude": 23.58888889,
+      "longitude": 58.40833333,
+      "coordinate_source": "https://en.wikipedia.org/wiki/Muscat",
+      "identity_source": "https://en.wikipedia.org/wiki/Muscat",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q43100": {
+      "name": "Kashmir",
+      "kind": "region",
+      "precision": "region_reference",
+      "country": "",
+      "latitude": 34.5,
+      "longitude": 76.0,
+      "coordinate_source": "https://www.wikidata.org/wiki/Q43100",
+      "identity_source": "https://www.wikidata.org/wiki/Q43100",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q200019": {
+      "name": "Jodhpur",
+      "kind": "city",
+      "precision": "locality_reference",
+      "country": "India",
+      "latitude": 26.28,
+      "longitude": 73.02,
+      "coordinate_source": "https://en.wikipedia.org/wiki/Jodhpur",
+      "identity_source": "https://en.wikipedia.org/wiki/Jodhpur",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q463273": {
+      "name": "Mahabaleshwar",
+      "kind": "city",
+      "precision": "locality_reference",
+      "country": "India",
+      "latitude": 17.925,
+      "longitude": 73.6575,
+      "coordinate_source": "https://en.wikipedia.org/wiki/Mahabaleshwar",
+      "identity_source": "https://en.wikipedia.org/wiki/Mahabaleshwar",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q12508": {
+      "name": "Pyramids of Giza",
+      "kind": "venue",
+      "precision": "site_reference",
+      "country": "Egypt",
+      "latitude": 29.97611111,
+      "longitude": 31.13277778,
+      "coordinate_source": "https://en.wikipedia.org/wiki/Giza_pyramid_complex",
+      "identity_source": "https://en.wikipedia.org/wiki/Giza_pyramid_complex",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q6872686": {
+      "name": "Miramar beach",
+      "kind": "venue",
+      "precision": "site_reference",
+      "country": "India",
+      "latitude": 15.48305556,
+      "longitude": 73.80722222,
+      "coordinate_source": "https://en.wikipedia.org/wiki/Miramar%2C_Goa",
+      "identity_source": "https://en.wikipedia.org/wiki/Miramar%2C_Goa",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q245347": {
+      "name": "India Gate",
+      "kind": "venue",
+      "precision": "site_reference",
+      "country": "India",
+      "latitude": 28.61286389,
+      "longitude": 77.22930556,
+      "coordinate_source": "https://en.wikipedia.org/wiki/India_Gate",
+      "identity_source": "https://en.wikipedia.org/wiki/India_Gate",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q1639492": {
+      "name": "Rajahmundry",
+      "kind": "city",
+      "precision": "locality_reference",
+      "country": "India",
+      "latitude": 17.00911556,
+      "longitude": 81.7784,
+      "coordinate_source": "https://en.wikipedia.org/wiki/Rajamahendravaram",
+      "identity_source": "https://en.wikipedia.org/wiki/Rajamahendravaram",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q134698": {
+      "name": "Bastia",
+      "kind": "city",
+      "precision": "locality_reference",
+      "country": "",
+      "latitude": 42.7008,
+      "longitude": 9.4503,
+      "coordinate_source": "https://en.wikipedia.org/wiki/Bastia",
+      "identity_source": "https://en.wikipedia.org/wiki/Bastia",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q3870": {
+      "name": "Nairobi",
+      "kind": "city",
+      "precision": "locality_reference",
+      "country": "Kenya",
+      "latitude": -1.28638889,
+      "longitude": 36.81722222,
+      "coordinate_source": "https://en.wikipedia.org/wiki/Nairobi",
+      "identity_source": "https://en.wikipedia.org/wiki/Nairobi",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    },
+    "Q450906": {
+      "name": "Alájar",
+      "kind": "city",
+      "precision": "locality_reference",
+      "country": "Spain",
+      "latitude": 37.86666667,
+      "longitude": -6.65,
+      "coordinate_source": "https://en.wikipedia.org/wiki/Al%C3%A1jar",
+      "identity_source": "https://en.wikipedia.org/wiki/Al%C3%A1jar",
+      "review_note": "Reviewed identity and geographic scope; coordinate is representative, never a verified camera position."
+    }
+  }
+}

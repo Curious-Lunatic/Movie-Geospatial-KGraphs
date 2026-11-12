@@ -1,0 +1,12 @@
+[
+  {
+    "file": "01-bismil-reviewed-site.jpg",
+    "sha256": "ed16e64b11d29cedd2411d9196489d9ca77d5bcd0938297646d370935b203914",
+    "source": "Actual local in-app browser"
+  },
+  {
+    "file": "02-sab-tera-reviewed-site.jpg",
+    "sha256": "52baecec77aa05521add5479e6aae04d9b1fc277f10debe6d228fabd2f9e6d7f",
+    "source": "Actual local in-app browser"
+  }
+]

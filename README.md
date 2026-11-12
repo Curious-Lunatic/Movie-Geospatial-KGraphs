@@ -1,5 +1,9 @@
 # Good Will Mapping: dataset integration
 
+The latest reviewed scrape adds 52 source-supported song-location links. The
+current graph has **54 links across 49 songs**. See
+[the 437-row review and evidence limits](Docs/SONG_CANDIDATE_REVIEW.md).
+
 The latest update adds named place identities and coordinate precision, custom
 nearby buffers up to 2,000 km, route corridors up to 250 km, explicit song-location
 evidence and review-only geotag proposals. See the
