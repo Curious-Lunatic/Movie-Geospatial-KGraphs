@@ -1,0 +1,32 @@
+[
+  {
+    "file": "01-song-location-evidence.jpg",
+    "sha256": "ae0c521fe25cd8da55ce963769f7fd1f70fe37e58545a7d320dacf069fd78890",
+    "source": "Actual local in-app browser",
+    "captured_date": "2026-11-12"
+  },
+  {
+    "file": "02-chennai-named-heritage.jpg",
+    "sha256": "4ce26635b7a33dbe7a9ee8fc73cd65145ebcf3dfd387a7431ddb95e5e0de52f0",
+    "source": "Actual local in-app browser",
+    "captured_date": "2026-11-12"
+  },
+  {
+    "file": "03-custom-1000km-search.jpg",
+    "sha256": "8636fffaac3235b7157b5833f7eb730cdb6dfb58252173deaa646e3bb038ef4f",
+    "source": "Actual local in-app browser",
+    "captured_date": "2026-11-12"
+  },
+  {
+    "file": "04-song-geotag-proposal.jpg",
+    "sha256": "d28fb50e658a81e2f7a9cb0c3a609a937385e344f4a3f4ee5276a85b30d87bd4",
+    "source": "Actual local in-app browser",
+    "captured_date": "2026-11-12"
+  },
+  {
+    "file": "05-song-knowledge-graph.jpg",
+    "sha256": "ec053310ee5b7e4ae9626ed8fbc7eef7370eb3a9fe4576c7c3265ec014fbf941",
+    "source": "Actual local in-app browser",
+    "captured_date": "2026-11-12"
+  }
+]

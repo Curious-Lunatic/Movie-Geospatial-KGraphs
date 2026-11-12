@@ -12,20 +12,20 @@ function initSpatialExplorer({data,openFilm}){
   time:['Road network + reachable area','Within travel time','Choose a starting point and travel time to explore a modelled reachable area.','Travel-time exploration']
  };
  let mode='nearby',center=null,centerName='',end=null,endName='',target='start';
- let map,markers,analysisLayer,contextLayer,drawingLayer,pointLayer,drawPoints=[],drawn=null,drawing=false;
+ let map,markers,referenceLayer,analysisLayer,contextLayer,drawingLayer,pointLayer,drawPoints=[],drawn=null,drawing=false,referenceFrame;
  let results=[],shown=0,last=null,revision=0,controller=null,regions=null,regionPromise=null;
  let analysisFeatures=[];
  const el=(tag,text,parent)=>{const e=document.createElement(tag);if(text!=null)e.textContent=text;if(parent)parent.append(e);return e;};
  const link=(parent,text,url)=>{const a=el('a',text,parent);a.href=url;a.target='_blank';a.rel='noopener';return a;};
  const mapsUrl=p=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.lat+','+p.lon);
- const scope=p=>p.heritage?'Heritage reference point':'City / region reference point';
+ const scope=p=>SpatialSearch.placeLabel(p);
  const point=p=>[p.lat,p.lon];
  const explore=initPlacePanel((p,r)=>{switchTool('nearby');choose(point(p),p.name);$('radiusKm').value=r;run(true);},{describe:createPlaceContext(data),openFilm});
  const discover=(parent,p)=>{const b=el('button','Explore this place',parent);b.type='button';b.onclick=()=>explore(p);};
  $('discoverCenter').onclick=()=>{if(center)explore(engine.places.find(p=>p.name===centerName&&p.lat===center[0]&&p.lon===center[1])||{name:centerName,lat:center[0],lon:center[1]});};
  function error(message){$('spatialError').hidden=!message;$('spatialError').textContent=message||'';}
- function controls(){return {center,radiusKm:Number($('radiusKm').value),relation:$('spatialRelation').value,genre:$('spatialGenre').value,yearFrom:Number($('yearFrom').value),yearTo:Number($('yearTo').value),heritageOnly:$('heritageOnly').checked};}
- function apply(o){for(const [id,key] of [['radiusKm','radiusKm'],['spatialRelation','relation'],['spatialGenre','genre'],['yearFrom','yearFrom'],['yearTo','yearTo']])$(id).value=o[key];$('heritageOnly').checked=!!o.heritageOnly;}
+ function controls(){return {center,radiusKm:Number($('radiusKm').value),relation:$('spatialRelation').value,genre:$('spatialGenre').value,yearFrom:Number($('yearFrom').value),yearTo:Number($('yearTo').value),heritageOnly:$('heritageOnly').checked,excludeBroad:$('excludeBroad').checked};}
+ function apply(o){for(const [id,key] of [['radiusKm','radiusKm'],['spatialRelation','relation'],['spatialGenre','genre'],['yearFrom','yearFrom'],['yearTo','yearTo']])$(id).value=o[key];$('radiusSlider').value=o.radiusKm;$('heritageOnly').checked=!!o.heritageOnly;$('excludeBroad').checked=!!o.excludeBroad;}
  function empty(title,text){$('spatialResults').replaceChildren();const box=el('div',null,$('spatialResults'));box.className='atlas-empty';el('span','◎',box).ariaHidden='true';el('h4',title,box);el('p',text,box);}
  function invalidate(message='Ready when you are.'){
   revision++;controller?.abort();controller=null;$('runSpatial').disabled=false;$('cancelSpatial').hidden=true;
@@ -36,7 +36,8 @@ function initSpatialExplorer({data,openFilm}){
   if(map)return;
   map=L.map('cinemaMap',{preferCanvas:true,scrollWheelZoom:false}).setView([22.5,79],5);
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).on('tileerror',()=>{$('mapStatus').textContent='Background tiles unavailable. Stored locations and spatial searches still work.';}).addTo(map);
-  contextLayer=L.featureGroup().addTo(map);analysisLayer=L.featureGroup().addTo(map);drawingLayer=L.featureGroup().addTo(map);markers=L.layerGroup().addTo(map);pointLayer=L.layerGroup().addTo(map);
+  contextLayer=L.featureGroup().addTo(map);analysisLayer=L.featureGroup().addTo(map);drawingLayer=L.featureGroup().addTo(map);referenceLayer=L.layerGroup().addTo(map);markers=L.layerGroup().addTo(map);pointLayer=L.layerGroup().addTo(map);
+  map.on('moveend',()=>{cancelAnimationFrame(referenceFrame);referenceFrame=requestAnimationFrame(drawReferences);});
   map.on('click',e=>{
    const p=[e.latlng.lat,((e.latlng.lng+180)%360+360)%360-180];
    if(mode==='polygon'){if(drawing)addDrawPoint(p);return;}
@@ -50,11 +51,24 @@ function initSpatialExplorer({data,openFilm}){
  function drawMarkers(places){
   markers.clearLayers();for(const p of places){
    const story=$('spatialRelation').value==='narrative';
-   const marker=L.circleMarker(point(p),{radius:5,color:story?'#80678f':'#28564d',fillColor:story?'#b99dca':'#649b8e',fillOpacity:.9,weight:1.5,bubblingMouseEvents:false}).addTo(markers);
-   const popup=el('div');el('strong',p.name,popup);el('p',scope(p),popup);if(p.filmCount!=null)el('p',p.filmCount+' connected movies',popup);
+   const marker=L.circleMarker(point(p),{radius:p.broad?7:5,color:p.heritage?'#b87537':story?'#80678f':'#28564d',fillColor:p.heritage?'#dcab6e':story?'#b99dca':'#649b8e',fillOpacity:p.broad?.15:.9,weight:p.broad?2:1.5,bubblingMouseEvents:false}).addTo(markers);
+   const popup=el('div');el('strong',p.name,popup);el('span',scope(p),popup).className='place-badge';if(p.locality)el('p',p.locality,popup);el('p',SpatialSearch.precisionNote(p),popup);if(p.filmCount!=null)el('p',p.filmCount+' distinct film connections',popup);
    const use=el('button',mode==='route'?(target==='end'?'Use as destination':'Use as start'):'Explore nearby',popup);use.type='button';use.onclick=()=>{map.closePopup();if(mode!=='route'&&mode!=='time')switchTool('nearby');choose(point(p),p.name);if(mode==='nearby')run(true);};
    discover(popup,p);link(popup,'Google Maps ↗',mapsUrl(p));marker.bindPopup(popup);
   }
+  drawReferences();
+ }
+ function drawReferences(){
+  if(!map||!referenceLayer)return;referenceLayer.clearLayers();
+  if(!$('showHeritageReferences').checked){$('referenceCount').textContent='';return;}
+  const bounds=map.getBounds().pad(.08),zoom=map.getZoom();
+  const candidates=engine.places.filter(p=>p.heritage&&(!p.parentId||zoom>=11)&&bounds.contains(point(p)));
+  const shown=candidates.slice(0,350);
+  for(const p of shown){
+   const marker=L.circleMarker(point(p),{radius:6,color:'#527fb6',fillColor:'#78a3d5',fillOpacity:.2,weight:1.5,dashArray:'3 3',bubblingMouseEvents:false}).addTo(referenceLayer);
+   const popup=el('div');el('strong',p.name,popup);el('p',scope(p)+(p.locality?' · '+p.locality:''),popup);el('p','Heritage catalogue reference. Inclusion here does not establish a film connection.',popup);discover(popup,p);if(p.identitySource)link(popup,'Site identity source ↗',p.identitySource);marker.bindPopup(popup);
+  }
+  $('referenceCount').textContent=shown.length+' named references in view'+(candidates.length>shown.length?' · zoom in for more':'');
  }
  function renderPoints(){
   if(!map)return;pointLayer.clearLayers();
@@ -70,13 +84,13 @@ function initSpatialExplorer({data,openFilm}){
   $('endLabel').textContent=end?'To: '+endName+' · '+end.map(v=>v.toFixed(4)).join(', '):'Destination not selected.';
  }
  function resolvePlace(text,after){
-  error('');let matches=engine.findPlaces(text);if(mode==='heritage')matches=matches.filter(p=>p.heritage);
+  error('');let matches=engine.findPlaces(text,{heritageOnly:mode==='heritage'});
   $('placeChoices').replaceChildren();
   const accept=p=>{choose(point(p),p.name,p.heritage);after?.();};
   if(!matches.length){error(mode==='heritage'?'No matching heritage site. Try Taj Mahal, Agra Fort or Amber Fort.':'No matching place in the stored data. Try another name or select a map point.');return;}
   if(matches.length===1){accept(matches[0]);return;}
   el('p','Choose a place ('+matches.length+' matches):',$('placeChoices')).className='control-note';
-  for(const p of matches.slice(0,30)){const b=el('button',p.name+' · '+(p.country||'')+' · '+p.lat.toFixed(3)+', '+p.lon.toFixed(3),$('placeChoices'));b.type='button';b.onclick=()=>accept(p);}
+  for(const p of matches.slice(0,30)){const b=el('button',p.name+' · '+scope(p)+' · '+(p.locality||p.country||'')+' · '+p.lat.toFixed(3)+', '+p.lon.toFixed(3),$('placeChoices'));b.type='button';b.onclick=()=>accept(p);}
   if(matches.length>30)el('p','Refine the name to narrow these matches.',$('placeChoices')).className='control-note';
  }
  async function loadRegions(){
@@ -114,7 +128,11 @@ function initSpatialExplorer({data,openFilm}){
   const d=descriptions[mode];['toolOperation','toolTitle','toolDescription','activeMapTool'].forEach((id,i)=>$(id).textContent=d[i]);
   $('pointControls').hidden=['region','polygon'].includes(mode);$('regionControls').hidden=mode!=='region';$('drawControls').hidden=mode!=='polygon';$('routeTarget').hidden=mode!=='route';$('endLabel').hidden=mode!=='route';
   $('radiusControl').hidden=!['nearby','heritage','route'].includes(mode);$('radiusKm').disabled=$('radiusControl').hidden;
-  $('radiusKm').max=mode==='route'?25:500;if(mode==='route'&&Number($('radiusKm').value)>25)$('radiusKm').value=3;
+  const max=mode==='route'?S.MAX_CORRIDOR_KM:SpatialSearch.MAX_RADIUS_KM;
+  $('radiusKm').max=$('radiusSlider').max=max;if(Number($('radiusKm').value)>max)$('radiusKm').value=max;
+  $('radiusSlider').value=$('radiusKm').value;
+  $('radiusHint').textContent='Custom '+(mode==='route'?'corridor':'radius')+': 0.1–'+max.toLocaleString()+' km. Presets are shortcuts.';
+  document.querySelectorAll('[data-radius]').forEach(b=>b.hidden=Number(b.dataset.radius)>max);
   $('radiusLabel').textContent=mode==='route'?'Distance from route · km':'Search radius · km';
   $('travelControls').hidden=!['route','time'].includes(mode);$('timeControl').hidden=mode!=='time';$('travelMinutes').disabled=mode!=='time';
   $('placeSearchLabel').textContent=mode==='heritage'?'Find a heritage site':'Find a place';$('placeSearch').placeholder=mode==='heritage'?'Taj Mahal, Agra Fort…':'Jaipur, Agra Fort…';$('placeChoices').replaceChildren();
@@ -154,7 +172,7 @@ function initSpatialExplorer({data,openFilm}){
     if(!center)throw Error('Choose a starting point first.');if(searchMode==='route'&&!end)throw Error('Choose a destination first.');
     const costing=$('travelMode').value,minutes=Number($('travelMinutes').value),travelLabel=$('travelMode').selectedOptions[0].textContent;
     if(searchMode==='route'&&SpatialSearch.distanceKm(center,end)>1500)throw Error('Choose a route under 1,500 km between endpoints.');
-    if(searchMode==='route'&&(!Number.isFinite(o.radiusKm)||o.radiusKm<.1||o.radiusKm>25))throw Error('Choose a route corridor between 0.1 and 25 km.');
+    if(searchMode==='route'&&(!Number.isFinite(o.radiusKm)||o.radiusKm<.1||o.radiusKm>S.MAX_CORRIDOR_KM))throw Error('Choose a route corridor between 0.1 and '+S.MAX_CORRIDOR_KM+' km.');
     controller=new AbortController();$('runSpatial').disabled=true;$('cancelSpatial').hidden=false;$('mapStatus').textContent='Calculating on the road network…';
     if(searchMode==='route'){
      road=await router.route([...center],[...end],costing,controller.signal);if(token!==revision)return;
@@ -198,7 +216,7 @@ function initSpatialExplorer({data,openFilm}){
    if(n[5]){const img=el('img',null,head);img.src=n[5];img.alt='Poster for '+n[1];img.loading='lazy';img.width=64;img.height=96;img.onerror=()=>img.remove();}
    const body=el('div',null,head);el('h4',n[1],body);el('p',n[3]+(row.distanceKm==null?' · Inside selected area':' · '+row.distanceKm.toFixed(2)+' km '+last.metric),body);
    const go=el('button','Open movie graph ↗',body);go.type='button';go.onclick=()=>openFilm(row.film);const list=el('ul',null,card);
-   for(const m of row.matches.slice(0,4)){const p=m.place,li=el('li',p.name+(m.distanceKm==null?'':' · '+m.distanceKm.toFixed(2)+' km'),list);el('small',(m.relation==='filming'?'Filmed at':'Story set in')+' · '+scope(p),li);const actions=el('div',null,li);actions.className='result-actions';discover(actions,p);link(actions,'Google Maps ↗',mapsUrl(p));const edge=edges[m.edgeIndex];if(/^https?:\/\//.test(edge[5]))link(actions,'Source ↗',edge[5]);else el('small','Source: '+edge[4],actions);}
+   for(const m of row.matches.slice(0,4)){const p=m.place,li=el('li',p.name+(m.distanceKm==null?'':' · '+m.distanceKm.toFixed(2)+' km'),list);el('span',scope(p),li).className='place-badge';if(p.locality)el('small',p.locality,li);el('small',(m.relation==='filming'?'Filming connection':'Story setting')+' · '+SpatialSearch.precisionNote(p),li);const actions=el('div',null,li);actions.className='result-actions';discover(actions,p);link(actions,'Google Maps ↗',mapsUrl(p));const edge=edges[m.edgeIndex];if(/^https?:\/\//.test(edge[5]))link(actions,'Source ↗',edge[5]);else el('small','Source: '+edge[4],actions);}
    if(last.mode==='heritage'){
     const credits=el('details',null,card);
     const cast=Array.from(castByFilm.get(row.film)||[]).sort();
@@ -212,13 +230,13 @@ function initSpatialExplorer({data,openFilm}){
  function download(name,content,type){const url=URL.createObjectURL(new Blob([content],{type}));const a=el('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
  $('downloadSpatial').onclick=()=>{
   if(!last)return;const cell=v=>{let s=String(v??'');if(/^[=+@-]/.test(s))s="'"+s;return '"'+s.replaceAll('"','""')+'"';};
-  const rows=[['movie_id','movie','year','place_id','place','relationship','latitude','longitude','distance_km','distance_type','coordinate_scope','source_url','source_reference','analysis','search','filters']];
-  for(const row of results)for(const m of row.matches){const n=nodes[row.film],p=m.place,e=edges[m.edgeIndex];rows.push([n[0],n[1],n[3],nodes[p.node][0],p.name,m.relation,p.lat,p.lon,m.distanceKm==null?'':m.distanceKm.toFixed(4),last.metric,p.scope,e[5],e[4],last.mode,last.label,JSON.stringify(last.options)]);}
+  const rows=[['movie_id','movie','year','place_id','place','relationship','latitude','longitude','distance_km','distance_type','coordinate_scope','source_url','source_reference','analysis','search','filters','place_type','location_precision']];
+  for(const row of results)for(const m of row.matches){const n=nodes[row.film],p=m.place,e=edges[m.edgeIndex];rows.push([n[0],n[1],n[3],nodes[p.node][0],p.name,m.relation,p.lat,p.lon,m.distanceKm==null?'':m.distanceKm.toFixed(4),last.metric,p.scope,e[5],e[4],last.mode,last.label,JSON.stringify(last.options),p.kind,p.precision]);}
   download('cinema-'+last.mode+'-results.csv','\uFEFF'+rows.map(row=>row.map(cell).join(',')).join('\r\n'),'text/csv;charset=utf-8');
  };
  $('downloadAnalysis').onclick=()=>{
   if(!last)return;const features=analysisFeatures.map(f=>({...f,properties:{...f.properties,role:f.properties?.role||'search_area',analysis:last.mode,search:last.label,filters:JSON.stringify(last.options),method:last.notes}}));
-  for(const row of results)for(const m of row.matches){const p=m.place,n=nodes[row.film],e=edges[m.edgeIndex];features.push({type:'Feature',geometry:{type:'Point',coordinates:[p.lon,p.lat]},properties:{role:'movie_location',movie_id:n[0],movie:n[1],year:n[3],place_id:nodes[p.node][0],place:p.name,relationship:m.relation,distance_km:m.distanceKm,distance_type:last.metric,coordinate_scope:p.scope,source_url:e[5],source_reference:e[4]}});}
+  for(const row of results)for(const m of row.matches){const p=m.place,n=nodes[row.film],e=edges[m.edgeIndex];features.push({type:'Feature',geometry:{type:'Point',coordinates:[p.lon,p.lat]},properties:{role:'movie_location',movie_id:n[0],movie:n[1],year:n[3],place_id:nodes[p.node][0],place:p.name,relationship:m.relation,distance_km:m.distanceKm,distance_type:last.metric,coordinate_scope:p.scope,place_type:p.kind,location_precision:p.precision,source_url:e[5],source_reference:e[4]}});}
   download('cinema-'+last.mode+'-analysis.geojson',JSON.stringify({type:'FeatureCollection',features}),'application/geo+json');
  };
  const taj=engine.places.find(place=>nodes[place.node][0]==='heritage:252');
@@ -247,8 +265,10 @@ function initSpatialExplorer({data,openFilm}){
  $('spatialQueryForm').onsubmit=e=>{e.preventDefault();try{const parsed=SpatialSearch.parseQuery($('spatialQuery').value,engine.genres,years);switchTool('nearby');apply(parsed);if(parsed.place===null){if(!center)throw Error('Choose a point before asking about “here”.');run(true);}else{$('placeSearch').value=parsed.place;resolvePlace(parsed.place,()=>run(true));}}catch(err){error(err.message);}};
  $('stateRegion').onchange=()=>{invalidate();populateDistricts();regionContext(true);};$('districtRegion').onchange=()=>invalidate();
  document.querySelectorAll('[data-tool]').forEach(b=>b.onclick=()=>switchTool(b.dataset.tool));
- document.querySelectorAll('[data-radius]').forEach(b=>b.onclick=()=>{$('radiusKm').value=b.dataset.radius;invalidate();});
- for(const id of ['radiusKm','spatialRelation','spatialGenre','yearFrom','yearTo','heritageOnly','travelMode','travelMinutes'])$(id).addEventListener('change',()=>{invalidate();$('filterSummary').textContent=($('spatialGenre').value||'All genres')+' · '+$('yearFrom').value+'–'+$('yearTo').value;});
+ document.querySelectorAll('[data-radius]').forEach(b=>b.onclick=()=>{$('radiusKm').value=$('radiusSlider').value=b.dataset.radius;invalidate();});
+ $('radiusSlider').oninput=()=>{$('radiusKm').value=$('radiusSlider').value;};$('radiusSlider').onchange=()=>invalidate();
+ $('showHeritageReferences').onchange=drawReferences;
+ for(const id of ['radiusKm','spatialRelation','spatialGenre','yearFrom','yearTo','heritageOnly','excludeBroad','travelMode','travelMinutes'])$(id).addEventListener('change',()=>{invalidate();$('radiusSlider').value=$('radiusKm').value;$('filterSummary').textContent=($('spatialGenre').value||'All genres')+' · '+$('yearFrom').value+'–'+$('yearTo').value;});
  function setTarget(value){target=value;$('pickStart').setAttribute('aria-pressed',String(value==='start'));$('pickEnd').setAttribute('aria-pressed',String(value==='end'));$('placeSearch').value='';$('mapStatus').textContent='Choose '+(value==='start'?'the starting point':'the destination')+' using search or the map.';}
  $('pickStart').onclick=()=>setTarget('start');$('pickEnd').onclick=()=>setTarget('end');
  $('drawStart').onclick=()=>{invalidate();drawPoints=[];drawn=null;drawing=true;renderDrawing();};
@@ -258,6 +278,32 @@ function initSpatialExplorer({data,openFilm}){
  $('cancelSpatial').onclick=()=>invalidate('Calculation cancelled.');$('fitAnalysis').onclick=()=>{initializeMap();fitSelection();};
  $('resetMap').onclick=()=>{center=end=null;centerName=endName='';drawPoints=[];drawn=null;drawing=false;apply({radiusKm:10,relation:'filming',genre:'',yearFrom:years[0],yearTo:years[1]});$('placeSearch').value='';$('spatialQuery').value='';switchTool('nearby');map.setView([22.5,79],5);};
  $('moreSpatial').onclick=more;apply({radiusKm:10,relation:'filming',genre:'',yearFrom:years[0],yearTo:years[1]});for(const genre of engine.genres)option($('spatialGenre'),genre,genre);$('spatialControls').disabled=false;
+ const openPlace=p=>{switchTool('nearby');choose(point(p),p.name);$('showHeritageReferences').checked=true;map.setView(point(p),13);explore(p);$('spatial').scrollIntoView({block:'start'});};
+ initSongGeotagging({data,getPoint:()=>({center,name:centerName})});
+ initCinemaChat({data,engine,getRegions:loadRegions,openFilm,openPlace,syncSongs:async answer=>{
+  await switchTool('nearby');center=end=null;centerName=endName='';updatePointLabels();renderPoints();analysisLayer.clearLayers();markers.clearLayers();
+  const points=[];
+  for(const item of answer.items){const p=engine.byNode.get(item.place);if(!p)continue;const marker=L.circleMarker(point(p),{radius:8,color:'#8661a9',fillColor:'#b490d5',fillOpacity:.8,weight:2,bubblingMouseEvents:false}).addTo(markers);const popup=el('div');el('strong',data.nodes[item.song][1],popup);el('p',data.nodes[item.film][1]+' · '+p.name,popup);el('p',SongGeo.precisionLabels[item.precision]||item.precision,popup);link(popup,'Song-location evidence ↗',item.source);discover(popup,p);marker.bindPopup(popup);points.push(point(p));}
+  if(points.length)map.fitBounds(L.latLngBounds(points),{padding:[30,30],maxZoom:11});
+  $('spatialSummary').textContent=answer.summary;$('interpretedQuery').textContent=answer.note;empty('Song location references','Purple points represent the precision disclosed in each source-supported tag. Use chat to inspect or export the evidence.');$('mapStatus').textContent='Song-specific evidence · reference points, not camera positions';
+ },syncCatalog:async answer=>{
+  await switchTool('nearby');apply(answer.plan);choose(answer.plan.center,answer.plan.placeText);$('showHeritageReferences').checked=true;
+  const area=S.circle(answer.plan.center,answer.plan.radiusKm);L.geoJSON(area,{style:{color:'#527fb6',fillOpacity:.08},interactive:false}).addTo(analysisLayer);fitSelection();drawMarkers([]);
+  $('spatialSummary').textContent=answer.summary;$('interpretedQuery').textContent=answer.note;$('spatialResults').replaceChildren();
+  for(const p of answer.items.slice(0,30)){const card=el('article',null,$('spatialResults'));card.className='spatial-card';el('h4',p.name,card);el('span',scope(p),card).className='place-badge';el('p',(p.locality||p.country)+' · '+p.distanceKm.toFixed(2)+' km',card);el('p',p.directFilmCount+' direct film connections recorded',card);discover(card,p);if(p.identitySource)link(card,'Site identity source ↗',p.identitySource);}
+  $('mapStatus').textContent='Heritage reference catalogue · no filming relationship inferred';
+ },syncSpatial:async answer=>{
+  const p=answer.plan;
+  await switchTool(p.intent==='region'?'region':'nearby');
+  apply(p);
+  if(p.intent==='region'){
+   const r=await loadRegions(),f=r.byId.get(p.regionId);
+   $('stateRegion').value=p.stateId;populateDistricts();$('districtRegion').value=f.properties.level==='ADM2'?p.regionId:'';regionContext();
+  }else choose(p.center,p.placeText,true);
+  await run(true);
+  if(!last)throw Error('The map selection could not be completed. Check the map controls and try again.');
+  if(results.length!==answer.results.length)throw Error('The map filters changed during the question. Please ask again.');
+ }});
  if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){initializeMap();observer.disconnect();}},{rootMargin:'100px'});observer.observe($('cinemaMap'));}else initializeMap();
  return {engine,focusPlace(node){const p=engine.byNode.get(node);if(!p)return;switchTool('nearby');choose(point(p),p.name);$('spatial').scrollIntoView({behavior:'smooth'});run(true);}};
 }

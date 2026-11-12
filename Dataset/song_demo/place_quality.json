@@ -1,0 +1,23 @@
+{
+  "types": {
+    "heritage_property": 1248,
+    "heritage_component": 5645,
+    "country": 92,
+    "city": 172,
+    "region": 35,
+    "unknown": 1347,
+    "venue": 2,
+    "historic_site": 33,
+    "historic_component": 5
+  },
+  "precision": {
+    "site_reference": 6933,
+    "country_reference": 92,
+    "locality_reference": 172,
+    "region_reference": 35,
+    "unknown_reference": 1347
+  },
+  "wikidata_profile_records": 431,
+  "reviewed_profile_records": 3,
+  "method": "Existing geometry retained. Classification uses exact Wikidata instance-of labels or explicitly reviewed identities. Reference sites add no movie assertions."
+}

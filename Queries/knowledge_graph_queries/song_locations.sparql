@@ -1,0 +1,10 @@
+PREFIX gwm: <https://w3id.org/gwm/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT DISTINCT ?song ?film ?place ?precision ?source WHERE {
+  ?track a gwm:Song ; rdfs:label ?song ; gwm:inFilm ?movie ; gwm:songFilmedAt ?location .
+  ?movie rdfs:label ?film .
+  ?location rdfs:label ?place .
+  ?claim rdf:subject ?track ; rdf:predicate gwm:songFilmedAt ; rdf:object ?location ;
+         gwm:locationPrecision ?precision ; gwm:sourceURL ?source .
+} ORDER BY ?song ?place

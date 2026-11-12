@@ -20,11 +20,12 @@ function initPlacePanel(searchMovies,{describe,openFilm}){
    for(const film of films){
     const card=add(out,'article','');button(card,film.name+' ('+film.year+')',()=>{openFilm(film.node);$('explore').scrollIntoView({block:'start'});});
     for(const c of film.connections){
-     add(card,'p',(c.relation==='filming'?'Filmed at ':'Story set at ')+c.place);
+     add(card,'p',(c.relation==='filming'?'Filming connection: ':'Story setting: ')+c.place);
      if(c.evidence)add(card,'p',c.evidence);
      if(c.sourceUrls.length)for(const url of c.sourceUrls)link(card,'Filming / story source ↗',url);else add(card,'small','Dataset record: '+c.sourceRecord);
     }
    }
+   if(context?.songs?.length){add(out,'h4','Song-level filming evidence');for(const song of context.songs){const card=add(out,'article','');add(card,'strong',song.title+' · '+song.filmTitle);add(card,'p',SongGeo.precisionLabels[song.precision]||song.precision);add(card,'p',song.evidence);link(card,'Song-location source ↗',song.source);}}
    add(out,'p','Explore other recorded locations within '+r+' km. Proximity is not evidence of filming at this site.');
    button(out,'Find movies around here',()=>movies(p));return;
   }
@@ -53,14 +54,16 @@ function initPlacePanel(searchMovies,{describe,openFilm}){
   opener=document.activeElement;selected=p;context=describe(p.node);panel.hidden=false;
   $('discoveryName').textContent=p.name;$('discoveryPoint').textContent=p.lat.toFixed(4)+', '+p.lon.toFixed(4);
   const overview=$('placeOverview');overview.replaceChildren();
-  if(context?.heritage)add(overview,'span','Heritage collection').className='place-badge';
+  add(overview,'span',SpatialSearch.placeLabel(p)).className='place-badge';
+  if(context?.locality)add(overview,'p',context.locality);
   if(context?.description)add(overview,'p',context.description);
   else add(overview,'p',context?.heritage?'A heritage place in our sourced collection. Follow the identity source for its history.':'Explore this place’s recorded movie connections and surroundings.');
   const sources=add(overview,'div','');sources.className='place-source-links';
-  link(sources,'History & identity ↗',context?.source_url||context?.heritageSource);
+  link(sources,'History & identity ↗',context?.identitySource||context?.source_url||context?.heritageSource);
   link(sources,'Coordinate source ↗',p.coordinateSource);
   link(sources,'Google Maps ↗','https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.lat+','+p.lon));
-  add(overview,'small','Map points represent a site or locality, not an exact camera position.');
+  $('placePrecision').textContent=SpatialSearch.precisionNote(p);
+  if(context?.aliases?.length){const details=add(overview,'details','');add(details,'summary','Other recorded names');add(details,'p',context.aliases.slice(0,12).join(' · '));}
   $('discoveryName').focus();panel.scrollIntoView({block:'nearest'});show('movies');
  };
 }

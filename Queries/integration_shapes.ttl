@@ -16,6 +16,7 @@ gwm:FilmShape a sh:NodeShape ; sh:targetClass gwm:Film ;
   sh:property [ sh:path gwm:hasGenre ; sh:class gwm:Genre ] .
 
 gwm:SongShape a sh:NodeShape ; sh:targetClass gwm:Song ;
+  sh:property [ sh:path gwm:songFilmedAt ; sh:class geo:Feature ] ;
   sh:property [ sh:path rdfs:label ; sh:minCount 1 ; sh:datatype xsd:string ] ;
   sh:property [ sh:path gwm:inFilm ; sh:minCount 1 ; sh:maxCount 1 ; sh:class gwm:Film ] ;
   sh:property [ sh:path gwm:performedBy ; sh:class gwm:Person ] ;

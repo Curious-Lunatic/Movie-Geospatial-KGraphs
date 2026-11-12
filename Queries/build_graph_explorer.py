@@ -47,6 +47,11 @@ def build(directory, poster_source=ROOT / 'Queries' / 'tmdb_details.jsonl'):
             nodes.append([nid, row[label_col], actual, row.get('release_year', ''),
                           row.get('coordinate_scope', '') or row.get('identity_scope', ''),
                           posters.get(row.get('tmdb_id', ''), '') if kind == 'Film' else '', row.get('heritage_source', '') or (row.get('coordinate_source', '') if actual == 'Heritage' else '')])
+            if kind=='Place':
+                nodes[-1].append(dict(kind=row.get('place_type','unknown'),precision=row.get('location_precision','unknown_reference'),
+                    aliases=json.loads(row.get('aliases') or '[]'),locality=row.get('locality',''),
+                    description=row.get('description',''),identitySource=row.get('identity_source',''),
+                    classificationSource=row.get('classification_source',''),parentId=row.get('heritage_parent_id','')))
     claims = read(directory, 'claims.csv')
     edges, edge_index = [], {}
     for c in claims:
@@ -84,6 +89,7 @@ def build(directory, poster_source=ROOT / 'Queries' / 'tmdb_details.jsonl'):
         features.append(dict(type='Feature', geometry=dict(type='Point', coordinates=[lon, lat]),
                              properties=dict(place_id=nodes[node][0], place_name=nodes[node][1],
                                              coordinate_scope=scope, coordinate_source=source, country=country,
+                                             place_type=nodes[node][7].get('kind','unknown'),location_precision=nodes[node][7].get('precision','unknown_reference'),
                                              film_count=len({f for f, _ in linked}),
                                              filming_movie_count=len({f for f, r in linked if r == 'filming'}),
                                              story_movie_count=len({f for f, r in linked if r == 'narrative'}),
@@ -122,12 +128,12 @@ def build(directory, poster_source=ROOT / 'Queries' / 'tmdb_details.jsonl'):
             w = csv.DictWriter(f, fieldnames=fields)
             w.writeheader()
             w.writerows(rows)
-    summary = json.loads((directory / 'summary.json').read_text())
+    summary = json.loads((directory / 'summary.json').read_text(encoding='utf-8'))
     summary['linked_heritage_sites'] = len(heritage)
     summary['heritage_film_site_connections'] = sum(len(value['films']) for value in heritage.values())
     summary['heritage_films'] = len(set().union(*(value['films'] for value in heritage.values())))
     details_path = ROOT / 'Queries' / 'heritage_expansion' / 'place_details.json'
-    details = json.loads(details_path.read_text()) if details_path.exists() else {}
+    details = json.loads(details_path.read_text(encoding='utf-8')) if details_path.exists() else {}
     # Reuse the attributed descriptions already supplied with the UNESCO dataset.
     with (ROOT / 'Dataset' / 'whc001.csv').open(encoding='utf-8-sig', newline='') as stream:
         for site in csv.DictReader(stream):
@@ -140,27 +146,34 @@ def build(directory, poster_source=ROOT / 'Queries' / 'tmdb_details.jsonl'):
                 text = text[:500].rsplit(' ', 1)[0] + '…'
             if text:
                 details.setdefault(pid, dict(description=text, source_url=places[pid]['coordinate_source']))
-    payload = json.dumps(dict(placeDetails=details, nodes=nodes, edges=edges, summary={k: v for k, v in summary.items() if k != 'sources'},
+    quality_path=directory/'place_quality.json'
+    quality=json.loads(quality_path.read_text(encoding='utf-8')) if quality_path.exists() else {}
+    song_locations=[dict(song=index[r['song_id']],film=index[r['film_id']],place=index[r['place_id']],precision=r['location_precision'],source=r['source_url'],evidence=r['evidence'],timestamp=r['scene_timestamp'],status=r['status']) for r in read(directory,'song_locations.csv')] if (directory/'song_locations.csv').exists() else []
+    song_review=read(directory,'song_location_review.csv') if (directory/'song_location_review.csv').exists() else []
+    payload = json.dumps(dict(songLocations=song_locations,songLocationReview=song_review,placeQuality=quality,placeDetails=details, nodes=nodes, edges=edges, summary={k: v for k, v in summary.items() if k != 'sources'},
                               romance=romance_rows[:30], heritage=heritage_rows, geo=geo), ensure_ascii=False, separators=(',', ':'))
     # Escaping '<' prevents source strings from ending the embedded script tag.
     payload = payload.replace('<', '\\u003c').replace('\u2028', '\\u2028').replace('\u2029', '\\u2029')
     template = (ROOT / 'Queries' / 'graph_explorer.html').read_text(encoding='utf-8')
     webmap = ROOT / 'Queries' / 'webmap'
     template = template.replace('/*__WEBMAP_CSS__*/',
-                                (webmap / 'vendor' / 'leaflet.css').read_text() + '\n' + (webmap / 'map.css').read_text())
-    query = (webmap.parent / 'taj_mahal_filming_cast.sparql').read_text()
-    panel = (webmap / 'map_panel.html').read_text()
+                                (webmap / 'vendor' / 'leaflet.css').read_text(encoding='utf-8') + '\n' + (webmap / 'map.css').read_text(encoding='utf-8'))
+    query = (webmap.parent / 'taj_mahal_filming_cast.sparql').read_text(encoding='utf-8')
+    panel = (webmap / 'map_panel.html').read_text(encoding='utf-8')
+    panel = (webmap / 'chat_panel.html').read_text(encoding='utf-8')+(webmap/'song_tag_panel.html').read_text(encoding='utf-8') + panel
     template = template.replace('<!--__WEBMAP_PANEL__-->', panel +
                                 '<script type="text/plain" id="tajQueryText">' + query + '</script>')
     for name in ('india_regions.geojson', 'region_membership.json', 'boundary_sources.json'):
         shutil.copyfile(webmap / 'data' / name, directory / name)
-    scripts = '\n'.join((webmap / file).read_text() for file in ('vendor/leaflet.js', 'vendor/turf.min.js', 'spatial_tools.js', 'spatial_engine.js', 'place_context.js', 'place_panel.js', 'spatial_ui.js'))
+    scripts = '\n'.join((webmap / file).read_text(encoding='utf-8') for file in ('vendor/leaflet.js', 'vendor/turf.min.js', 'spatial_tools.js', 'spatial_engine.js', 'song_geo.js', 'song_geotag_ui.js', 'chat_engine.js', 'chat_ui.js', 'place_context.js', 'place_panel.js', 'spatial_ui.js'))
     # Keep redistribution notices in the deployed bundle as well as the source tree.
-    licenses = '\n\n'.join((webmap / 'vendor' / name).read_text()
+    licenses = '\n\n'.join((webmap / 'vendor' / name).read_text(encoding='utf-8')
                             for name in ('LEAFLET-LICENSE', 'TURF-LICENSE'))
     scripts = '/*\n' + licenses.replace('*/', '* /') + '\n*/\n' + scripts
     template = template.replace('<!--__WEBMAP_SCRIPTS__-->', '<script>\n' + scripts + '\n</script>')
-    (directory / 'graph_explorer.html').write_text(template.replace('/*__GRAPH_DATA__*/', payload), encoding='utf-8')
+    # Keep the embedded-data separator identical on Windows and Unix.
+    with (directory / 'graph_explorer.html').open('w', encoding='utf-8', newline='\n') as stream:
+        stream.write(template.replace('/*__GRAPH_DATA__*/', payload))
     print(json.dumps(dict(nodes=len(nodes), edges=len(edges), films_with_posters=sum(bool(n[5]) for n in nodes), romance_query_rows=len(romance_rows),
                           linked_heritage_properties=len(heritage_rows), output=str(directory / 'graph_explorer.html')), indent=2))
 

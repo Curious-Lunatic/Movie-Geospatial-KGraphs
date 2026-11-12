@@ -1,5 +1,29 @@
 # Good Will Mapping: dataset integration
 
+The latest update adds named place identities and coordinate precision, custom
+nearby buffers up to 2,000 km, route corridors up to 250 km, explicit song-location
+evidence and review-only geotag proposals. See the
+[November 12 demo and coverage notes](Docs/ATLAS_IMPROVEMENTS_2026-11-12.md).
+
+## Final demo: conversational geospatial exploration
+
+The November contribution adds an evidence-backed chat interface to the existing
+graph and cinema atlas. Ask nearby or state/district questions, refine the filters
+in conversation, inspect a film's connections, and export results to QGIS.
+Use [the live-demo script and run instructions](Docs/FINAL_DEMO.md) and
+[the slide/report handoff](Docs/FINAL_PRESENTATION_HANDOFF.md).
+The [executed demo snapshot](Dataset/chat_demo/README.md) records reproducible
+answers. Earlier mid-evaluation deliverables below retain their historical dates.
+
+```sh
+python Queries/build_integrated_graph.py
+python Queries/build_graph_explorer.py
+python Queries/serve_demo.py
+```
+
+Open `http://127.0.0.1:8767/graph_explorer.html#chat`. Chat answers use supported
+question patterns over the recorded data; they are not unrestricted LLM answers.
+
 ## Current knowledge graph
 
 The expanded 1970–2025 cinema graph is documented in

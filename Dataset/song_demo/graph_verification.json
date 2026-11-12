@@ -1,0 +1,25 @@
+{
+  "full_rdf_syntax_parsed": false,
+  "direct_graph_syntax_parsed": true,
+  "query_projection_and_sample_triples": 577025,
+  "provenance_statements": 219017,
+  "provenance_records_sampled": 219,
+  "entity_counts_match": true,
+  "rdf_csv_query_results_match": true,
+  "query_result_rows": {
+    "romance": 946,
+    "heritage": 39,
+    "characters": 15,
+    "song_locations": 2
+  },
+  "shacl_executed": false,
+  "song_shape_executed": true,
+  "song_shape_conforms": true,
+  "song_provenance_records_checked": 2,
+  "graph_sha256": "ed68de17356d2db0703ff0a69dee5feb11a1db7f60d56fa650b13be20756e849",
+  "query_sha256": {
+    "romance": "bb54e728eb66e132e81521a3994ada290ab6e55b457fe71cb0cc926b2ed942f4",
+    "heritage": "762a4bd61e33631e3135e1d6069e0dceb4b52c2bf0033cbd08a69f0b8e6654be",
+    "characters": "a1376a6ec5712546d5c4166363d17ac456b0a130d83b246f1977776c930029a2"
+  }
+}

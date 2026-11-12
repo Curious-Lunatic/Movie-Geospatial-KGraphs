@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-11",
+  "javascript_tests_passed": 32,
+  "integration_tests_passed": 8,
+  "browser_scenarios": [
+    "Taj Mahal radius",
+    "Contextual heritage filter",
+    "Rajasthan region overlay",
+    "Contextual year filter",
+    "Fanaa locations",
+    "Fanaa source evidence",
+    "Fanaa six categories",
+    "New conversation resets context",
+    "Actual GeoJSON download"
+  ],
+  "qgis_import_report": "GIS/chat_demo/validation.json",
+  "graph_verification_report": "Dataset/chat_demo/graph_verification.json",
+  "deployment_bundle_built": true,
+  "compressed_graph_data_roundtrip_valid": true,
+  "deployed_to_public_site": false,
+  "qgis_project_relative_sources": [
+    "./search_area.geojson",
+    "./movie_locations.geojson"
+  ],
+  "screenshots": [
+    {
+      "file": "01-chat-heritage.jpg",
+      "sha256": "01e7ebba6d67791ff5cd2730ddf7bbc6f7dc8ac704bd23b8be870572997122b8",
+      "captured_date": "2026-11-11",
+      "source": "Actual local in-app browser"
+    },
+    {
+      "file": "02-chat-region.jpg",
+      "sha256": "1b2908db217da8c1abb256b9cbb3011d415a8a5ad4ea3f498e40673634d27388",
+      "captured_date": "2026-11-11",
+      "source": "Actual local in-app browser"
+    },
+    {
+      "file": "03-chat-film-evidence.jpg",
+      "sha256": "1d05529ba39eff3939c7bb8dab53baea1b70e0350f1de43d048f52baef6ba8c9",
+      "captured_date": "2026-11-11",
+      "source": "Actual local in-app browser"
+    },
+    {
+      "file": "04-fanaa-graph.jpg",
+      "sha256": "32f94b91486c26a49890a9220ab3db90838d14eee2016daf4cfaeffca70b9ec6",
+      "captured_date": "2026-11-11",
+      "source": "Actual local in-app browser"
+    }
+  ]
+}

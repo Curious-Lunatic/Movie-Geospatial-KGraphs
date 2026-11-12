@@ -47,7 +47,7 @@ a{color:var(--green);text-underline-offset:3px}footer{display:flex;justify-conte
 <header><div><div class="eyebrow">Indian cinema · Geospatial knowledge graph</div><h1>Places & Stories</h1></div><div class="header-tools"><p>Explore cinema through its people, music and places. Choose a film, then select a node or line to see the source behind a connection.</p><button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false">Dark mode</button></div></header>
 <div class="metrics" id="metrics" aria-label="Dataset overview"></div>
 
-<div class="metrics" style="display:block;border:0;padding:0;margin-top:12px"><a class="map-tools-link" href="#spatial">Explore nearby movies on the map ↓</a></div>
+<div class="metrics" style="display:block;border:0;padding:0;margin-top:12px"><a class="map-tools-link" href="#chat">Ask a geospatial question ↓</a> · <a class="map-tools-link" href="#spatial">Explore movies on the map ↓</a></div>
 <main id="explore" class="workspace">
 <section class="panel search-panel"><h2>Search movies</h2><div class="search-wrap"><input id="search" type="search" aria-label="Search films" placeholder="Try Jodhaa Akbar, Dhoom…" autocomplete="off"><button id="clearSearch" class="clear-btn" aria-label="Clear search" style="display:none">✕</button></div><p class="muted" id="resultCount"></p><div id="matches"><p class="muted" id="loadingMsg">Loading film data…</p></div></section>
 <section class="panel graph-panel"><div class="graph-toolbar"><div><div class="section-label">Movie connections</div><h2 id="filmTitle"></h2></div><div class="filter-control"><label class="muted" for="filter">Show connections</label><select id="filter"><option value="all">All relationships</option><option value="locations">Places and genres</option><option value="credits">Cast and characters</option><option value="songs">Songs and music credits</option></select></div></div><p class="muted" id="scope"></p><div class="graph-canvas"><svg id="graph" viewBox="0 0 1400 1100" aria-label="Selected film relationship graph" role="group"></svg></div><div class="legend" id="legend"></div></section>
@@ -77,7 +77,7 @@ const $=id=>document.getElementById(id),films=N.map((n,i)=>[n,i]).filter(([n])=>
 // Pre-build lowercase search index for fast filtering
 const filmSearchIndex=films.map(([n,i])=>[(n[1]+' '+n[3]).toLocaleLowerCase(),n,i]);
 let current=films.find(([n])=>n[1]==='Jodhaa Akbar')?.[1]??films[0]?.[1];
-const label=r=>({filming:'filmed at',narrative:'story set in',cast_member:'cast member',director:'directed by',in_film:'song in film',portrays:'portrays',character_in_film:'character in film',genre:'has genre',performed_by:'performed by',composed_by:'composed by',lyrics_by:'lyrics by',part_of_heritage:'part of heritage'})[r]||r;
+const label=r=>({filming:'filmed at',song_filming:'song filmed at',narrative:'story set in',cast_member:'cast member',director:'directed by',in_film:'song in film',portrays:'portrays',character_in_film:'character in film',genre:'has genre',performed_by:'performed by',composed_by:'composed by',lyrics_by:'lyrics by',part_of_heritage:'part of heritage'})[r]||r;
 function add(parent,tag,text,cls){const el=document.createElement(tag);el.textContent=text;if(cls)el.className=cls;parent.append(el);return el}
 function listFilms(){
   const q=$('search').value.toLocaleLowerCase();
@@ -109,7 +109,7 @@ function render(){if(current===undefined)return;const f=$('filter').value,g=$('g
  const allow=r=>f==='all'||f==='locations'&&['filming','narrative','genre'].includes(r)||f==='credits'&&['cast_member','director','character_in_film'].includes(r)||f==='songs'&&r==='in_film';
  adj[current].forEach(j=>{const e=E[j];if(!allow(e[1]))return;const other=e[0]===current?e[2]:e[0];const arr=groups[N[other][2]];if(arr&&!arr.includes(other))arr.push(other)});
  const caps={Song:10,Person:10,Character:10,Genre:6,Place:12,Heritage:8};Object.entries(groups).forEach(([k,v])=>v.slice(0,caps[k]).forEach(i=>selected.add(i)));
- if(f==='songs'){for(const s of groups.Song.slice(0,10))for(const j of adj[s]){const e=E[j];if(['performed_by','composed_by','lyrics_by'].includes(e[1])&&groups.Person.length<12&&!groups.Person.includes(e[2])){groups.Person.push(e[2]);selected.add(e[2])}}}
+ if(f==='songs'||f==='all'){for(const s of groups.Song.slice(0,10))for(const j of adj[s]){const e=E[j],kind=N[e[2]][2];if((e[1]==='song_filming'||f==='songs'&&['performed_by','composed_by','lyrics_by'].includes(e[1]))&&groups[kind]&&groups[kind].length<12&&!groups[kind].includes(e[2])){groups[kind].push(e[2]);selected.add(e[2])}}}
  const positions=new Map([[current,[690,440]]]);const layouts={Song:[170,90],Person:[170,600],Character:[650,630],Genre:[650,90],Heritage:[1120,90],Place:[1120,480]};
  Object.entries(groups).forEach(([k,v])=>{let shown=v.filter(i=>selected.has(i));let [x,y]=layouts[k];const t=svg('text',{x:x-135,y:y-25,fill:colors[k],'font-weight':'bold'},g);t.textContent=k+' · '+v.length;shown.forEach((i,j)=>positions.set(i,[x,y+j*38]))});
  // Stop edges at the poster border so the image remains an unobstructed focal point.

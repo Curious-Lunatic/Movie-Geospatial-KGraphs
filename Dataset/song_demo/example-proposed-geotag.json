@@ -1,0 +1,12 @@
+{
+  "song_id": "song:a90ae6faa0d75b5f9c8655e6",
+  "film_id": "film:1d189cb853398a94f1d92725",
+  "place_name": "Iceland",
+  "latitude": 65,
+  "longitude": -18.6,
+  "location_precision": "country_reference",
+  "source_url": "https://filminiceland.com/made-in-iceland/dilwale",
+  "evidence": "The official Film in Iceland production listing connects the Dilwale lead-pair sequence and Gerua music video to Iceland. The tag is country-level; it does not identify a waterfall, beach or camera position.",
+  "scene_timestamp": "",
+  "status": "proposed"
+}

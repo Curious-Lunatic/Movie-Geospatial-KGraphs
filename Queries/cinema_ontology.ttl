@@ -18,6 +18,7 @@ gwm:Landscape a rdfs:Class ; rdfs:comment "Reserved for sourced landscape classi
 gwm:filmedAt a rdf:Property ; rdfs:domain gwm:Film ; rdfs:range gwm:Place .
 gwm:setIn a rdf:Property ; rdfs:domain gwm:Film ; rdfs:range gwm:Place .
 gwm:inFilm a rdf:Property ; rdfs:domain gwm:Song ; rdfs:range gwm:Film .
+gwm:songFilmedAt a rdf:Property ; rdfs:domain gwm:Song ; rdfs:range gwm:Place ; rdfs:comment "Explicit song-level filming evidence; never inherited from a film's locations." .
 gwm:castMember a rdf:Property ; rdfs:domain gwm:Film ; rdfs:range gwm:Person .
 gwm:directedBy a rdf:Property ; rdfs:domain gwm:Film ; rdfs:range gwm:Person .
 gwm:portrays a rdf:Property ; rdfs:domain gwm:Person ; rdfs:range gwm:Character .

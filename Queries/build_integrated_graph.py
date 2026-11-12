@@ -155,6 +155,8 @@ class Integration:
         self.places, self.people, self.songs, self.claims = {}, {}, {}, {}
         self.characters, self.genres = {}, {}
         self.review_claims = []
+        self.song_location_review=[]
+        self.song_locations=[]
         self.source_to_film = {}
         self.id_index, self.title_index = collections.defaultdict(set), collections.defaultdict(set)
         self.place_index = collections.defaultdict(set)
@@ -324,13 +326,13 @@ class Integration:
         return self.add_place(pid, label, coord, "place_representative_point" if coord else "unresolved",
                               coordinate_source)
 
-    def claim(self, subject, relation, obj, source, row, method, url="", status="source_supported", evidence=""):
+    def claim(self, subject, relation, obj, source, row, method, url="", status="source_supported", evidence="", precision=""):
         if not subject or not obj:
             return
         cid = key("claim", subject, relation, obj, source, str(row), method)
         self.claims[cid] = dict(claim_id=cid, subject_id=subject, relation=relation, object_id=obj,
             source_file=source, source_row=row, source_url=url, method=method, status=status,
-            evidence=evidence, revision_id="", retrieved_at="")
+            evidence=evidence, revision_id="", retrieved_at="",location_precision=precision)
 
     def build_locations(self):
         source = "enriched/location_assertions.csv"
@@ -470,6 +472,7 @@ class Integration:
                                    row.get("source_url", ""), evidence=column + ": " + row.get(column, ""))
                 if row.get("song_location_note"):
                     self.issue("song_location_needs_review", source, number, row["song_location_note"])
+                    self.song_location_review.append(dict(song_id=sid,film_id=fid,song=title,note=row['song_location_note'],source_file=source,source_row=number,source_url=row.get('source_url',''),status='needs_review'))
                 # Film locations do not prove that this particular song was shot there.
         for number, row in enumerate(self.read("bollywood_songs_1970_2026.csv"), 2):
             sy = year(row.get("release_date", ""))
@@ -495,8 +498,12 @@ class Integration:
         self.build_locations()
         from heritage_expansion.apply import apply as apply_heritage_expansion
         apply_heritage_expansion(self)
+        from place_profiles.apply import apply as apply_place_profiles
+        apply_place_profiles(self)
         self.build_credits()
         self.build_songs()
+        from song_locations.apply import apply as apply_song_locations
+        apply_song_locations(self)
         self.validate()
         return self
 
@@ -504,6 +511,7 @@ class Integration:
         locations = [c for c in self.claims.values() if c["relation"] in ("filming", "narrative")]
         return dict(year_range=[self.start, self.end], heritage_inscribed_by=self.cutoff,
             films=len(self.films), songs=len(self.songs), people=len(self.people), places=len(self.places),
+            songs_with_filming_locations=len({r['song_id'] for r in self.song_locations}),song_filming_claims=len(self.song_locations),
             characters=len(self.characters), genres=len(self.genres),
             events=0, landscapes=0,
             distinct_relationships=len({(c['subject_id'], c['relation'], c['object_id']) for c in self.claims.values()}),
@@ -525,12 +533,14 @@ class Integration:
         out.mkdir(parents=True, exist_ok=True)
         tables = {
             "films.csv": (self.films.values(), "film_id,title,release_year,observed_years,wikidata_id,imdb_id,tmdb_id,filmapia_id,sources"),
-            "places.csv": (self.places.values(), "place_id,place_name,latitude,longitude,coordinate_scope,coordinate_source,heritage_parent_id,country_codes,country_names,inscription_year,heritage_kind,heritage_source"),
+            "places.csv": (self.places.values(), "place_id,place_name,latitude,longitude,coordinate_scope,coordinate_source,heritage_parent_id,country_codes,country_names,inscription_year,heritage_kind,heritage_source,place_type,location_precision,aliases,locality,description,identity_source,classification_source,wikidata_revision"),
             "people.csv": (self.people.values(), "person_id,name,tmdb_person_id,identity_scope"),
             "characters.csv": (self.characters.values(), "character_id,name,film_id,person_id"),
             "genres.csv": (self.genres.values(), "genre_id,name"),
             "songs.csv": (self.songs.values(), "song_id,title,film_id,singers,music,lyrics"),
-            "claims.csv": (self.claims.values(), "claim_id,subject_id,relation,object_id,source_file,source_row,source_url,method,status,evidence,revision_id,retrieved_at"),
+            "song_locations.csv":(self.song_locations,"song_id,film_id,place_id,location_precision,source_url,source_file,source_row,evidence,scene_timestamp,status"),
+            "song_location_review.csv":(self.song_location_review,"song_id,film_id,song,note,source_file,source_row,source_url,status"),
+            "claims.csv": (self.claims.values(), "claim_id,subject_id,relation,object_id,source_file,source_row,source_url,method,status,evidence,revision_id,retrieved_at,location_precision"),
             "film_crosswalk.csv": (self.crosswalk, "source_file,source_row,source_title,source_year,film_id,scope"),
             "film_attributes.csv": (self.attributes, "film_id,field,value,source_file,source_row"),
             "issues.csv": (self.issues, "kind,source_file,source_row,detail"),
@@ -549,6 +559,7 @@ class Integration:
                                                      ensure_ascii=False), encoding="utf-8")
         (out / "summary.json").write_text(json.dumps(self.summary(), indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         self.export_rdf(out / "graph.ttl")
+        (out / 'place_quality.json').write_text(json.dumps(self.place_quality,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
 
     def export_rdf(self, path):
         def iri(identifier):
@@ -588,6 +599,8 @@ class Integration:
                     stream.write(iri(pid) + ' gwm:heritageIdentitySource ' + lit(place["heritage_source"]) + ' .\n')
                 if place["heritage_parent_id"]:
                     stream.write(iri(pid) + ' gwm:partOfHeritage ' + iri(place["heritage_parent_id"]) + ' .\n')
+                for field,predicate in [('place_type','placeType'),('location_precision','locationPrecision'),('locality','locality'),('identity_source','identitySource')]:
+                    if place.get(field): stream.write(iri(pid)+' gwm:'+predicate+' '+lit(place[field])+' .\n')
                 if place["inscription_year"] != "":
                     stream.write(iri(pid) + ' gwm:inscriptionYear ' + str(place["inscription_year"]) + ' .\n')
                 if place["latitude"] != "":
@@ -600,7 +613,7 @@ class Integration:
             predicates = {"filming": "filmedAt", "narrative": "setIn", "cast_member": "castMember",
                           "director": "directedBy", "in_film": "inFilm", "portrays": "portrays",
                           "character_in_film": "characterInFilm", "genre": "hasGenre",
-                          "performed_by": "performedBy", "composed_by": "composedBy", "lyrics_by": "lyricsBy"}
+                          "performed_by": "performedBy", "composed_by": "composedBy", "lyrics_by": "lyricsBy", "song_filming":"songFilmedAt"}
             direct = set()
             for cid, claim in self.claims.items():
                 triple = (claim["subject_id"], predicates[claim["relation"]], claim["object_id"])
@@ -615,7 +628,7 @@ class Integration:
                 if claim["source_url"]:
                     # Treat URLs as data literals. Bad legacy URLs cannot inject Turtle.
                     stream.write(iri(cid) + ' gwm:sourceURL ' + lit(claim["source_url"]) + ' .\n')
-                for field, predicate in [("evidence", "evidence"), ("revision_id", "revisionId"), ("retrieved_at", "retrievedAt")]:
+                for field, predicate in [("evidence", "evidence"), ("revision_id", "revisionId"), ("retrieved_at", "retrievedAt"),("location_precision","locationPrecision")]:
                     if claim[field]:
                         stream.write(iri(cid) + ' gwm:' + predicate + ' ' + lit(claim[field]) + ' .\n')
 

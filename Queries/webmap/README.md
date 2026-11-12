@@ -1,14 +1,49 @@
 # Cinema atlas: spatial tools
 
+## Conversational interface
+
+The prominent chat above the atlas adds session-only history, context-preserving
+follow-ups and evidence-backed film questions. It shares the existing spatial
+engine, map, filters and exports. It needs no API key or language-model service.
+
+| Example | Operation |
+|---|---|
+| Movies within 5 km of Taj Mahal | Spherical radius selection |
+| Only heritage / within 10 km / only Romance / after 2010 | Refine the previous spatial question |
+| Romance movies in Rajasthan | Published state boundary overlay |
+| Movies in Agra district | District overlay with broad-reference exclusions |
+| Tell me about Fanaa 2006 | Film's recorded graph connections |
+| Where was Fanaa filmed? | Filming links, separate from story settings |
+| Songs / characters / heritage sites in Fanaa | Category-specific film connections |
+| Show songs, following a film question | Retain the film context |
+
+Unknown/ambiguous places, film remakes without a year, invalid filters and
+unsupported questions produce explanations. The parser does not answer arbitrary
+language or road-network questions; use existing Route/Travel time controls.
+No chat question calls the routing provider. Place/source strings are rendered
+as text, and the transcript is kept in memory until New conversation or reload.
+Use a local server for boundary fetches: `python Queries/serve_demo.py`.
+
+See `Docs/FINAL_DEMO.md`, `Docs/FINAL_PRESENTATION_HANDOFF.md` and
+`Dataset/chat_demo/` for the tested presentation sequence and results.
+
+```sh
+node --test Queries/webmap/chat_engine.test.cjs Queries/webmap/spatial_engine.test.cjs Queries/webmap/spatial_tools.test.cjs Queries/webmap/place_context.test.cjs Queries/place_tools/places.test.cjs
+```
+
+The nine chat tests cover interpretation, contextual filters, unsupported input,
+ambiguity, missing data, film remakes, evidence, region selection and real graph
+benchmarks. That original command runs 32 tests; the expanded command below runs 42.
+
 The atlas is part of the existing graph explorer. The statistics and movie graph remain above it. Six tools share the same movie filters, graph IDs, evidence and result renderer.
 
 | Tool | Calculation | Inputs |
 | --- | --- | --- |
-| Nearby | Haversine distance selection and a geographic circle | Place/map point; 0.1–500 km |
+| Nearby | Haversine distance selection and a geographic circle | Place/map point; 0.1–2,000 km |
 | Heritage | The same radius selection centred on a recorded heritage site | Heritage name; radius |
 | Regions | Point-in-polygon overlay with state/district boundaries | State/union territory; optional district |
 | Draw area | Polygon containment including holes and boundaries | Map clicks or coordinates; finish/undo/clear |
-| Along a route | Road route → geographic corridor buffer → point-in-polygon selection | Start/end; car/walking/bicycle; 0.1–25 km corridor |
+| Along a route | Road route → geographic corridor buffer → point-in-polygon selection | Start/end; car/walking/bicycle; 0.1–250 km corridor |
 | Travel time | Road-network isochrone → point-in-polygon selection | Start; car/walking/bicycle; 5–120 minutes |
 
 Common filters cover filming/story setting/both, genre, release years and heritage-only result locations. Movie counts are distinct within each selection. Multiple matching connections are preserved in the exports. Movies with missing coordinates or missing relationships cannot appear.
@@ -82,3 +117,19 @@ References:
 - `*.test.cjs`: distance/geometry/filter/query, service error/cancellation/cache and boundary regression tests.
 
 OpenStreetMap tiles and posters require internet. Local geographic selections operate on downloaded data; routing requires the external service. Tiles use ordinary on-demand loading with visible attribution, without offline tile prefetch.
+
+## Place quality and song geotags (November 12)
+
+See [the executed demo and coverage notes](../../Docs/ATLAS_IMPROVEMENTS_2026-11-12.md)
+for named heritage references, aliases/precision, a broad-reference filter and
+local settlement context. `Song locations`, `Where was the song Gerua filmed?`,
+`Which songs were shot in Iceland?` and `Song locations for Fanaa` use explicit
+song evidence; film locations are never inherited. The form exports proposed
+JSON geotags with evidence and optional scene timestamps, for manual review.
+
+The two source-supported song locations are route/country references, not exact
+camera positions. 48 supplied location notes remain pending review.
+
+```sh
+node --test Queries/webmap/chat_engine.test.cjs Queries/webmap/spatial_engine.test.cjs Queries/webmap/spatial_tools.test.cjs Queries/webmap/place_context.test.cjs Queries/webmap/place_quality.test.cjs Queries/webmap/song_geo.test.cjs Queries/place_tools/places.test.cjs
+```
