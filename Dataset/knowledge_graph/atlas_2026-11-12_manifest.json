@@ -2,7 +2,7 @@
   "snapshot": "2026-11-12",
   "files": {
     "graph.ttl": "ed68de17356d2db0703ff0a69dee5feb11a1db7f60d56fa650b13be20756e849",
-    "graph_explorer.html": "d9b37f4dea1d3fff5d0d7e9aa7296c37881c23104caf66acfe1c8f3fcdc8bbad",
+    "graph_explorer.html": "11b67eaa3883e24d77821905d54944a20999562d8024926cee59c8fce42ab77c",
     "films.csv": "57385d5a1dfb61df4b077b67ee4e7678b79e78c8a00cb6408eb04dd6c127b410",
     "film_crosswalk.csv": "1ba691b80337b235c11ebae8cf7d6c79848c457d59cdaca63641ffabe04deac4",
     "film_attributes.csv": "253c0a14c9bd07152d2f4a069e2bb586ac607fbea1de89c19776e5354006b907",
@@ -55,6 +55,6 @@
   },
   "validation_scope": "Direct RDF projection; sampled provenance plus both song claims; aggregate reconciliation; all songs checked with SongShape. Full-graph provenance SHACL not rerun.",
   "archive": "atlas_2026-11-12.zip",
-  "archive_sha256": "0da6b9fd61c84475b460b3d9efb3d3ebb196fbeccb8b336b0afddc16d970dc83",
+  "archive_sha256": "c84d17f2e0f1f617f84dbed8296fd880a5031204d76305288921312e48cd618c",
   "zip_round_trip_hashes_match": true
 }
