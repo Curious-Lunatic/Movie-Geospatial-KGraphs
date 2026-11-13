@@ -7,7 +7,11 @@
     "location_precision": "route_reference",
     "source_url": "https://en.wikipedia.org/wiki/Nilgiri_Mountain_Railway_X_class",
     "source_snapshot": "../heritage_enrichment/snapshots/nilgiri_x_class.html",
-    "verify_tokens": ["Chaiyya Chaiyya", "Dil Se", "was shot"],
+    "verify_tokens": [
+      "Chaiyya Chaiyya",
+      "Dil Se",
+      "was shot"
+    ],
     "evidence": "The existing reviewed railway article explicitly identifies Chaiyya Chaiyya from Dil Se as filmed on the Nilgiri Mountain Railway train. The coordinate is the railway component's representative point, not a train position or exact filming segment."
   },
   {
@@ -18,7 +22,843 @@
     "location_precision": "country_reference",
     "source_url": "https://filminiceland.com/made-in-iceland/dilwale",
     "source_snapshot": "iceland_source.json",
-    "verify_tokens": ["Dilwale", "Gerua", "Iceland"],
+    "verify_tokens": [
+      "Dilwale",
+      "Gerua",
+      "Iceland"
+    ],
     "evidence": "The official Film in Iceland production listing connects the Dilwale lead-pair sequence and Gerua music video to Iceland. The tag is country-level; it does not identify a waterfall, beach or camera position."
+  },
+  {
+    "song": "Raat Ka Nasha",
+    "film_wikidata_id": "Q734008",
+    "film_year": 2001,
+    "place_id": "Q158455",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Asoka_%282001_film%29",
+    "source_snapshot": "snapshots/review-001.json",
+    "verify_tokens": [
+      "Raat Ka Nasha",
+      "Bhedaghat"
+    ],
+    "evidence": "The reviewed production account identifies Raat Ka Nasha from Asoka (2001 film) with filming at Bhedaghat. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 5
+  },
+  {
+    "song": "Sab Tera",
+    "film_wikidata_id": "Q20649274",
+    "film_year": 2016,
+    "place_id": "Q5617474",
+    "location_precision": "site_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Baaghi_%282016_film%29",
+    "source_snapshot": "snapshots/review-002.json",
+    "verify_tokens": [
+      "Sab Tera",
+      "Poda Island"
+    ],
+    "evidence": "The reviewed production account identifies Sab Tera from Baaghi (2016 film) with filming at Poda Island. Named place reference; camera position not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 9
+  },
+  {
+    "song": "Khuda Jaane",
+    "film_wikidata_id": "Q685694",
+    "film_year": 2008,
+    "place_id": "Q38",
+    "location_precision": "country_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Bachna_Ae_Haseeno",
+    "source_snapshot": "snapshots/review-003.json",
+    "verify_tokens": [
+      "Khuda Jaane",
+      "Italy"
+    ],
+    "evidence": "The reviewed production account identifies Khuda Jaane from Bachna Ae Haseeno with filming at Italy. Country reference; individual filming sites not established. Sydney belongs to a separate clause and is excluded from this song.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 13
+  },
+  {
+    "song": "Khuda Jaane",
+    "film_wikidata_id": "Q685694",
+    "film_year": 2008,
+    "place_id": "Q641",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Bachna_Ae_Haseeno",
+    "source_snapshot": "snapshots/review-003.json",
+    "verify_tokens": [
+      "Khuda Jaane",
+      "Venice"
+    ],
+    "evidence": "The reviewed production account identifies Khuda Jaane from Bachna Ae Haseeno with filming at Venice. City/locality reference; exact shooting address not established. Sydney belongs to a separate clause and is excluded from this song.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 14
+  },
+  {
+    "song": "Khuda Jaane",
+    "film_wikidata_id": "Q685694",
+    "film_year": 2008,
+    "place_id": "Q1447",
+    "location_precision": "region_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Bachna_Ae_Haseeno",
+    "source_snapshot": "snapshots/review-003.json",
+    "verify_tokens": [
+      "Khuda Jaane",
+      "Apulia"
+    ],
+    "evidence": "The reviewed production account identifies Khuda Jaane from Bachna Ae Haseeno with filming at Apulia. Region reference; exact shooting address not established. Sydney belongs to a separate clause and is excluded from this song.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 15
+  },
+  {
+    "song": "Khuda Jaane",
+    "film_wikidata_id": "Q685694",
+    "film_year": 2008,
+    "place_id": "Q2634",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Bachna_Ae_Haseeno",
+    "source_snapshot": "snapshots/review-003.json",
+    "verify_tokens": [
+      "Khuda Jaane",
+      "Naples"
+    ],
+    "evidence": "The reviewed production account identifies Khuda Jaane from Bachna Ae Haseeno with filming at Naples. City/locality reference; exact shooting address not established. Sydney belongs to a separate clause and is excluded from this song.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 16
+  },
+  {
+    "song": "Bhasad Macha",
+    "film_wikidata_id": "Q125295778",
+    "film_year": 2025,
+    "place_id": "Q1156",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Deva_%282025_film%29",
+    "source_snapshot": "snapshots/review-007.json",
+    "verify_tokens": [
+      "Bhasad Macha",
+      "Mumbai"
+    ],
+    "evidence": "The reviewed production account identifies Bhasad Macha from Deva (2025 film) with filming at Mumbai. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 27
+  },
+  {
+    "song": "Burj Khalifa",
+    "film_wikidata_id": "Q63349731",
+    "film_year": 2020,
+    "place_id": "Q612",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Laxmii",
+    "source_snapshot": "snapshots/review-015.json",
+    "verify_tokens": [
+      "Burj Khalifa",
+      "Dubai"
+    ],
+    "evidence": "The reviewed production account identifies Burj Khalifa from Laxmii with filming at Dubai. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 51
+  },
+  {
+    "song": "Jaana Hai Tujhko",
+    "film_wikidata_id": "Q3473067",
+    "film_year": 2008,
+    "place_id": "Q1186",
+    "location_precision": "region_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Mere_Baap_Pehle_Aap",
+    "source_snapshot": "snapshots/review-018.json",
+    "verify_tokens": [
+      "Jaana Hai Tujhko",
+      "Kerala"
+    ],
+    "evidence": "The reviewed production account identifies Jaana Hai Tujhko from Mere Baap Pehle Aap with filming at Kerala. Region reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 59
+  },
+  {
+    "song": "Journey Song",
+    "film_wikidata_id": "Q18703891",
+    "film_year": 2015,
+    "place_id": "Q1061",
+    "location_precision": "region_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Piku",
+    "source_snapshot": "snapshots/review-020.json",
+    "verify_tokens": [
+      "Journey Song",
+      "Gujarat"
+    ],
+    "evidence": "The reviewed production account identifies Journey Song from Piku with filming at Gujarat. Region reference; exact shooting address not established. The account describes a highway journey between Ahmedabad and Bhuj; this tag represents Gujarat, not an endpoint shooting claim.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 65
+  },
+  {
+    "song": "Sunta Hai Mera Khuda",
+    "film_wikidata_id": "Q920943",
+    "film_year": 2000,
+    "place_id": "Q30",
+    "location_precision": "country_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Pukar_%282000_film%29",
+    "source_snapshot": "snapshots/review-021.json",
+    "verify_tokens": [
+      "Sunta Hai Mera Khuda",
+      "United States"
+    ],
+    "evidence": "The reviewed production account identifies Sunta Hai Mera Khuda from Pukar with filming at United States. Country reference; individual filming sites not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 71
+  },
+  {
+    "song": "Sunta Hai Mera Khuda",
+    "film_wikidata_id": "Q920943",
+    "film_year": 2000,
+    "place_id": "Q223969",
+    "location_precision": "site_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Pukar_%282000_film%29",
+    "source_snapshot": "snapshots/review-021.json",
+    "verify_tokens": [
+      "Sunta Hai Mera Khuda",
+      "Arches National Park"
+    ],
+    "evidence": "The reviewed production account identifies Sunta Hai Mera Khuda from Pukar with filming at Arches National Park. Named place reference; camera position not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 78
+  },
+  {
+    "song": "Sunta Hai Mera Khuda",
+    "film_wikidata_id": "Q920943",
+    "film_year": 2000,
+    "place_id": "Q829",
+    "location_precision": "region_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Pukar_%282000_film%29",
+    "source_snapshot": "snapshots/review-021.json",
+    "verify_tokens": [
+      "Sunta Hai Mera Khuda",
+      "Utah"
+    ],
+    "evidence": "The reviewed production account identifies Sunta Hai Mera Khuda from Pukar with filming at Utah. Region reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 79
+  },
+  {
+    "song": "Kismat Se Tum",
+    "film_wikidata_id": "Q920943",
+    "film_year": 2000,
+    "place_id": "Q829432",
+    "location_precision": "site_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Pukar_%282000_film%29",
+    "source_snapshot": "snapshots/review-022.json",
+    "verify_tokens": [
+      "Kismat Se Tum",
+      "Mount Marcus Baker"
+    ],
+    "evidence": "The reviewed production account identifies Kismat Se Tum from Pukar with filming at Mount Marcus Baker. Named place reference; camera position not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 80
+  },
+  {
+    "song": "Dil Aaj Kal",
+    "film_wikidata_id": "Q17080880",
+    "film_year": 2014,
+    "place_id": "Q463437",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Purani_Jeans",
+    "source_snapshot": "snapshots/review-024.json",
+    "verify_tokens": [
+      "Dil Aaj Kal",
+      "Panchgani"
+    ],
+    "evidence": "The reviewed production account identifies Dil Aaj Kal from Purani Jeans with filming at Panchgani. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 86
+  },
+  {
+    "song": "Mere Yaar Milade",
+    "film_wikidata_id": "Q1471937",
+    "film_year": 2002,
+    "place_id": "Q1207562",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Saathiya_%28film%29",
+    "source_snapshot": "snapshots/review-026.json",
+    "verify_tokens": [
+      "Mere Yaar Milade",
+      "Dhanushkodi"
+    ],
+    "evidence": "The reviewed production account identifies Mere Yaar Milade from Saathiya (film) with filming at Dhanushkodi. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 95
+  },
+  {
+    "song": "Saathiya",
+    "film_wikidata_id": "Q1471937",
+    "film_year": 2002,
+    "place_id": "Q1156",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Saathiya_%28film%29",
+    "source_snapshot": "snapshots/review-027.json",
+    "verify_tokens": [
+      "Saathiya",
+      "Mumbai"
+    ],
+    "evidence": "The reviewed production account identifies Saathiya from Saathiya (film) with filming at Mumbai. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 93
+  },
+  {
+    "song": "Subah Hogi",
+    "film_wikidata_id": "Q2548930",
+    "film_year": 2005,
+    "place_id": "Q1032254",
+    "location_precision": "site_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Waqt%3A_The_Race_Against_Time",
+    "source_snapshot": "snapshots/review-028.json",
+    "verify_tokens": [
+      "Subah Hogi",
+      "Pangong Lake"
+    ],
+    "evidence": "The reviewed production account identifies Subah Hogi from Waqt: The Race Against Time with filming at Pangong Lake. Named place reference; camera position not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 100
+  },
+  {
+    "song": "Chikni Chameli",
+    "film_wikidata_id": "Q3595073",
+    "film_year": 2012,
+    "place_id": "Q3072027",
+    "location_precision": "site_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Agneepath_%282012_film%29",
+    "source_snapshot": "snapshots/review-032.json",
+    "verify_tokens": [
+      "Chikni Chameli",
+      "Film City"
+    ],
+    "evidence": "The reviewed production account identifies Chikni Chameli from Agneepath (2012 film) with filming at Film City. Named place reference; camera position not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 110
+  },
+  {
+    "song": "Sau Aasmaan",
+    "film_wikidata_id": "Q20926266",
+    "film_year": 2016,
+    "place_id": "Q869",
+    "location_precision": "country_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Baar_Baar_Dekho",
+    "source_snapshot": "snapshots/review-037.json",
+    "verify_tokens": [
+      "Sau Aasmaan",
+      "Thailand"
+    ],
+    "evidence": "The reviewed production account identifies Sau Aasmaan from Baar Baar Dekho with filming at Thailand. Country reference; individual filming sites not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 126
+  },
+  {
+    "song": "Rabb Warga",
+    "film_wikidata_id": "Q126595873",
+    "film_year": 2024,
+    "place_id": "Q224",
+    "location_precision": "country_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Bad_Newz",
+    "source_snapshot": "snapshots/review-038.json",
+    "verify_tokens": [
+      "Rabb Warga",
+      "Croatia"
+    ],
+    "evidence": "The reviewed production account identifies Rabb Warga from Bad Newz with filming at Croatia. Country reference; individual filming sites not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 129
+  },
+  {
+    "song": "Allah Hafiz",
+    "film_wikidata_id": "Q3764588",
+    "film_year": 2007,
+    "place_id": "Q26732",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Bhool_Bhulaiyaa",
+    "source_snapshot": "snapshots/review-041.json",
+    "verify_tokens": [
+      "Allah Hafiz",
+      "Hampi"
+    ],
+    "evidence": "The reviewed production account identifies Allah Hafiz from Bhool Bhulaiyaa with filming at Hampi. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 142
+  },
+  {
+    "song": "I am a Disco Dancer",
+    "film_wikidata_id": "Q1228474",
+    "film_year": 1982,
+    "place_id": "Q1156",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Disco_Dancer",
+    "source_snapshot": "snapshots/review-051.json",
+    "verify_tokens": [
+      "I am a Disco Dancer",
+      "Mumbai"
+    ],
+    "evidence": "The reviewed production account identifies I am a Disco Dancer from Disco Dancer with filming at Mumbai. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 168
+  },
+  {
+    "song": "Tujhe Dekha To",
+    "film_wikidata_id": "Q849343",
+    "film_year": 1995,
+    "place_id": "Q238508",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Dilwale_Dulhania_Le_Jayenge",
+    "source_snapshot": "snapshots/review-053.json",
+    "verify_tokens": [
+      "Tujhe Dekha To",
+      "Gurgaon"
+    ],
+    "evidence": "The reviewed production account identifies Tujhe Dekha To from Dilwale Dulhania Le Jayenge with filming at Gurgaon. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 174
+  },
+  {
+    "song": "Lapaata",
+    "film_wikidata_id": "Q2991452",
+    "film_year": 2012,
+    "place_id": "Q1563",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Ek_Tha_Tiger",
+    "source_snapshot": "snapshots/review-058.json",
+    "verify_tokens": [
+      "Lapaata",
+      "Havana"
+    ],
+    "evidence": "The reviewed production account identifies Lapaata from Ek Tha Tiger with filming at Havana. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 186
+  },
+  {
+    "song": "Nagada Sang Dhol",
+    "film_wikidata_id": "Q15037029",
+    "film_year": 2013,
+    "place_id": "Q3072027",
+    "location_precision": "site_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Goliyon_Ki_Raasleela_Ram-Leela",
+    "source_snapshot": "snapshots/review-060.json",
+    "verify_tokens": [
+      "Nagada Sang Dhol",
+      "Film City"
+    ],
+    "evidence": "The reviewed production account identifies Nagada Sang Dhol from Goliyon Ki Raasleela Ram-Leela with filming at Film City. Named place reference; camera position not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 194
+  },
+  {
+    "song": "Jiya",
+    "film_wikidata_id": "Q5618599",
+    "film_year": 2014,
+    "place_id": "Q3826",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Gunday",
+    "source_snapshot": "snapshots/review-061.json",
+    "verify_tokens": [
+      "Jiya",
+      "Muscat, Oman"
+    ],
+    "evidence": "The reviewed production account identifies Jiya from Gunday with filming at Muscat, Oman. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 204
+  },
+  {
+    "song": "Bismil",
+    "film_wikidata_id": "Q15726236",
+    "film_year": 2014,
+    "place_id": "place:0989f643f2325061a34e807c",
+    "location_precision": "site_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Haider_%28film%29",
+    "source_snapshot": "snapshots/review-062.json",
+    "verify_tokens": [
+      "Bismil",
+      "Martand Sun Temple"
+    ],
+    "evidence": "The reviewed production account identifies Bismil from Haider (film) with filming at Martand Sun Temple. Representative point; camera position not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 207
+  },
+  {
+    "song": "Rabba",
+    "film_wikidata_id": "Q16248904",
+    "film_year": 2014,
+    "place_id": "Q43100",
+    "location_precision": "region_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Heropanti",
+    "source_snapshot": "snapshots/review-063.json",
+    "verify_tokens": [
+      "Rabba",
+      "Kashmir"
+    ],
+    "evidence": "The reviewed production account identifies Rabba from Heropanti with filming at Kashmir. Region reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 210
+  },
+  {
+    "song": "Mohabbat Ki Nahin Jaati",
+    "film_wikidata_id": "Q3134302",
+    "film_year": 1997,
+    "place_id": "Q90",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Hero_No._1",
+    "source_snapshot": "snapshots/review-064.json",
+    "verify_tokens": [
+      "Mohabbat Ki Nahin Jaati",
+      "Paris"
+    ],
+    "evidence": "The reviewed production account identifies Mohabbat Ki Nahin Jaati from Hero No. 1 with filming at Paris. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 216
+  },
+  {
+    "song": "Mhare Hiwade Mein Naache Mor",
+    "film_wikidata_id": "Q1636437",
+    "film_year": 1999,
+    "place_id": "Q200019",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Hum_Saath-Saath_Hain",
+    "source_snapshot": "snapshots/review-067.json",
+    "verify_tokens": [
+      "Mhare Hiwade Mein Naache Mor",
+      "Jodhpur"
+    ],
+    "evidence": "The reviewed production account identifies Mhare Hiwade Mein Naache Mor from Hum Saath-Saath Hain with filming at Jodhpur. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 228
+  },
+  {
+    "song": "Saturday Saturday",
+    "film_wikidata_id": "Q17055546",
+    "film_year": 2014,
+    "place_id": "Q3072027",
+    "location_precision": "site_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Humpty_Sharma_Ki_Dulhania",
+    "source_snapshot": "snapshots/review-069.json",
+    "verify_tokens": [
+      "Saturday Saturday",
+      "Film City"
+    ],
+    "evidence": "The reviewed production account identifies Saturday Saturday from Humpty Sharma Ki Dulhania with filming at Film City. Named place reference; camera position not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 235
+  },
+  {
+    "song": "Nazrein Milana Nazrein Churana",
+    "film_wikidata_id": "Q1262452",
+    "film_year": 2008,
+    "place_id": "Q463273",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Jaane_Tu..._Ya_Jaane_Na",
+    "source_snapshot": "snapshots/review-074.json",
+    "verify_tokens": [
+      "Nazrein Milana Nazrein Churana",
+      "Mahabaleshwar"
+    ],
+    "evidence": "The reviewed production account identifies Nazrein Milana Nazrein Churana from Jaane Tu... Ya Jaane Na with filming at Mahabaleshwar. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 255
+  },
+  {
+    "song": "Chaleya",
+    "film_wikidata_id": "Q113493289",
+    "film_year": 2023,
+    "place_id": "Q1156",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Jawan_%28film%29",
+    "source_snapshot": "snapshots/review-076.json",
+    "verify_tokens": [
+      "Chaleya",
+      "Mumbai"
+    ],
+    "evidence": "The reviewed production account identifies Chaleya from Jawan (film) with filming at Mumbai. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 261
+  },
+  {
+    "song": "Faraatta",
+    "film_wikidata_id": "Q113493289",
+    "film_year": 2023,
+    "place_id": "Q3072027",
+    "location_precision": "site_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Jawan_%28film%29",
+    "source_snapshot": "snapshots/review-077.json",
+    "verify_tokens": [
+      "Faraatta",
+      "Film City"
+    ],
+    "evidence": "The reviewed production account identifies Faraatta from Jawan (film) with filming at Film City. Named place reference; camera position not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 264
+  },
+  {
+    "song": "Not Ramaiya Vastavaiya",
+    "film_wikidata_id": "Q113493289",
+    "film_year": 2023,
+    "place_id": "Q1156",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Jawan_%28film%29",
+    "source_snapshot": "snapshots/review-078.json",
+    "verify_tokens": [
+      "Not Ramaiya Vastavaiya",
+      "Mumbai"
+    ],
+    "evidence": "The reviewed production account identifies Not Ramaiya Vastavaiya from Jawan (film) with filming at Mumbai. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 270
+  },
+  {
+    "song": "O Mere Raja",
+    "film_wikidata_id": "Q739822",
+    "film_year": 1970,
+    "place_id": "Q1165",
+    "location_precision": "region_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Johny_Mera_Naam",
+    "source_snapshot": "snapshots/review-081.json",
+    "verify_tokens": [
+      "O Mere Raja",
+      "Bihar"
+    ],
+    "evidence": "The reviewed production account identifies O Mere Raja from Johny Mera Naam with filming at Bihar. Region reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 281
+  },
+  {
+    "song": "Tumhi Dekho Naa",
+    "film_wikidata_id": "Q865989",
+    "film_year": 2006,
+    "place_id": "Q60",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Kabhi_Alvida_Naa_Kehna",
+    "source_snapshot": "snapshots/review-082.json",
+    "verify_tokens": [
+      "Tumhi Dekho Naa",
+      "New York City"
+    ],
+    "evidence": "The reviewed production account identifies Tumhi Dekho Naa from Kabhi Alvida Naa Kehna with filming at New York City. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 286
+  },
+  {
+    "song": "Suraj Hua Maddham",
+    "film_wikidata_id": "Q466443",
+    "film_year": 2001,
+    "place_id": "Q12508",
+    "location_precision": "site_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Kabhi_Khushi_Kabhie_Gham",
+    "source_snapshot": "snapshots/review-083.json",
+    "verify_tokens": [
+      "Suraj Hua Maddham",
+      "Pyramids of Giza"
+    ],
+    "evidence": "The reviewed production account identifies Suraj Hua Maddham from Kabhi Khushi Kabhie Gham with filming at Pyramids of Giza. Named place reference; camera position not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 291
+  },
+  {
+    "song": "Kate Nahin Kat Te",
+    "film_wikidata_id": "Q4296485",
+    "film_year": 1987,
+    "place_id": "Q170115",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Mr._India_%281987_film%29",
+    "source_snapshot": "snapshots/review-090.json",
+    "verify_tokens": [
+      "Kate Nahin Kat Te",
+      "Srinagar"
+    ],
+    "evidence": "The reviewed production account identifies Kate Nahin Kat Te from Mr. India with filming at Srinagar. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 308
+  },
+  {
+    "song": "Buddhi Do Bhagwaan",
+    "film_wikidata_id": "Q2617038",
+    "film_year": 2012,
+    "place_id": "Q6872686",
+    "location_precision": "site_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Players_%282012_film%29",
+    "source_snapshot": "snapshots/review-093.json",
+    "verify_tokens": [
+      "Buddhi Do Bhagwaan",
+      "Miramar beach"
+    ],
+    "evidence": "The reviewed production account identifies Buddhi Do Bhagwaan from Players (2012 film) with filming at Miramar beach. Named place reference; camera position not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 319
+  },
+  {
+    "song": "Tu Mun Shudi",
+    "film_wikidata_id": "Q7278417",
+    "film_year": 2013,
+    "place_id": "Q245347",
+    "location_precision": "site_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Raanjhanaa",
+    "source_snapshot": "snapshots/review-095.json",
+    "verify_tokens": [
+      "Tu Mun Shudi",
+      "India Gate"
+    ],
+    "evidence": "The reviewed production account identifies Tu Mun Shudi from Raanjhanaa with filming at India Gate. Named place reference; camera position not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 328
+  },
+  {
+    "song": "Koyal Boli",
+    "film_wikidata_id": "Q7423886",
+    "film_year": 1979,
+    "place_id": "Q1639492",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Sargam_%281979_film%29",
+    "source_snapshot": "snapshots/review-103.json",
+    "verify_tokens": [
+      "Koyal Boli",
+      "Rajahmundry"
+    ],
+    "evidence": "The reviewed production account identifies Koyal Boli from Sargam with filming at Rajahmundry. City/locality reference; exact shooting address not established. The Rajahmundry/Godavari-bank clause applies to this song; Ooty and Kashmir belong to other songs.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 361
+  },
+  {
+    "song": "Matargashti",
+    "film_wikidata_id": "Q18387836",
+    "film_year": 2015,
+    "place_id": "Q134698",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Tamasha_%282015_film%29",
+    "source_snapshot": "snapshots/review-110.json",
+    "verify_tokens": [
+      "Matargashti",
+      "Bastia"
+    ],
+    "evidence": "The reviewed production account identifies Matargashti from Tamasha (2015 film) with filming at Bastia. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 377
+  },
+  {
+    "song": "Akhiyaan Gulab",
+    "film_wikidata_id": "Q124260479",
+    "film_year": 2024,
+    "place_id": "Q612",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Teri_Baaton_Mein_Aisa_Uljha_Jiya",
+    "source_snapshot": "snapshots/review-111.json",
+    "verify_tokens": [
+      "Akhiyaan Gulab",
+      "Dubai"
+    ],
+    "evidence": "The reviewed production account identifies Akhiyaan Gulab from Teri Baaton Mein Aisa Uljha Jiya with filming at Dubai. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 381
+  },
+  {
+    "song": "Hyderabadi Biryani",
+    "film_wikidata_id": "Q7713811",
+    "film_year": 2005,
+    "place_id": "Q1361",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/The_Angrez",
+    "source_snapshot": "snapshots/review-112.json",
+    "verify_tokens": [
+      "Hyderabadi Biryani",
+      "Hyderabad"
+    ],
+    "evidence": "The reviewed production account identifies Hyderabadi Biryani from The Angrez with filming at Hyderabad. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 384
+  },
+  {
+    "song": "Ishq Sufiyana",
+    "film_wikidata_id": "Q3090065",
+    "film_year": 2011,
+    "place_id": "place:e6483db3f0132d7b632bd912",
+    "location_precision": "site_reference",
+    "source_url": "https://en.wikipedia.org/wiki/The_Dirty_Picture",
+    "source_snapshot": "snapshots/review-113.json",
+    "verify_tokens": [
+      "Ishq Sufiyana",
+      "Bidar Fort"
+    ],
+    "evidence": "The reviewed production account identifies Ishq Sufiyana from The Dirty Picture with filming at Bidar Fort. Representative point; camera position not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 387
+  },
+  {
+    "song": "Do Lafzon Ki Hai Dil Ki Kahani",
+    "film_wikidata_id": "Q7737765",
+    "film_year": 1979,
+    "place_id": "Q641",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/The_Great_Gambler",
+    "source_snapshot": "snapshots/review-116.json",
+    "verify_tokens": [
+      "Do Lafzon Ki Hai Dil Ki Kahani",
+      "Venice"
+    ],
+    "evidence": "The reviewed production account identifies Do Lafzon Ki Hai Dil Ki Kahani from The Great Gambler with filming at Venice. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 396
+  },
+  {
+    "song": "Saat Samundar Paar",
+    "film_wikidata_id": "Q7936066",
+    "film_year": 1992,
+    "place_id": "Q3870",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Vishwatma",
+    "source_snapshot": "snapshots/review-120.json",
+    "verify_tokens": [
+      "Saat Samundar Paar",
+      "Nairobi"
+    ],
+    "evidence": "The reviewed production account identifies Saat Samundar Paar from Vishwatma with filming at Nairobi. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 409
+  },
+  {
+    "song": "Señorita",
+    "film_wikidata_id": "Q3067642",
+    "film_year": 2011,
+    "place_id": "Q450906",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Zindagi_Na_Milegi_Dobara",
+    "source_snapshot": "snapshots/review-124.json",
+    "verify_tokens": [
+      "Señorita",
+      "Alájar"
+    ],
+    "evidence": "The reviewed production account identifies Señorita from Zindagi Na Milegi Dobara with filming at Alájar. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 419
+  },
+  {
+    "song": "Tere Pyaar Mein",
+    "film_wikidata_id": "Q8074290",
+    "film_year": 1997,
+    "place_id": "Q39",
+    "location_precision": "country_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Zor_%28film%29",
+    "source_snapshot": "snapshots/review-125.json",
+    "verify_tokens": [
+      "Tere Pyaar Mein",
+      "Switzerland"
+    ],
+    "evidence": "The reviewed production account identifies Tere Pyaar Mein from Zor with filming at Switzerland. Country reference; individual filming sites not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 423
+  },
+  {
+    "song": "Ek Chumma",
+    "film_wikidata_id": "Q48495861",
+    "film_year": 2019,
+    "place_id": "Q84",
+    "location_precision": "locality_reference",
+    "source_url": "https://en.wikipedia.org/wiki/Ek_Chumma",
+    "source_snapshot": "snapshots/review-131.json",
+    "verify_tokens": [
+      "Ek Chumma",
+      "London"
+    ],
+    "evidence": "The reviewed production account identifies Ek Chumma from Housefull 4 with filming at London. City/locality reference; exact shooting address not established.",
+    "review_batch": "2026-11-12-candidates-437",
+    "candidate_csv_row": 436
   }
 ]

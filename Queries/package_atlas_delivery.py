@@ -22,7 +22,8 @@ def main():
     hashes={name:hashlib.sha256((DATA/name).read_bytes()).hexdigest() for name in FILES}
     if hashes['graph.ttl']!=verification['graph_sha256']:raise ValueError('Graph changed after verification')
     if not all(verification.get(k) for k in ['direct_graph_syntax_parsed','entity_counts_match','rdf_csv_query_results_match','song_shape_conforms']):raise ValueError('Required projection/song checks have not passed')
-    if verification['query_result_rows']['song_locations']!=2:raise ValueError('Unexpected curated song coverage')
+    summary=json.loads((DATA/'summary.json').read_text(encoding='utf-8'))
+    if verification['query_result_rows']['song_locations']!=summary['song_filming_claims']:raise ValueError('Song query count differs from the current graph')
     manifest=dict(snapshot='2026-11-12',files=hashes,verification=verification,
                   validation_scope='Direct RDF projection; sampled provenance plus both song claims; aggregate reconciliation; all songs checked with SongShape. Full-graph provenance SHACL not rerun.')
     note='''Current atlas snapshot: 12 November 2026
@@ -32,8 +33,9 @@ directory with a local HTTP server). Open graph_explorer.html. Static film,
 song and radius operations work locally; HTTP is needed for region-layer fetches.
 The repository launcher also provides local settlement context.
 
-There are 10,709 songs and TWO explicit source-supported song-location links.
-These are railway/country reference points, not verified camera coordinates.
+See summary.json for current song and explicit song-location coverage.
+Coordinates retain site/route/locality/region/country reference precision.
+They are not verified camera coordinates.
 48 supplied song-location notes remain for review. Film locations are not
 inherited by songs. Proposal JSON downloads remain proposed until source review.
 

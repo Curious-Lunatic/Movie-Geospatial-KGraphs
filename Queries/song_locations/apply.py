@@ -1,6 +1,30 @@
 """Add explicit song-level location evidence, separately from film locations."""
-import hashlib,json
+import collections,hashlib,json
 from pathlib import Path
+
+
+def apply_places(graph,path):
+    """Import reviewed reference identities; existing geometry is retained."""
+    if not path.exists():return
+    raw=path.read_bytes();records=json.loads(raw)['records']
+    graph.inputs['../Queries/song_locations/reviewed_places.json']=dict(rows=len(records),sha256=hashlib.sha256(raw).hexdigest())
+    from build_integrated_graph import coordinates
+    for pid,record in records.items():
+        if record['kind'] not in {'city','region','country','venue'}:raise ValueError('Invalid reviewed place kind')
+        if record['precision'] not in {'locality_reference','region_reference','country_reference','site_reference'}:raise ValueError('Invalid reviewed place precision')
+        if pid not in graph.places:
+            point=None
+            if record.get('latitude') is not None or record.get('longitude') is not None:
+                point=coordinates(record.get('latitude'),record.get('longitude'))
+                if not point:raise ValueError('Invalid reviewed reference coordinate')
+            graph.add_place(pid,record['name'],point,'place_representative_point',record['coordinate_source'])
+        p=graph.places[pid]
+        p.update(place_type=record['kind'],location_precision=record['precision'],identity_source=record['identity_source'],classification_source='../Queries/song_locations/reviewed_places.json',description=record['review_note'])
+        for field in ['aliases','locality','wikidata_revision']:p.setdefault(field,'[]' if field=='aliases' else '')
+        if not p['country_names'] and record.get('country'):p['country_names']=record['country']
+    quality=getattr(graph,'place_quality',{})
+    quality.update(types=dict(collections.Counter(p.get('place_type','unknown') for p in graph.places.values())),precision=dict(collections.Counter(p.get('location_precision','unknown_reference') for p in graph.places.values())),reviewed_song_place_records=len(records))
+    graph.place_quality=quality
 
 
 def apply(graph):
@@ -9,6 +33,7 @@ def apply(graph):
     graph.song_locations=[]
     if not path.exists():return
     from build_integrated_graph import key,norm
+    apply_places(graph,path.parent/'reviewed_places.json')
     raw=path.read_bytes();records=json.loads(raw)
     graph.inputs[source]=dict(rows=len(records),sha256=hashlib.sha256(raw).hexdigest())
     for number,record in enumerate(records,1):

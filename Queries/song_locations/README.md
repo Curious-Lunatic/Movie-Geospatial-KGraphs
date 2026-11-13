@@ -1,5 +1,12 @@
 # Explicit song-location evidence
 
+The later November 12 review adds 52 adjudicated assertions from the 437-row
+scrape, bringing the graph to 54 links for 49 songs. `reviewed_places.json` adds
+or annotates reviewed place identities while retaining existing geometry. The
+`snapshots/` folder records revisions, source hashes, short excerpts and our own
+evidence summaries. See `Docs/SONG_CANDIDATE_REVIEW.md` and `Dataset/song_review/`.
+The two records described below are the original seed snapshot.
+
 `reviewed.json` adds two source-supported assertions, separately from film-level
 locations. It resolves canonical films by Wikidata ID and checks their year.
 The place must already exist; the evidence snapshot must contain the reviewed

@@ -1,0 +1,31 @@
+name: Atlas quality
+on:
+  pull_request:
+  push:
+    branches: [main, satyendhran-geospatial-chat-demo]
+permissions:
+  contents: read
+jobs:
+  regressions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - run: pip install rdflib pyshacl
+      - run: python -m unittest discover -s Queries -p 'test_*.py'
+      - run: node --test Queries/portal/model.test.cjs
+      - run: python Queries/build_integrated_graph.py
+      - run: python Queries/build_graph_explorer.py
+      - run: node --test Queries/webmap/*.test.cjs
+      - run: python Queries/build_atlas_product.py
+      - run: python Queries/evaluate_atlas.py
+      - run: python Queries/verify_cinema_graph.py
+      - uses: actions/upload-artifact@v7
+        with:
+          name: executed-atlas-evaluation
+          path: Dataset/integrated/evaluation.json
