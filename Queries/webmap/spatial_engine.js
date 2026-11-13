@@ -28,6 +28,17 @@ function createEngine(data){
  function findPlaces(text,{heritageOnly=false}={}){const q=normalize(text);if(!q)return [];const candidates=searchIndex.filter(r=>!heritageOnly||r.place.heritage);const exact=candidates.filter(r=>r.names.includes(q));return (exact.length?exact:candidates.filter(r=>r.names.some(n=>n.includes(q))||r.context.includes(q))).map(r=>r.place).sort((a,b)=>a.name.localeCompare(b.name)||a.node-b.node);}
  function allowed(link,o){if(o.excludePlaces?.includes(nodes[link.place][0])||(o.excludeBroad&&byNode.get(link.place).broad))return false;const year=Number(nodes[link.film][3]);return (o.relation==='both'||link.relation===o.relation)&&year>=o.yearFrom&&year<=o.yearTo&&(!o.genre||genres.get(link.film)?.has(o.genre))&&(!o.heritageOnly||byNode.get(link.place).heritage)&&(o.film==null||o.film===link.film);}
  function visiblePlaces(o){const counts=new Map();for(const link of links){if(!allowed(link,o))continue;if(!counts.has(link.place))counts.set(link.place,new Set());counts.get(link.place).add(link.film);}return [...counts].map(([id,films])=>({...byNode.get(id),filmCount:films.size}));}
+ function placesByGenre({genre,relation='both',yearFrom=1970,yearTo=2025}={}){
+  const counts=new Map();
+  for(const link of links){
+   const year=Number(nodes[link.film][3]);
+   if(year<yearFrom||year>yearTo||(relation!=='both'&&link.relation!==relation)||!genres.get(link.film)?.has(genre))continue;
+   if(!counts.has(link.place))counts.set(link.place,{films:new Set(),filmingFilms:new Set(),narrativeFilms:new Set()});
+   const row=counts.get(link.place);row.films.add(link.film);row[link.relation==='filming'?'filmingFilms':'narrativeFilms'].add(link.film);
+  }
+  return [...counts].map(([id,row])=>({...byNode.get(id),filmCount:row.films.size,filmingFilmCount:row.filmingFilms.size,narrativeFilmCount:row.narrativeFilms.size}))
+   .sort((a,b)=>b.filmCount-a.filmCount||a.name.localeCompare(b.name));
+ }
  function selected(o, selections){
  validate({...o,center:o.center||[0,0],radiusKm:o.radiusKm||1});
  const films=new Map();
@@ -60,7 +71,7 @@ function createEngine(data){
   const all=places.filter(p=>p.heritage&&!p.parentId&&!nodes[p.node][0].startsWith('heritage-component:')).map(p=>({...p,distanceKm:distanceKm(center,[p.lat,p.lon]),directFilmCount:linked.get(p.node)?.size||0})).filter(p=>p.distanceKm<=radiusKm).sort((a,b)=>a.distanceKm-b.distanceKm||a.name.localeCompare(b.name));
   return {items:all.slice(0,limit),total:all.length};
  }
- return {places,byNode,findPlaces,search,searchArea,selected,visiblePlaces,heritageNearby,genres:[...new Set([...genres.values()].flatMap(s=>[...s]))].sort()};
+ return {places,byNode,findPlaces,search,searchArea,selected,visiblePlaces,placesByGenre,heritageNearby,genres:[...new Set([...genres.values()].flatMap(s=>[...s]))].sort()};
 }
 function parseQuery(text,genres,years=[1970,2025]){
  let q=String(text).trim().replace(/[?.!]+$/,'').trim(),yearFrom=years[0],yearTo=years[1];

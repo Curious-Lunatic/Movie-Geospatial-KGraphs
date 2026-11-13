@@ -73,6 +73,9 @@ function planFromToolCall(toolCall,{previous=null,genres=[],years=[1970,2025]}={
   if(args.placeText)return {intent:'song_at',placeText:String(args.placeText).trim(),songText:args.songText,filmText:args.filmText};
   return {intent:'song_locations',songText:args.songText,filmText:args.filmText};
  }
+ if(name==='search_places_by_genre'){
+  return {...base,intent:'genre_places',genre:genreName(String(args.genre||''),genres),relation:['filming','narrative','both'].includes(args.relation)?args.relation:'both',yearFrom:Number.isFinite(Number(args.yearFrom))?Number(args.yearFrom):base.yearFrom,yearTo:Number.isFinite(Number(args.yearTo))?Number(args.yearTo):base.yearTo};
+ }
  if(name==='update_previous_search'){
   if(!previous)throw Error('There is no active search to refine yet. Ask a spatial, heritage, route, or movie question first.');
   if(previous.intent==='movie'){
@@ -123,6 +126,22 @@ function createAssistant(data,{engine=Spatial.createEngine(data),getRegions=asyn
   return found[0];
  }
 
+ function decadeCount(text){
+  if(!/\b(?:how many|count|number of)\b/i.test(text)||!/\b(?:movies|films)\b/i.test(text)||
+     /\b(?:filmed|shot|shoot|location|place|near|around|within|route|distance|set in|story setting)\b/i.test(text))return null;
+  const tokens=[...text.matchAll(/\b(?:(?:19|20)\d0s|\d0s)\b/gi)].map(m=>m[0]);
+  if(!tokens.length)return null;
+  const decades=[...new Set(tokens.map(token=>{
+   const digits=token.match(/\d+/)[0],start=digits.length===4?Number(digits):(Number(digits)>=70?1900:2000)+Number(digits);
+   return Math.floor(start/10)*10;
+  }))];
+  const ranges=decades.map(start=>({start,end:start+9,label:(start%100).toString().padStart(2,'0')+'s'}));
+  const counts=ranges.map(range=>({range,count:films.filter(f=>{const y=Number(f.year);return Number.isFinite(y)&&y>=range.start&&y<=range.end;}).length}));
+  const total=counts.reduce((sum,item)=>sum+item.count,0);
+  const lines=counts.map(({range,count})=>range.start+'s ('+range.start+'–'+range.end+'): '+count).join(' · ');
+  return {kind:'text',summary:lines+' · Combined: '+total+' recorded film records. Counts use each film’s recorded release year.',plan:null,clearPrevious:true};
+ }
+
  function resolveSinglePlace(placeText,selectedNode,label='place'){
   const found=engine.findPlaces(placeText);
   if(!found.length)throw Error('No geocoded place matches “'+placeText+'”. Use its recorded name, or choose a point with the map tools.');
@@ -148,9 +167,25 @@ function createAssistant(data,{engine=Spatial.createEngine(data),getRegions=asyn
   return {kind:'movie',plan,film:f,items,counts,summary:f.name+' · '+f.year+' · '+items.length+' recorded '+(category==='overview'?'connections':category),note:items.length?'Connections come from the supplied graph. Filming and story settings are distinct; film locations are not inherited by individual songs.':'No corresponding links are recorded in this build. This is a data gap, not evidence that the film has none.'};
  }
 
- async function answer(text,previous=null,selection={},history=[]){
+async function answer(text,previous=null,selection={},history=[],lastAnswer=null){
   const q=String(text||'').trim();
   if(!q||q.length>1000)throw Error('Enter a question between 1 and 1000 characters.');
+
+  const countAnswer=decadeCount(q);
+  if(countAnswer)return countAnswer;
+
+  // Relationship-label questions explain the visible result; they must not launch its search again.
+  if(lastAnswer&&['genre_places','spatial'].includes(lastAnswer.kind)&&
+     /\b(?:filming|filmed|shot|story|narrative|set in)\b/i.test(q)&&
+     /\b(?:location|locations|place|places|these|those|results|count|counts)\b/i.test(q)){
+   const rel=lastAnswer.plan?.relation||'both';
+   if(lastAnswer.kind==='genre_places'){
+    const sample=lastAnswer.items?.[0];
+    const example=sample?' For example, '+sample.name+' has '+sample.filmingFilmCount+' filming-location links and '+sample.narrativeFilmCount+' story-setting links across '+sample.filmCount+' distinct linked films.':'';
+    return {kind:'text',plan:previous,summary:'These results include '+(rel==='both'?'both filming locations and story settings (narrative locations)':rel==='filming'?'filming locations':'story settings (narrative locations)')+'. “Filming” counts distinct linked films with a filming relationship; “Story setting” counts distinct linked films with a narrative relationship. The same film can appear in both counts, while “linked films” counts each film once.'+example};
+   }
+   return {kind:'text',plan:previous,summary:'This result includes '+(rel==='both'?'both filming locations and story settings (narrative locations)':rel==='filming'?'filming locations only':'story settings (narrative locations) only')+'. These are separate relationship types recorded in the graph.'};
+  }
 
   let plan=selection.plan||null;
   let llmResponse=null;
@@ -163,6 +198,12 @@ function createAssistant(data,{engine=Spatial.createEngine(data),getRegions=asyn
   }
 
   if(plan.intent==='movie')return movie(plan);
+
+  if(plan.intent==='genre_places'){
+   const items=engine.placesByGenre(plan);
+   const relationLabel={filming:'filming locations',narrative:'story settings',both:'filming locations and story settings'}[plan.relation];
+   return {kind:'genre_places',plan,items,summary:items.length+' places connected to '+plan.genre+' films',interpretation:relationLabel+' · '+plan.yearFrom+'–'+plan.yearTo,note:'Ranked by distinct linked films in the graph. The same film may appear in both relationship counts, so those counts can overlap. A place is included only when a recorded film-to-place relationship and that film’s genre are both present.'};
+  }
 
   if(plan.intent==='place_info'){
    const p=resolveSinglePlace(plan.placeText,selection.placeNode);

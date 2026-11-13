@@ -6,7 +6,29 @@ function initCinemaChat({data,engine,getRegions,syncSpatial,syncCatalog,syncSong
  const assistant=CinemaChat.createAssistant(data,{engine,getRegions});
  let previous=null,busy=false,generation=0,history=[];
  const initial=log.firstElementChild.cloneNode(true);
+ const chat=$('chat'),launcher=$('atlasChatLauncher');
  const el=(tag,text,parent)=>{const e=document.createElement(tag);if(text!=null)e.textContent=text;parent?.append(e);return e;};
+ let closeTimer;
+ function openChat(){
+  clearTimeout(closeTimer);chat.hidden=false;chat.setAttribute('aria-hidden','false');launcher.setAttribute('aria-expanded','true');
+  requestAnimationFrame(()=>chat.classList.add('is-open'));
+  $('cinemaChatInput').focus({preventScroll:true});
+ }
+ function closeChat(restoreFocus=true){
+  if(chat.hidden)return;
+  chat.classList.remove('is-open');chat.setAttribute('aria-hidden','true');launcher.setAttribute('aria-expanded','false');
+  clearTimeout(closeTimer);closeTimer=setTimeout(()=>{if(!chat.classList.contains('is-open'))chat.hidden=true;},260);
+  if(restoreFocus)launcher.focus({preventScroll:true});
+ }
+ launcher.onclick=()=>chat.hidden?openChat():closeChat();
+ $('closeCinemaChat').onclick=()=>closeChat();
+ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!chat.hidden)closeChat();});
+ document.addEventListener('click',event=>{
+  const link=event.target instanceof Element?event.target.closest('a[href="#chat"]'):null;
+  if(link){event.preventDefault();openChat();return;}
+  if(!chat.hidden&&event.target instanceof Element&&event.target.closest('a[href^="#"]'))closeChat(false);
+ });
+ if(document.documentElement.dataset.page==='chat')openChat();
  const labels={filming:'filmed at',narrative:'story set in',genre:'has genre',cast_member:'cast member',director:'directed by',in_film:'song in film',character_in_film:'character in film'};
  function message(who,text){const a=el('article',null,log);a.className='chat-message '+who;el('span',who==='user'?'You':'Cinema atlas',a).className='chat-speaker';if(text)el('p',text,a);return a;}
  function source(parent,index){
@@ -41,14 +63,14 @@ function initCinemaChat({data,engine,getRegions,syncSpatial,syncCatalog,syncSong
    const b=el('button','Open '+answer.place.name+' in Place Panel ↗',article);b.type='button';b.onclick=()=>openPlace(answer.place);
    if(answer.mapsUrl){const gm=el('a','Open in Google Maps ↗',article);gm.href=answer.mapsUrl;gm.target='_blank';gm.rel='noopener';}
   }else if(['route','isochrone','polygon'].includes(answer.kind)){
-   const a=el('a','View map analysis and results ↓',article);a.href='#spatial';
+   const a=el('a','View map analysis and results ↗',article);a.href='?page=map';
   }else if(answer.kind==='spatial'){
    const list=el('ul',null,article);
    let shown=0;const more=el('button','Show more films',article);more.type='button';const append=()=>{for(const row of answer.results.slice(shown,shown+6)){
     const film=data.nodes[row.film],li=el('li',null,list),go=el('button',film[1]+' · '+film[3],li);go.type='button';go.onclick=()=>openFilm(row.film);
     const match=row.matches[0];el('span',' · '+match.place.name+(match.distanceKm==null?'':' · '+match.distanceKm.toFixed(3)+' km'),li);el('small',SpatialSearch.placeLabel(match.place)+' · '+SpatialSearch.precisionNote(match.place),li);source(li,match.edgeIndex);
    }shown+=6;more.hidden=shown>=answer.results.length;};more.onclick=append;append();
-   const a=el('a',answer.results.length?'View all results, map and exports ↓':'Inspect the search area on the map ↓',article);a.href='#spatial';
+   const a=el('a',answer.results.length?'View all results, map and exports ↗':'Inspect the search area on the map ↗',article);a.href='?page=map';
   }
   log.scrollTo({top:log.scrollHeight,behavior:'auto'});
  }

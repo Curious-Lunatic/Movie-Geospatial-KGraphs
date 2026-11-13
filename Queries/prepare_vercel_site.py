@@ -40,8 +40,10 @@ def prepare():
     boundary.write_bytes(gzip.compress(boundary.read_bytes(), mtime=0))
     api = OUTPUT / 'api'
     api.mkdir(exist_ok=True)
-    for filename in ('places.js', 'cities.json'):
+    for filename in ('places.js', 'cities.json', 'chat.py'):
         shutil.copyfile(ROOT / 'Queries' / 'place_tools' / filename, api / filename)
+    # The Python function imports this module from the deployment root.
+    shutil.copyfile(ROOT / 'Queries' / 'gemini_chat.py', OUTPUT / 'gemini_chat.py')
     config = {
         'framework': None,
         'buildCommand': '',
