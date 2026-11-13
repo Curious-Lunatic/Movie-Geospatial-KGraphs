@@ -1,0 +1,24 @@
+{
+  "types": {
+    "heritage_property": 1248,
+    "heritage_component": 5645,
+    "country": 92,
+    "city": 183,
+    "region": 38,
+    "unknown": 1341,
+    "venue": 10,
+    "historic_site": 33,
+    "historic_component": 5
+  },
+  "precision": {
+    "site_reference": 6941,
+    "country_reference": 92,
+    "locality_reference": 183,
+    "region_reference": 38,
+    "unknown_reference": 1341
+  },
+  "wikidata_profile_records": 431,
+  "reviewed_profile_records": 3,
+  "method": "Existing geometry retained. Classification uses exact Wikidata instance-of labels or explicitly reviewed identities. Reference sites add no movie assertions.",
+  "reviewed_song_place_records": 22
+}

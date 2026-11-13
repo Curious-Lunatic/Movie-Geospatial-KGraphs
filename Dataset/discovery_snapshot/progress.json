@@ -1,0 +1,19 @@
+{
+  "runs": [
+    {
+      "run": "song-location-all",
+      "completed": 6002,
+      "pending": 11279,
+      "candidates": 504,
+      "requests_this_run": 3
+    },
+    {
+      "run": "discovery-v2",
+      "completed": 25860,
+      "pending": 25554,
+      "candidates": 216,
+      "requests_this_run": 0
+    }
+  ],
+  "note": "Completed page/search jobs are not unique songs. Candidates require source review before acceptance. The separate offline pass made no network requests."
+}

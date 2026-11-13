@@ -1,5 +1,9 @@
 # Validated 1970–2025 knowledge graph
 
+The current atlas archive now includes the reviewed 437-row scrape: **54
+source-supported song/place links for 49 songs**. See
+`Docs/SONG_CANDIDATE_REVIEW.md` for the review scope and retained uncertainties.
+
 The current November 12 atlas is in **`atlas_2026-11-12.zip`**, with a separate
 hash manifest. It includes the new place-quality metadata, song-location evidence,
 review list, chat/geotag UI and regional assets. Its direct RDF projection,

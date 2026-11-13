@@ -504,6 +504,10 @@ class Integration:
         self.build_songs()
         from song_locations.apply import apply as apply_song_locations
         apply_song_locations(self)
+        from atlas_review import apply_approved
+        apply_approved(self)
+        from curation.apply import apply as apply_curation
+        apply_curation(self)
         self.validate()
         return self
 
@@ -533,14 +537,14 @@ class Integration:
         out.mkdir(parents=True, exist_ok=True)
         tables = {
             "films.csv": (self.films.values(), "film_id,title,release_year,observed_years,wikidata_id,imdb_id,tmdb_id,filmapia_id,sources"),
-            "places.csv": (self.places.values(), "place_id,place_name,latitude,longitude,coordinate_scope,coordinate_source,heritage_parent_id,country_codes,country_names,inscription_year,heritage_kind,heritage_source,place_type,location_precision,aliases,locality,description,identity_source,classification_source,wikidata_revision"),
+            "places.csv": (self.places.values(), "place_id,place_name,latitude,longitude,coordinate_scope,coordinate_source,heritage_parent_id,country_codes,country_names,inscription_year,heritage_kind,heritage_source,place_type,location_precision,aliases,locality,description,identity_source,classification_source,wikidata_revision,original_label,quality_flags"),
             "people.csv": (self.people.values(), "person_id,name,tmdb_person_id,identity_scope"),
             "characters.csv": (self.characters.values(), "character_id,name,film_id,person_id"),
             "genres.csv": (self.genres.values(), "genre_id,name"),
             "songs.csv": (self.songs.values(), "song_id,title,film_id,singers,music,lyrics"),
             "song_locations.csv":(self.song_locations,"song_id,film_id,place_id,location_precision,source_url,source_file,source_row,evidence,scene_timestamp,status"),
             "song_location_review.csv":(self.song_location_review,"song_id,film_id,song,note,source_file,source_row,source_url,status"),
-            "claims.csv": (self.claims.values(), "claim_id,subject_id,relation,object_id,source_file,source_row,source_url,method,status,evidence,revision_id,retrieved_at,location_precision"),
+            "claims.csv": (self.claims.values(), "claim_id,subject_id,relation,object_id,source_file,source_row,source_url,method,status,evidence,revision_id,retrieved_at,location_precision,original_subject_id,original_object_id,scene_start_seconds,scene_end_seconds,scene_evidence_url,coordinate_uncertainty_m,camera_position_verified,scene_latitude,scene_longitude,coordinate_source,reviewed_at"),
             "film_crosswalk.csv": (self.crosswalk, "source_file,source_row,source_title,source_year,film_id,scope"),
             "film_attributes.csv": (self.attributes, "film_id,field,value,source_file,source_row"),
             "issues.csv": (self.issues, "kind,source_file,source_row,detail"),
@@ -560,6 +564,8 @@ class Integration:
         (out / "summary.json").write_text(json.dumps(self.summary(), indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         self.export_rdf(out / "graph.ttl")
         (out / 'place_quality.json').write_text(json.dumps(self.place_quality,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
+        from curation.apply import export as export_curation
+        export_curation(self,out)
 
     def export_rdf(self, path):
         def iri(identifier):
@@ -628,8 +634,8 @@ class Integration:
                 if claim["source_url"]:
                     # Treat URLs as data literals. Bad legacy URLs cannot inject Turtle.
                     stream.write(iri(cid) + ' gwm:sourceURL ' + lit(claim["source_url"]) + ' .\n')
-                for field, predicate in [("evidence", "evidence"), ("revision_id", "revisionId"), ("retrieved_at", "retrievedAt"),("location_precision","locationPrecision")]:
-                    if claim[field]:
+                for field, predicate in [("evidence", "evidence"), ("revision_id", "revisionId"), ("retrieved_at", "retrievedAt"),("location_precision","locationPrecision"),("scene_start_seconds","sceneStartSeconds"),("scene_end_seconds","sceneEndSeconds"),("scene_evidence_url","sceneEvidenceURL"),("coordinate_uncertainty_m","coordinateUncertaintyMetres"),("camera_position_verified","cameraPositionVerified"),("scene_latitude","sceneLatitude"),("scene_longitude","sceneLongitude"),("coordinate_source","coordinateEvidenceURL"),("reviewed_at","reviewedAt"),("original_subject_id","originalSubjectId"),("original_object_id","originalObjectId")]:
+                    if claim.get(field) not in ('',None):
                         stream.write(iri(cid) + ' gwm:' + predicate + ' ' + lit(claim[field]) + ' .\n')
 
 

@@ -4,6 +4,7 @@ import argparse
 import collections
 import csv
 import html
+import gzip
 import json
 import math
 import re
@@ -154,6 +155,8 @@ def build(directory, poster_source=ROOT / 'Queries' / 'tmdb_details.jsonl'):
                               romance=romance_rows[:30], heritage=heritage_rows, geo=geo), ensure_ascii=False, separators=(',', ':'))
     # Escaping '<' prevents source strings from ending the embedded script tag.
     payload = payload.replace('<', '\\u003c').replace('\u2028', '\\u2028').replace('\u2029', '\\u2029')
+    (directory/'atlas-data').mkdir(exist_ok=True)
+    (directory/'atlas-data/chat.json.gz').write_bytes(gzip.compress(payload.encode('utf-8'),mtime=0))
     template = (ROOT / 'Queries' / 'graph_explorer.html').read_text(encoding='utf-8')
     webmap = ROOT / 'Queries' / 'webmap'
     template = template.replace('/*__WEBMAP_CSS__*/',

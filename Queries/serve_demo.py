@@ -8,6 +8,7 @@ from pathlib import Path
 from urllib.parse import parse_qs,urlsplit
 from gemini_chat import chat as gemini_chat
 from local_place_details import lookup
+from atlas_api import handle_get,handle_post
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -15,6 +16,9 @@ ROOT = Path(__file__).resolve().parents[1]
 class DemoHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         url=urlsplit(self.path)
+        if handle_get(self,url.path,parse_qs(url.query)):return
+        if url.path=='/' and (ROOT/'Dataset/integrated/atlas.html').exists():
+            self.send_response(302);self.send_header('Location','/atlas.html');self.end_headers();return
         if url.path!='/api/places':
             return super().do_GET()
         try:
@@ -52,7 +56,6 @@ class DemoHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(raw)
 
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--port', type=int, default=8767)
@@ -68,7 +71,7 @@ def main():
         server = ThreadingHTTPServer(('127.0.0.1', args.port), handler)
     except OSError as error:
         parser.error(f'Cannot open the local demo port: {error}. Try --port 8768.')
-    print(f'Cinema chat demo: http://127.0.0.1:{args.port}/graph_explorer.html#chat', flush=True)
+    print(f'Cinema atlas: http://127.0.0.1:{args.port}/atlas.html', flush=True)
     print('Local machine only. Press Ctrl+C to stop.', flush=True)
     try:
         server.serve_forever()

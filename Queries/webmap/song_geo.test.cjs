@@ -11,7 +11,7 @@ test('song proposal validates identity, coordinate bounds, evidence and timestam
 test('song nearby queries validate the radius before evaluating evidence',()=>{assert.equal(parseQuestion('Songs within 100 km of Chennai').intent,'song_nearby');assert.throws(()=>parseQuestion('Songs within 2001 km of Chennai'),/2000/);});
 test('real explicit song evidence retains route/country precision and pending notes',async()=>{
  const html=fs.readFileSync(path.resolve(__dirname,'../../Dataset/integrated/graph_explorer.html'),'utf8'),start=html.indexOf('const DATA=')+11,end=html.indexOf(';\nif(!DATA',start),snapshot=JSON.parse(html.slice(start,end)),a=createAssistant(snapshot);
- const all=await a.answer('Which songs were taken where?');assert.equal(all.items.length,2);
+ const all=await a.answer('Which songs were taken where?');assert.equal(all.items.length,snapshot.summary.song_filming_claims);assert(all.items.length>=54);
  const gerua=await a.answer('Where was the song Gerua filmed?');assert.equal(gerua.items.length,1);assert.equal(gerua.items[0].precision,'country_reference');assert.match(gerua.items[0].source,/filminiceland/);
  assert.equal((await a.answer('Which songs were shot in Iceland?')).items.length,1);assert.equal((await a.answer('Where was Gerua song filmed?')).items.length,1);assert.equal((await a.answer('Songs filmed in Chennai')).items.length,0);
  const train=await a.answer('Where was the song Chaiyya Chaiyya filmed?');assert.equal(train.items[0].precision,'route_reference');assert.match(snapshot.nodes[train.items[0].place][1],/Nilgiri/);
