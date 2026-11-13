@@ -8,3 +8,4 @@ outputs/
 *.gpkg-wal
 *.qgz~
 *.qgs~
+.env

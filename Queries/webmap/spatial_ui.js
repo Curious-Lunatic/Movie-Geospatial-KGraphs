@@ -294,6 +294,37 @@ function initSpatialExplorer({data,openFilm}){
   $('mapStatus').textContent='Heritage reference catalogue · no filming relationship inferred';
  },syncSpatial:async answer=>{
   const p=answer.plan;
+  if(p.intent==='route'){
+   await switchTool('route');
+   apply({...p,radiusKm:p.corridorKm});
+   target='start';choose(p.startCenter,p.startPlace,true);
+   target='end';choose(p.endCenter,p.endPlace,true);
+   target='start';$('travelMode').value=p.travelMode||'auto';
+   await run(true);
+   return;
+  }
+  if(p.intent==='isochrone'){
+   await switchTool('time');
+   apply(p);
+   choose(p.center,p.startPlace,true);
+   $('travelMode').value=p.travelMode||'auto';
+   $('travelMinutes').value=String(p.minutes||60);
+   await run(true);
+   return;
+  }
+  if(p.intent==='polygon'){
+   await switchTool('polygon');
+   apply(p);
+   if(p.coordinates&&p.coordinates.length>=3){
+    drawPoints=p.coordinates.map(pt=>[pt[0],pt[1]]);
+    drawn=S.polygon(drawPoints);drawing=false;renderDrawing();
+    await run(true);
+   }else{
+    drawPoints=[];drawn=null;drawing=true;renderDrawing();
+    $('spatial').scrollIntoView({behavior:'smooth'});
+   }
+   return;
+  }
   await switchTool(p.intent==='region'?'region':'nearby');
   apply(p);
   if(p.intent==='region'){

@@ -4,7 +4,7 @@ function initCinemaChat({data,engine,getRegions,syncSpatial,syncCatalog,syncSong
  const $=id=>document.getElementById(id),log=$('cinemaChatLog');
  if(!log)return;
  const assistant=CinemaChat.createAssistant(data,{engine,getRegions});
- let previous=null,busy=false,generation=0;
+ let previous=null,busy=false,generation=0,history=[];
  const initial=log.firstElementChild.cloneNode(true);
  const el=(tag,text,parent)=>{const e=document.createElement(tag);if(text!=null)e.textContent=text;parent?.append(e);return e;};
  const labels={filming:'filmed at',narrative:'story set in',genre:'has genre',cast_member:'cast member',director:'directed by',in_film:'song in film',character_in_film:'character in film'};
@@ -37,6 +37,11 @@ function initCinemaChat({data,engine,getRegions,syncSpatial,syncCatalog,syncSong
    const list=el('ul',null,article);let shown=0;const more=el('button','Show more heritage sites',article);more.type='button';
    const append=()=>{for(const p of answer.items.slice(shown,shown+8)){const li=el('li',null,list),b=el('button',p.name,li);b.type='button';b.onclick=()=>openPlace(p);el('p',SpatialSearch.placeLabel(p)+' · '+(p.locality||p.country)+' · '+p.distanceKm.toFixed(2)+' km',li);el('small',p.directFilmCount+' direct recorded film connections',li);if(/^https?:/.test(p.identitySource)){const a=el('a','Site identity source ↗',li);a.href=p.identitySource;a.target='_blank';a.rel='noopener';}}shown+=8;more.hidden=shown>=answer.items.length;};more.onclick=append;append();
    const exportButton=el('button','Download heritage references · GeoJSON',article);exportButton.type='button';exportButton.onclick=()=>{const payload={type:'FeatureCollection',features:answer.items.map(p=>({type:'Feature',geometry:{type:'Point',coordinates:[p.lon,p.lat]},properties:{role:'heritage_reference',place_id:data.nodes[p.node][0],name:p.name,place_type:p.kind,location_precision:p.precision,identity_source:p.identitySource,distance_km:p.distanceKm,direct_film_count:p.directFilmCount}}))};const url=URL.createObjectURL(new Blob([JSON.stringify(payload)],{type:'application/geo+json'})),a=el('a');a.href=url;a.download='heritage-reference-sites.geojson';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+  }else if(answer.kind==='place_info'){
+   const b=el('button','Open '+answer.place.name+' in Place Panel ↗',article);b.type='button';b.onclick=()=>openPlace(answer.place);
+   if(answer.mapsUrl){const gm=el('a','Open in Google Maps ↗',article);gm.href=answer.mapsUrl;gm.target='_blank';gm.rel='noopener';}
+  }else if(['route','isochrone','polygon'].includes(answer.kind)){
+   const a=el('a','View map analysis and results ↓',article);a.href='#spatial';
   }else if(answer.kind==='spatial'){
    const list=el('ul',null,article);
    let shown=0;const more=el('button','Show more films',article);more.type='button';const append=()=>{for(const row of answer.results.slice(shown,shown+6)){
@@ -49,17 +54,21 @@ function initCinemaChat({data,engine,getRegions,syncSpatial,syncCatalog,syncSong
  }
  async function submit(text,selection={}){
   if(busy||!text.trim())return;busy=true;const token=generation;
-  message('user',text);$('cinemaChatInput').value='';$('sendCinemaChat').disabled=true;$('cinemaChatStatus').textContent='Checking the recorded data…';
+  message('user',text);$('cinemaChatInput').value='';$('sendCinemaChat').disabled=true;$('cinemaChatStatus').textContent='Thinking with Gemini 3.5 Flash Lite…';
   try{
-   const answer=await assistant.answer(text,previous,selection);if(token!==generation)return;
-   if(answer.kind==='spatial'){await syncSpatial(answer);if(token!==generation)return;}
+   const answer=await assistant.answer(text,previous,selection,history);if(token!==generation)return;
+   if(['spatial','route','isochrone','polygon'].includes(answer.kind)){await syncSpatial(answer);if(token!==generation)return;}
    if(answer.kind==='catalog'){await syncCatalog(answer);if(token!==generation)return;}
    if(answer.kind==='song_locations'){await syncSongs(answer);if(token!==generation)return;}
-   render(answer);if(answer.kind!=='help')previous=answer.plan;
-  }catch(error){if(token===generation){const a=message('assistant',error.message);a.classList.add('chat-error');for(const p of error.choices||[]){const b=el('button',p.name+' · '+SpatialSearch.placeLabel(p)+' · '+(p.locality||p.country)+' · '+p.lat.toFixed(3)+', '+p.lon.toFixed(3),a);b.type='button';b.onclick=()=>submit(text,{placeNode:p.node});}log.scrollTo({top:log.scrollHeight,behavior:'auto'});}}
+   if(answer.kind==='place_info'){openPlace(answer.place);}
+   render(answer);
+   history.push({role:'user',text},{role:'model',text:answer.summary});
+   if(history.length>24)history=history.slice(-24);
+   if(answer.plan)previous=answer.plan;
+  }catch(error){if(token===generation){const a=message('assistant',error.message);a.classList.add('chat-error');for(const p of error.choices||[]){const b=el('button',p.name+' · '+SpatialSearch.placeLabel(p)+' · '+(p.locality||p.country)+' · '+p.lat.toFixed(3)+', '+p.lon.toFixed(3),a);b.type='button';b.onclick=()=>submit(text,{...selection,placeNode:p.node});}log.scrollTo({top:log.scrollHeight,behavior:'auto'});}}
   finally{if(token===generation){busy=false;$('sendCinemaChat').disabled=false;$('cinemaChatStatus').textContent='';$('cinemaChatInput').focus({preventScroll:true});}}
  }
  $('cinemaChatForm').onsubmit=e=>{e.preventDefault();submit($('cinemaChatInput').value);};
  for(const b of document.querySelectorAll('[data-chat-prompt]'))b.onclick=()=>submit(b.dataset.chatPrompt);
- $('clearCinemaChat').onclick=()=>{generation++;previous=null;busy=false;log.replaceChildren(initial.cloneNode(true));$('sendCinemaChat').disabled=false;$('cinemaChatInput').value='';$('cinemaChatStatus').textContent='';$('cinemaChatInput').focus({preventScroll:true});};
+ $('clearCinemaChat').onclick=()=>{generation++;previous=null;history=[];busy=false;log.replaceChildren(initial.cloneNode(true));$('sendCinemaChat').disabled=false;$('cinemaChatInput').value='';$('cinemaChatStatus').textContent='';$('cinemaChatInput').focus({preventScroll:true});};
 }

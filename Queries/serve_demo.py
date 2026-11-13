@@ -6,6 +6,7 @@ from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs,urlsplit
+from gemini_chat import chat as gemini_chat
 from local_place_details import lookup
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,6 +21,29 @@ class DemoHandler(SimpleHTTPRequestHandler):
             status,body=lookup(parse_qs(url.query))
         except ValueError as error:
             status,body=400,dict(error=str(error))
+        raw=json.dumps(body,ensure_ascii=False).encode('utf-8')
+        self.send_response(status)
+        self.send_header('Content-Type','application/json; charset=utf-8')
+        self.send_header('Content-Length',str(len(raw)))
+        self.send_header('Cache-Control','no-store')
+        self.end_headers()
+        self.wfile.write(raw)
+
+    def do_POST(self):
+        url=urlsplit(self.path)
+        if url.path!='/api/chat':
+            self.send_error(404,'Not found')
+            return
+        try:
+            length=int(self.headers.get('Content-Length') or 0)
+            if length<=0 or length>1024*1024:
+                raise ValueError('Invalid request size')
+            payload=json.loads(self.rfile.read(length).decode('utf-8'))
+            status,body=gemini_chat(payload)
+        except ValueError as error:
+            status,body=400,dict(error=str(error))
+        except Exception as error:
+            status,body=500,dict(error=str(error))
         raw=json.dumps(body,ensure_ascii=False).encode('utf-8')
         self.send_response(status)
         self.send_header('Content-Type','application/json; charset=utf-8')

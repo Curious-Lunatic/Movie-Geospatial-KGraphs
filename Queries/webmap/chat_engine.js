@@ -1,78 +1,137 @@
-/* Dataset-backed conversational queries. Parsing and answers are deterministic. */
+/* Gemini 3.5 Flash Lite powered conversational queries backed by the local graph and spatial engine. */
 (function(root){
 'use strict';
 const Spatial=typeof module==='object'&&module.exports?require('./spatial_engine.js'):root.SpatialSearch;
 const SongTools=typeof module==='object'&&module.exports?require('./song_geo.js'):root.SongGeo;
 const normalize=Spatial.normalize;
-const help='Try “Movies within 5 km of Taj Mahal”, “Romance movies in Rajasthan”, “Where was Fanaa filmed?” or “Songs in Fanaa”. Follow a spatial search with “within 10 km”, “only heritage”, “only Romance” or “between 2000 and 2020”. Road routes and travel-time questions use the map tools.';
-function defaults(years){return {radiusKm:10,relation:'filming',genre:'',yearFrom:years[0],yearTo:years[1],heritageOnly:false};}
-function genreName(text,genres){const g=genres.find(g=>normalize(g)===normalize(text));if(!g)throw Error('Unknown genre. Recorded genres: '+genres.join(', ')+'.');return g;}
+const help='Ask anything about Indian cinema locations, heritage sites, routes, travel times, polygons, or films — e.g. “Movies within 5 km of Taj Mahal”, “Movies along the route from Delhi to Agra”, “Locations within 60 minutes drive from Mumbai”, “Explore Agra Fort”, or “Tell me about Fanaa 2006”.';
+
+function defaults(years){
+ return {radiusKm:10,relation:'filming',genre:'',yearFrom:years[0],yearTo:years[1],heritageOnly:false,excludeBroad:false};
+}
+
+function genreName(text,genres){
+ if(!text)return '';
+ const g=genres.find(g=>normalize(g)===normalize(text));
+ if(!g)throw Error('Unknown genre “'+text+'”. Recorded genres: '+genres.join(', ')+'.');
+ return g;
+}
+
 function validate(plan){
  if(plan.yearFrom>plan.yearTo)throw Error('The start year must not be later than the end year.');
- if(!Number.isFinite(plan.radiusKm)||plan.radiusKm<.1||plan.radiusKm>Spatial.MAX_RADIUS_KM)throw Error('Choose a radius between 0.1 and '+Spatial.MAX_RADIUS_KM+' km.');
+ if(plan.intent==='route'){
+  if(!Number.isFinite(plan.corridorKm)||plan.corridorKm<.1||plan.corridorKm>250)throw Error('Choose a route corridor between 0.1 and 250 km.');
+ }else if(plan.intent==='isochrone'){
+  if(!Number.isFinite(plan.minutes)||plan.minutes<5||plan.minutes>120)throw Error('Choose a travel time between 5 and 120 minutes.');
+ }else if(['nearby','catalog','song_nearby'].includes(plan.intent)){
+  if(!Number.isFinite(plan.radiusKm)||plan.radiusKm<.1||plan.radiusKm>Spatial.MAX_RADIUS_KM)throw Error('Choose a radius between 0.1 and '+Spatial.MAX_RADIUS_KM+' km.');
+ }
  return plan;
 }
-function parseQuestion(text,{previous=null,genres=[],years=[1970,2025]}={}){
- let q=String(text).trim().replace(/[?.!]+$/,'').trim();
- if(!q||q.length>500)throw Error('Enter a question between 1 and 500 characters.');
- if(/^(help|examples|what can (?:you|i) (?:do|ask))$/i.test(q))return {intent:'help'};
- const base=defaults(years),spatial=previous&&['nearby','region','catalog'].includes(previous.intent);
- let m;
- if(/^(?:which |what )?songs (?:were |are )?(?:filmed|shot|taken) where$/i.test(q)||/^song locations$/i.test(q))return {intent:'song_locations'};
- if((m=q.match(/^song locations (?:in|of|for) (.+)$/i)))return {intent:'song_locations',filmText:m[1]};
- if((m=q.match(/^(?:(?:which|what|show|find|list) )?songs (?:were |are )?(?:filmed|shot|taken) (?:in|at|on) (.+)$/i)))return {intent:'song_at',placeText:m[1]};
- if((m=q.match(/^where (?:was|is) (?:the )?song (.+?) (?:filmed|shot|taken)$/i))){const parts=m[1].match(/^(.+?) from (.+)$/i);return {intent:'song_locations',songText:parts?parts[1]:m[1],filmText:parts?parts[2]:undefined};}
- if((m=q.match(/^where (?:was|is) (.+?) song (?:filmed|shot|taken)$/i)))return {intent:'song_locations',songText:m[1]};
- if(/^(?:(?:show|find|list|which) )?songs(?: filmed| shot)? (?:within|near|around) /i.test(q)){const p=Spatial.parseQuery(q.replace(/^which /i,'').replace(/songs/i,'movies'),[],years);return {...p,intent:'song_nearby',placeText:p.place};}
- if((m=q.match(/^(?:show\s+)?(cast|actors|songs|characters|genres|heritage(?: sites)?|locations)$/i))&&previous?.intent==='movie')return {...previous,category:normalize(m[1]).split(' ')[0]};
- if(spatial){
-  let patch=null;
-  if((m=q.match(/^(?:within|radius(?: of)?|make (?:it|that))\s+([\d.]+)\s*km$/i))){if(!['nearby','catalog'].includes(previous.intent))throw Error('A radius applies to a nearby search. Ask for movies or heritage sites near a named place first.');patch={radiusKm:Number(m[1])};}
-  else if(/^(?:hide|exclude) (?:broad|city|city and region)(?: references| points| locations)?$/i.test(q))patch={excludeBroad:true};
-  else if(/^include broad(?: references| points| locations)?$/i.test(q))patch={excludeBroad:false};
-  else if(/^(?:only )?heritage(?: (?:locations|sites))?(?: only)?$/i.test(q))patch={heritageOnly:true};
-  else if(/^(?:all|any) (?:locations|places)$/i.test(q))patch={heritageOnly:false};
-  else if(/^(?:only )?(?:filming(?: locations)?|shot)$/i.test(q))patch={relation:'filming'};
-  else if(/^(?:only )?(?:story settings|narrative(?: locations)?|set)$/i.test(q))patch={relation:'narrative'};
-  else if(/^(?:both|both relationships)$/i.test(q))patch={relation:'both'};
-  else if(/^(?:all|any) genres$/i.test(q))patch={genre:''};
-  else if((m=q.match(/^(?:between|from) (\d{4}) (?:and|to) (\d{4})$/i)))patch={yearFrom:+m[1],yearTo:+m[2]};
-  else if((m=q.match(/^(after|before|in) (\d{4})$/i)))patch=m[1].toLowerCase()==='after'?{yearFrom:+m[2]+1}:m[1].toLowerCase()==='before'?{yearTo:+m[2]-1}:{yearFrom:+m[2],yearTo:+m[2]};
-  else if((m=q.match(/^only (.+?)(?: movies| films)?$/i))){if(previous.intent==='catalog')throw Error('Movie genre/year filters apply to movie searches. Heritage reference questions support radius follow-ups.');patch={genre:genreName(m[1],genres)};}
-  if(patch){if(previous.intent==='catalog'&&!Object.hasOwn(patch,'radiusKm'))throw Error('Heritage catalogue questions support radius follow-ups. Movie genre/year filters apply to movie searches.');return validate({...previous,...patch});}
+
+function planFromToolCall(toolCall,{previous=null,genres=[],years=[1970,2025]}={}){
+ const name=toolCall?.name,args=toolCall?.args||{};
+ const base=defaults(years);
+ const filters=(src)=>({
+  relation:['filming','narrative','both'].includes(src.relation)?src.relation:'filming',
+  genre:src.genre?genreName(src.genre,genres):'',
+  yearFrom:Number.isFinite(Number(src.yearFrom))?Number(src.yearFrom):base.yearFrom,
+  yearTo:Number.isFinite(Number(src.yearTo))?Number(src.yearTo):base.yearTo,
+  heritageOnly:Boolean(src.heritageOnly),
+  excludeBroad:Boolean(src.excludeBroad)
+ });
+
+ if(name==='search_movies_nearby'){
+  return validate({...base,...filters(args),intent:'nearby',placeText:String(args.placeText||'').trim(),radiusKm:args.radiusKm!=null?Number(args.radiusKm):10});
  }
- if((m=q.match(/^(?:(?:show|find|list)\s+)?heritage(?: sites| places)?\s+(?:within\s+([\d.]+)\s*km\s+of|near|around)\s+(.+)$/i)))return validate({...base,intent:'catalog',radiusKm:m[1]?Number(m[1]):10,placeText:m[2]});
- if((m=q.match(/^where (?:was|is|were) (.+?) (filmed|shot|set)$/i)))return {intent:'movie',filmText:m[1],category:'locations',relation:m[2].toLowerCase()==='set'?'narrative':'filming'};
- if((m=q.match(/^(?:show\s+)?(?:the\s+)?(cast|actors|songs|characters|genres|heritage(?: sites)?|locations) (?:of|in|for) (.+)$/i)))return {intent:'movie',filmText:m[2],category:normalize(m[1]).split(' ')[0]};
- if((m=q.match(/^(?:tell me about|show (?:the )?connections (?:of|for)|explore) (.+)$/i)))return {intent:'movie',filmText:m[1],category:'overview'};
- q=q.replace(/^(which|what)\s+/i,'').replace(/\b(movies|films)\s+(?:were|are)\s+/i,'$1 ');
- let yearFrom=base.yearFrom,yearTo=base.yearTo;
- if((m=q.match(/\s+(?:between|from)\s+(\d{4})\s+(?:and|to)\s+(\d{4})$/i))){yearFrom=+m[1];yearTo=+m[2];q=q.slice(0,m.index);}
- else if((m=q.match(/\s+(after|before|in)\s+(\d{4})$/i))){if(m[1].toLowerCase()==='after')yearFrom=+m[2]+1;else if(m[1].toLowerCase()==='before')yearTo=+m[2]-1;else yearFrom=yearTo=+m[2];q=q.slice(0,m.index);}
- if((m=q.match(/^(?:(?:show|find|list)\s+)?(?:(.+?)\s+)?(?:movies|films)(?:\s+(filmed|shot|set))?\s+in\s+(.+)$/i))){
-  if(/\b(?:and|or|except|excluding|starring|without)\b/i.test(m[3]))throw Error('Use one state or district and the supported genre/year filters.');
-  return validate({...base,intent:'region',regionText:m[3],genre:m[1]?genreName(m[1],genres):'',relation:m[2]?.toLowerCase()==='set'?'narrative':'filming',yearFrom,yearTo});
+ if(name==='search_movies_in_region'){
+  return validate({...base,...filters(args),intent:'region',regionText:String(args.regionText||'').trim()});
  }
- if(/\b(?:near|around|within)\b/i.test(q)){
-  const parsed=Spatial.parseQuery(q,genres,years);
-  if(parsed.place===null)throw Error('Use a place name in chat, for example “Movies within 5 km of Taj Mahal”.');
-  return validate({...parsed,intent:'nearby',placeText:parsed.place,yearFrom,yearTo});
+ if(name==='search_heritage_sites_nearby'){
+  return validate({...base,intent:'catalog',placeText:String(args.placeText||'').trim(),radiusKm:args.radiusKm!=null?Number(args.radiusKm):100});
  }
- throw Error(help);
+ if(name==='search_movies_along_route'){
+  const mode=['auto','pedestrian','bicycle'].includes(args.travelMode)?args.travelMode:'auto';
+  return validate({...base,...filters(args),intent:'route',startPlace:String(args.startPlace||'').trim(),endPlace:String(args.endPlace||'').trim(),travelMode:mode,corridorKm:args.corridorKm!=null?Number(args.corridorKm):25});
+ }
+ if(name==='search_reachable_locations'){
+  const mode=['auto','pedestrian','bicycle'].includes(args.travelMode)?args.travelMode:'auto';
+  return validate({...base,...filters(args),intent:'isochrone',startPlace:String(args.startPlace||'').trim(),travelMode:mode,minutes:args.minutes!=null?Math.round(Number(args.minutes)):60});
+ }
+ if(name==='search_in_polygon'){
+  const coords=Array.isArray(args.coordinates)&&args.coordinates.length>=3?args.coordinates.map(p=>[Number(p[0]),Number(p[1])]):null;
+  return validate({...base,...filters(args),intent:'polygon',coordinates:coords,startDrawing:!coords});
+ }
+ if(name==='inspect_movie'){
+  return {intent:'movie',filmText:String(args.filmText||'').trim(),category:args.category||'overview',relation:args.relation||undefined};
+ }
+ if(name==='inspect_place'){
+  return {intent:'place_info',placeText:String(args.placeText||'').trim()};
+ }
+ if(name==='search_song_locations'){
+  if(args.placeText&&args.radiusKm!=null)return validate({...base,intent:'song_nearby',placeText:String(args.placeText).trim(),radiusKm:Number(args.radiusKm),songText:args.songText,filmText:args.filmText});
+  if(args.placeText)return {intent:'song_at',placeText:String(args.placeText).trim(),songText:args.songText,filmText:args.filmText};
+  return {intent:'song_locations',songText:args.songText,filmText:args.filmText};
+ }
+ if(name==='update_previous_search'){
+  if(!previous)throw Error('There is no active search to refine yet. Ask a spatial, heritage, route, or movie question first.');
+  if(previous.intent==='movie'){
+   if(!args.category)throw Error('Specify which film category to show (cast, songs, characters, genres, heritage, or locations).');
+   return {...previous,category:args.category};
+  }
+  const patch={};
+  if(args.radiusKm!=null){
+   if(previous.intent==='route')patch.corridorKm=Number(args.radiusKm);
+   else if(['nearby','catalog','song_nearby'].includes(previous.intent))patch.radiusKm=Number(args.radiusKm);
+   else throw Error('A radius applies to a nearby, heritage, or route search.');
+  }
+  if(args.heritageOnly!=null)patch.heritageOnly=Boolean(args.heritageOnly);
+  if(args.excludeBroad!=null)patch.excludeBroad=Boolean(args.excludeBroad);
+  if(args.relation!=null)patch.relation=args.relation;
+  if(args.genre!=null)patch.genre=args.genre?genreName(args.genre,genres):'';
+  if(args.yearFrom!=null)patch.yearFrom=Number(args.yearFrom);
+  if(args.yearTo!=null)patch.yearTo=Number(args.yearTo);
+  if(previous.intent==='catalog'&&Object.keys(patch).some(k=>k!=='radiusKm'))throw Error('Heritage catalogue questions only support radius follow-ups.');
+  return validate({...previous,...patch});
+ }
+ throw Error('Unsupported tool action: '+name);
 }
-function createAssistant(data,{engine=Spatial.createEngine(data),getRegions=async()=>{throw Error('Region boundaries are unavailable. Open through the local demo server.');}}={}){
+
+async function defaultAskLLM({message,history,previous,genres,years}){
+ const response=await fetch('/api/chat',{
+  method:'POST',
+  headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({message,history,context:{previous,genres,years}})
+ });
+ const payload=await response.json().catch(()=>({}));
+ if(!response.ok)throw Error(payload.error||'Chat service unavailable ('+response.status+').');
+ return payload;
+}
+
+function createAssistant(data,{engine=Spatial.createEngine(data),getRegions=async()=>{throw Error('Region boundaries are unavailable. Open through the local demo server.');},askLLM=defaultAskLLM}={}){
  const nodes=data.nodes,edges=data.edges,years=data.summary.year_range,adj=new Map();
  const songIndex=SongTools.createIndex(data);
  edges.forEach((e,i)=>{for(const n of [e[0],e[2]]){if(!adj.has(n))adj.set(n,[]);adj.get(n).push(i);}});
  const films=nodes.map((n,i)=>({node:i,name:n[1],year:n[3]})).filter(f=>nodes[f.node][2]==='Film');
  const title=s=>normalize(s.replace(/\s*\(.*?\)\s*/g,' '));
+
  function film(text){
   const year=text.match(/(?:\s|\()(19\d{2}|20\d{2})(?:\s+(?:\p{L}+\s+)?film)?\)?$/u),clean=title(year?text.slice(0,year.index):text);
   const found=films.filter(f=>(normalize(f.name)===normalize(text)||title(f.name)===clean)&&(!year||String(f.year)===year[1]));
-  if(!found.length)throw Error('No matching film record for “'+text+'” in this build. Try Fanaa (2006) or another exact title. Missing records do not establish that a film has no locations.');
+  if(!found.length)throw Error('No matching film record for “'+text+'” in this build. Try Fanaa (2006) or another exact title.');
   if(found.length>1)throw Error('Several films match. Include the year: '+found.slice(0,8).map(f=>f.name+' ('+f.year+')').join('; '));
   return found[0];
  }
+
+ function resolveSinglePlace(placeText,selectedNode,label='place'){
+  const found=engine.findPlaces(placeText);
+  if(!found.length)throw Error('No geocoded place matches “'+placeText+'”. Use its recorded name, or choose a point with the map tools.');
+  if(found.length>1&&selectedNode==null)throw Object.assign(Error('Several places match “'+placeText+'”. Choose the intended '+label+'.'),{choices:found.slice(0,20)});
+  const p=selectedNode==null?found[0]:found.find(item=>item.node===selectedNode);
+  if(!p)throw Error('The selected place does not match this question. Please choose again.');
+  return p;
+ }
+
  function movie(plan){
   const f=film(plan.filmText),category=plan.category,types={cast:'Person',actors:'Person',songs:'Song',characters:'Character',genres:'Genre',heritage:'Heritage',locations:'Place'};
   const items=[];
@@ -88,30 +147,64 @@ function createAssistant(data,{engine=Spatial.createEngine(data),getRegions=asyn
   const counts=Object.fromEntries([...grouped].map(([kind,ids])=>[kind,ids.size]));
   return {kind:'movie',plan,film:f,items,counts,summary:f.name+' · '+f.year+' · '+items.length+' recorded '+(category==='overview'?'connections':category),note:items.length?'Connections come from the supplied graph. Filming and story settings are distinct; film locations are not inherited by individual songs.':'No corresponding links are recorded in this build. This is a data gap, not evidence that the film has none.'};
  }
- async function answer(text,previous=null,selection={}){
-  const plan=parseQuestion(text,{previous,genres:engine.genres,years});
-  if(plan.intent==='help')return {kind:'help',plan,summary:help};
+
+ async function answer(text,previous=null,selection={},history=[]){
+  const q=String(text||'').trim();
+  if(!q||q.length>1000)throw Error('Enter a question between 1 and 1000 characters.');
+
+  let plan=selection.plan||null;
+  let llmResponse=null;
+  if(!plan){
+   llmResponse=await askLLM({message:q,history,previous,genres:engine.genres,years});
+   if(!llmResponse.toolCall){
+    return {kind:'text',plan:previous,summary:llmResponse.reply||help};
+   }
+   plan=planFromToolCall(llmResponse.toolCall,{previous,genres:engine.genres,years});
+  }
+
   if(plan.intent==='movie')return movie(plan);
+
+  if(plan.intent==='place_info'){
+   const p=resolveSinglePlace(plan.placeText,selection.placeNode);
+   plan.placeNode=p.node;plan.placeText=p.name;
+   const mapsUrl='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.lat+','+p.lon);
+   return {kind:'place_info',plan,place:p,mapsUrl,summary:'Opened place details for '+p.name,interpretation:Spatial.placeLabel(p)+' · '+(p.locality||p.country||'')+' · '+p.lat.toFixed(4)+', '+p.lon.toFixed(4),note:'Explore recorded films, nearby settlements/landmarks, and Google Maps link in the Place Panel.'};
+  }
+
+  if(plan.intent==='route'){
+   const start=resolveSinglePlace(plan.startPlace,selection.startNode??selection.placeNode,'starting point');
+   const end=resolveSinglePlace(plan.endPlace,selection.endNode,'destination');
+   plan.startCenter=[start.lat,start.lon];plan.startPlace=start.name;plan.startNode=start.node;
+   plan.endCenter=[end.lat,end.lon];plan.endPlace=end.name;plan.endNode=end.node;
+   return {kind:'route',plan,summary:'Calculating '+plan.travelMode+' route from '+start.name+' to '+end.name+' ('+plan.corridorKm+' km corridor)…',interpretation:start.name+' → '+end.name+' · '+plan.corridorKm+' km corridor · '+(plan.genre||'all genres')+' · '+plan.yearFrom+'–'+plan.yearTo,note:'Using the Valhalla road routing service. Results will appear on the map below.'};
+  }
+
+  if(plan.intent==='isochrone'){
+   const start=resolveSinglePlace(plan.startPlace,selection.placeNode,'starting point');
+   plan.center=[start.lat,start.lon];plan.startPlace=start.name;plan.placeNode=start.node;
+   return {kind:'isochrone',plan,summary:'Calculating '+plan.minutes+'-minute '+plan.travelMode+' reachable area from '+start.name+'…',interpretation:start.name+' · '+plan.minutes+' min ('+plan.travelMode+') · '+(plan.genre||'all genres')+' · '+plan.yearFrom+'–'+plan.yearTo,note:'Using the Valhalla isochrone service. Reachable locations will appear on the map below.'};
+  }
+
+  if(plan.intent==='polygon'){
+   return {kind:'polygon',plan,summary:plan.startDrawing?'Opened polygon drawing tool on the map below.':'Searching inside custom polygon ('+plan.coordinates.length+' vertices)…',interpretation:plan.startDrawing?'Click points on the map and press Finish area to search.':'Custom polygon · '+(plan.genre||'all genres')+' · '+plan.yearFrom+'–'+plan.yearTo,note:'Polygon containment includes boundary edges.'};
+  }
+
   if(['song_locations','song_nearby','song_at'].includes(plan.intent)){
    let items=songIndex.locations;
    if(plan.songText){const song=songIndex.resolve(plan.songText,plan.filmText);items=items.filter(l=>l.song===song.node);}
    else if(plan.filmText){const f=film(plan.filmText);items=items.filter(l=>l.film===f.node);}
    if(['song_nearby','song_at'].includes(plan.intent)){
-    const choices=engine.findPlaces(plan.placeText);if(!choices.length)throw Error('No matching geocoded place.');
-    if(choices.length>1&&selection.placeNode==null)throw Object.assign(Error('Several places match. Choose a reference point.'),{choices});
-    const p=selection.placeNode==null?choices[0]:choices.find(p=>p.node===selection.placeNode);if(!p)throw Error('Choose a matching place.');plan.center=[p.lat,p.lon];plan.placeText=p.name;
+    const p=resolveSinglePlace(plan.placeText,selection.placeNode);
+    plan.center=[p.lat,p.lon];plan.placeText=p.name;plan.placeNode=p.node;
     if(plan.intent==='song_at')items=items.filter(l=>l.place===p.node);
     else items=items.filter(l=>!['country_reference','locality_reference','unknown_reference'].includes(l.precision)).map(l=>({...l,distanceKm:engine.byNode.has(l.place)?Spatial.distanceKm(plan.center,[engine.byNode.get(l.place).lat,engine.byNode.get(l.place).lon]):Infinity})).filter(l=>l.distanceKm<=plan.radiusKm);
    }
-   return {kind:'song_locations',plan,items,summary:items.length+' source-supported song-location links'+(plan.songText?' for '+plan.songText:plan.filmText?' in '+plan.filmText:''),note:'Song locations use explicit song-level evidence, never inherited film locations. Country/route tags do not identify exact camera positions. Broad country/locality tags are excluded from nearby-song searches. No results means no accepted tags in this build.'};
+   return {kind:'song_locations',plan,items,summary:items.length+' source-supported song-location links'+(plan.songText?' for '+plan.songText:plan.filmText?' in '+plan.filmText:''),note:'Song locations use explicit song-level evidence, never inherited film locations. Country/route tags do not identify exact camera positions.'};
   }
+
   let results;
   if(plan.intent==='nearby'||plan.intent==='catalog'){
-   const found=engine.findPlaces(plan.placeText);
-   if(!found.length)throw Error('No geocoded place matches “'+plan.placeText+'”. Use its recorded name, or choose a point with the map tools.');
-   if(found.length>1&&selection.placeNode==null)throw Object.assign(Error('Several places match “'+plan.placeText+'”. Choose the intended record.'),{choices:found.slice(0,20)});
-   const p=selection.placeNode==null?found[0]:found.find(p=>p.node===selection.placeNode);
-   if(!p)throw Error('The selected place does not match this question. Please choose again.');
+   const p=resolveSinglePlace(plan.placeText,selection.placeNode);
    plan.center=[p.lat,p.lon];plan.placeText=p.name;plan.placeNode=p.node;
    if(plan.intent==='catalog'){
     const catalog=engine.heritageNearby(plan);
@@ -120,24 +213,29 @@ function createAssistant(data,{engine=Spatial.createEngine(data),getRegions=asyn
       note:'These are reference sites, not inferred film locations. Counts identify direct recorded film links; zero is a coverage gap. Distances use representative points.'};
    }
    results=engine.search(plan);
-  }else{
-   const r=await getRegions();let text=plan.regionText,level;
-   let found=r.features.filter(f=>normalize(f.properties.name)===normalize(text));
+  }else if(plan.intent==='region'){
+   const r=await getRegions();let textRegion=plan.regionText,level;
+   let found=r.features.filter(f=>normalize(f.properties.name)===normalize(textRegion));
    if(!found.length){
-    if(/\s+district$/i.test(text)){level='ADM2';text=text.replace(/\s+district$/i,'');}
-    if(/\s+state$/i.test(text)){level='ADM1';text=text.replace(/\s+state$/i,'');}
-    found=r.features.filter(f=>(!level||f.properties.level===level)&&normalize(f.properties.name)===normalize(text));
+    if(/\s+district$/i.test(textRegion)){level='ADM2';textRegion=textRegion.replace(/\s+district$/i,'');}
+    if(/\s+state$/i.test(textRegion)){level='ADM1';textRegion=textRegion.replace(/\s+state$/i,'');}
+    found=r.features.filter(f=>(!level||f.properties.level===level)&&normalize(f.properties.name)===normalize(textRegion));
    }
    if(!found.length)throw Error('No state or district boundary matches “'+plan.regionText+'”. Use a recorded state/district name; nearby queries use place names.');
    if(found.length>1)throw Error('That boundary name is ambiguous. Add “state” or “district”, or choose it in Regions.');
    const f=found[0];plan.regionId=f.properties.id;plan.regionText=f.properties.name;plan.stateId=f.properties.level==='ADM1'?f.properties.id:f.properties.state_id;
    plan.excludePlaces=f.properties.level==='ADM2'?r.broadReferences:r.countryReferences;
    results=engine.searchArea(plan,f);
+  }else{
+   throw Error('Unsupported search intent.');
   }
+
   const count=new Set(results.flatMap(r=>r.matches.map(m=>m.place.node))).size;
   return {kind:'spatial',plan,results,summary:results.length+' distinct movie'+(results.length===1?'':'s')+' · '+count+' matching place'+(count===1?'':'s'),interpretation:(plan.intent==='nearby'?'Within '+plan.radiusKm+' km of '+plan.placeText:'Inside the '+plan.regionText+' boundary')+' · '+({filming:'filming',narrative:'story settings',both:'filming and story settings'}[plan.relation])+' · '+(plan.genre||'all genres')+' · '+plan.yearFrom+'–'+plan.yearTo+(plan.heritageOnly?' · heritage locations only':'')+(plan.excludeBroad?' · broad references hidden':''),note:(plan.intent==='nearby'?'Spherical reference-point distance; proximity does not establish filming at the centre.':'Point-in-polygon overlay using the published research boundaries; these may differ from current boundaries.')+' Missing coordinates and missing relationships cannot appear.'};
  }
  return {answer,engine};
 }
-const api={parseQuestion,createAssistant,help};if(typeof module==='object'&&module.exports)module.exports=api;else root.CinemaChat=api;
+
+const api={planFromToolCall,createAssistant,help};
+if(typeof module==='object'&&module.exports)module.exports=api;else root.CinemaChat=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
