@@ -32,6 +32,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visi
 #matches button{display:flex;align-items:baseline;justify-content:space-between;gap:10px;text-align:left;width:100%;border:0;border-radius:4px;font-size:12px;padding:11px 9px;margin:2px 0;line-height:1.5}
 #matches button.selected{background:var(--selected);color:var(--selected-ink);font-weight:600;box-shadow:inset 2px 0 var(--green)}#matches .year{font-size:10px;color:var(--muted);font-weight:400;flex-shrink:0}
 .graph-toolbar{display:flex;justify-content:space-between;align-items:center;gap:20px}.graph-toolbar h2{font:25px Georgia,serif;letter-spacing:-.6px;margin:5px 0 0}.section-label{font-size:10px;color:var(--green);letter-spacing:.13em;text-transform:uppercase;font-weight:600}.filter-control{width:190px;flex-shrink:0}.filter-control label{display:block;margin-bottom:5px}
+.graph-map-link{display:inline-flex;align-items:center;gap:7px;flex:none;padding:9px 12px;border:1px solid var(--line);border-radius:7px;background:var(--inset);color:var(--ink);font-size:11px;text-decoration:none}.graph-map-link:hover{border-color:var(--green);color:var(--selected-ink)}.graph-map-link[hidden]{display:none}
 #scope{margin:14px 0 16px}.graph-canvas{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background-color:var(--canvas);background-image:radial-gradient(var(--dots) .7px,transparent .7px);background-size:18px 18px}
 #graph{display:block;width:100%;min-width:680px;height:auto;aspect-ratio:1400/1100}svg text{font-family:system-ui,sans-serif;font-size:13px}.node{cursor:pointer}.node:hover .node-frame,.node:focus-visible .node-frame{stroke:var(--green);stroke-width:2}.edge{stroke:var(--edge);stroke-width:1.4;cursor:pointer;opacity:.48}.edge:hover{stroke:var(--green);stroke-width:4;opacity:1}
 #detailPanel>h2{font-size:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}#details{max-height:270px;overflow:auto;overflow-wrap:anywhere;font-size:12px;line-height:1.6;scrollbar-width:thin}#details h3:first-child{margin-top:0}#details p{color:var(--muted);margin:9px 0}#details button{display:block;width:100%;text-align:left;font-size:11px;line-height:1.5;margin:5px 0;padding:8px 10px;border-color:var(--line);background:var(--input)}
@@ -221,6 +222,8 @@ html[data-page="chat"] .chat-guide>.section-label,html[data-page="chat"] .chat-g
 html[data-page="chat"] .chat-guide button{width:100%;margin:4px 0;text-align:left;white-space:normal}
 html[data-page="chat"] .chat-guide>a{display:inline-block;margin-top:8px}
 html[data-page="data"] #home,html[data-page="data"] #explore,html[data-page="data"] #chat,html[data-page="data"] #spatial,html[data-page="data"] #songTagPanel{display:none!important}
+/* Page visibility hides the chat section; let the floating launcher reveal it on every feature page. */
+html[data-page="home"] #chat.is-open,html[data-page="graph"] #chat.is-open,html[data-page="map"] #chat.is-open,html[data-page="data"] #chat.is-open{display:flex!important}
 .main-nav a[aria-current="page"]{color:var(--ink)}
 .main-nav a[aria-current="page"]::after{transform:scaleX(1)}
 /* Tactile print colors and gentle, pointer-led movement replace the glow-heavy treatment. */
@@ -293,7 +296,7 @@ html[data-page="data"] #home,html[data-page="data"] #explore,html[data-page="dat
 </div>
 <main id="explore" class="workspace">
 <section class="panel search-panel"><h2>Search movies</h2><div class="search-wrap"><input id="search" type="search" aria-label="Search films" placeholder="Try Jodhaa Akbar, Dhoom…" autocomplete="off"><button id="clearSearch" class="clear-btn" aria-label="Clear search" style="display:none">✕</button></div><p class="muted" id="resultCount"></p><div id="matches"><p class="muted" id="loadingMsg">Loading film data…</p></div></section>
-<section class="panel graph-panel"><div class="graph-toolbar"><div><div class="section-label">Movie connections</div><h2 id="filmTitle"></h2></div><div class="filter-control"><label class="muted" for="filter">Show connections</label><select id="filter"><option value="all">All relationships</option><option value="locations">Places and genres</option><option value="credits">Cast and characters</option><option value="songs">Songs and music credits</option></select></div></div><p class="muted" id="scope"></p><div class="graph-canvas"><svg id="graph" viewBox="0 0 1400 1100" aria-label="Selected film relationship graph" role="group"></svg></div><div class="legend" id="legend"></div></section>
+<section class="panel graph-panel"><div class="graph-toolbar"><div><div class="section-label">Movie connections</div><h2 id="filmTitle"></h2></div><a class="graph-map-link" id="graphMapLink" href="?page=map" hidden>View locations on map ↗</a><div class="filter-control"><label class="muted" for="filter">Show connections</label><select id="filter"><option value="all">All relationships</option><option value="locations">Places and genres</option><option value="credits">Cast and characters</option><option value="songs">Songs and music credits</option></select></div></div><p class="muted" id="scope"></p><div class="graph-canvas"><svg id="graph" viewBox="0 0 1400 1100" aria-label="Selected film relationship graph" role="group"></svg></div><div class="legend" id="legend"></div></section>
 <aside class="panel" id="detailPanel"><h2>Evidence & connections</h2><div id="details">Select a node or line.</div></aside></main>
 <!--__WEBMAP_PANEL__-->
 <section class="supplementary" id="data" aria-labelledby="moreTitle"><h2 id="moreTitle">More to explore</h2>
@@ -330,9 +333,12 @@ E.forEach((e,i)=>{adj[e[0]].push(i);adj[e[2]].push(i)});
 const $=id=>document.getElementById(id),films=N.map((n,i)=>[n,i]).filter(([n])=>n[2]==='Film').sort((a,b)=>a[0][1].localeCompare(b[0][1]));
 // Pre-build lowercase search index for fast filtering
 const filmSearchIndex=films.map(([n,i])=>[(n[1]+' '+n[3]).toLocaleLowerCase(),n,i]);
-let current=films.find(([n])=>n[1]==='Jodhaa Akbar')?.[1]??films[0]?.[1];
+let current;
 const label=r=>({filming:'filmed at',song_filming:'song filmed at',narrative:'story set in',cast_member:'cast member',director:'directed by',in_film:'song in film',portrays:'portrays',character_in_film:'character in film',genre:'has genre',performed_by:'performed by',composed_by:'composed by',lyrics_by:'lyrics by',part_of_heritage:'part of heritage'})[r]||r;
 function add(parent,tag,text,cls){const el=document.createElement(tag);el.textContent=text;if(cls)el.className=cls;parent.append(el);return el}
+const selectedFilmKey='places-stories-selected-film';
+function rememberFilm(i){const id=N[i][0],url='?page=map&film='+encodeURIComponent(id);try{localStorage.setItem(selectedFilmKey,id);sessionStorage.setItem(selectedFilmKey,id)}catch{}const mapNav=document.querySelector('.main-nav a[href^="?page=map"]');if(mapNav)mapNav.href=url;const mapAction=$('graphMapLink');if(mapAction){mapAction.href=url;mapAction.hidden=false}}
+function selectFilm(i){current=i;rememberFilm(i);render();listFilms();details(i);if(document.documentElement.dataset.page==='map')window.spatialExplorer?.showFilmLocations(i)}
 function listFilms(){
   const q=$('search').value.toLocaleLowerCase();
   const clearBtn=$('clearSearch');
@@ -348,7 +354,7 @@ function listFilms(){
     if(n[3])add(b,'span',n[3],'year');
     b.setAttribute('aria-pressed',String(i===current));
     if(i===current)b.className='selected';
-    b.onclick=()=>{current=i;render();listFilms();details(i)};
+    b.onclick=()=>selectFilm(i);
     frag.append(b);
   });
   matchesEl.append(frag);
@@ -357,9 +363,9 @@ function listFilms(){
   }
 }
 function evidence(i){const e=E[i],d=$('details');d.replaceChildren();add(d,'h3',N[e[0]][1]+' → '+label(e[1])+' → '+N[e[2]][1]);add(d,'p',e[3]+' source assertion(s). Showing one; claims.csv contains all evidence.');add(d,'p',e[4]);if(e[6])add(d,'p',e[6]);if(/^https?:\/\//.test(e[5])){let a=add(d,'a','Open original source');a.href=e[5];a.target='_blank';a.rel='noopener'} }
-function details(i){const d=$('details');d.replaceChildren();add(d,'h3',N[i][1]);add(d,'p',N[i][2]+(N[i][3]?' · '+N[i][3]:''));if(N[i][4])add(d,'p',N[i][4].replaceAll('_',' '));if(N[i][6]){const source=add(d,'a','Heritage identity source ↗');source.href=N[i][6];source.target='_blank';source.rel='noopener';}add(d,'p',adj[i].length+' connected relationships');if(window.spatialExplorer?.engine.byNode.has(i)){const nearby=add(d,'button','Find movies near this place');nearby.onclick=()=>window.spatialExplorer.focusPlace(i);} const ids=adj[i].filter(j=>{const e=E[j];return e[0]===current||e[2]===current||N[i][2]==='Song'||N[i][2]==='Character'});(ids.length?ids:adj[i]).slice(0,35).forEach(j=>{let e=E[j],other=e[0]===i?e[2]:e[0];const b=add(d,'button',label(e[1])+' · '+N[other][1]);b.onclick=()=>evidence(j);if(N[other][2]==='Film'&&other!==current){let go=add(d,'button','Explore '+N[other][1]);go.onclick=()=>{current=other;render();listFilms();details(other)}}})}
+function details(i){const d=$('details');d.replaceChildren();add(d,'h3',N[i][1]);add(d,'p',N[i][2]+(N[i][3]?' · '+N[i][3]:''));if(N[i][4])add(d,'p',N[i][4].replaceAll('_',' '));if(N[i][6]){const source=add(d,'a','Heritage identity source ↗');source.href=N[i][6];source.target='_blank';source.rel='noopener';}add(d,'p',adj[i].length+' connected relationships');if(N[i][2]==='Film'){const view=add(d,'button','View this film on the map','film-map-open');view.onclick=()=>{rememberFilm(i);location.href='?page=map&film='+encodeURIComponent(N[i][0]);};}if(window.spatialExplorer?.engine.byNode.has(i)){const nearby=add(d,'button','Find movies near this place');nearby.onclick=()=>window.spatialExplorer.focusPlace(i);} const ids=adj[i].filter(j=>{const e=E[j];return e[0]===current||e[2]===current||N[i][2]==='Song'||N[i][2]==='Character'});(ids.length?ids:adj[i]).slice(0,35).forEach(j=>{let e=E[j],other=e[0]===i?e[2]:e[0];const b=add(d,'button',label(e[1])+' · '+N[other][1]);b.onclick=()=>evidence(j);if(N[other][2]==='Film'&&other!==current){let go=add(d,'button','Explore '+N[other][1]);go.onclick=()=>selectFilm(other)}})}
 function svg(tag,attrs,parent){const x=document.createElementNS('http://www.w3.org/2000/svg',tag);Object.entries(attrs).forEach(([k,v])=>x.setAttribute(k,v));parent.append(x);return x}
-function render(){if(current===undefined)return;const f=$('filter').value,g=$('graph');g.replaceChildren();$('filmTitle').textContent=N[current][1]+' · '+N[current][3];const selected=new Set([current]);const groups={Song:[],Person:[],Character:[],Genre:[],Place:[],Heritage:[]};
+function render(){const g=$('graph');if(current===undefined){g.replaceChildren();$('filmTitle').textContent='';$('scope').textContent='Search for or select a film to see its connections.';svg('text',{x:700,y:540,'text-anchor':'middle',fill:'var(--muted)','font-size':20},g).textContent='Choose a film from the search results';return;}const f=$('filter').value;g.replaceChildren();$('filmTitle').textContent=N[current][1]+' · '+N[current][3];const selected=new Set([current]);const groups={Song:[],Person:[],Character:[],Genre:[],Place:[],Heritage:[]};
  const allow=r=>f==='all'||f==='locations'&&['filming','narrative','genre'].includes(r)||f==='credits'&&['cast_member','director','character_in_film'].includes(r)||f==='songs'&&r==='in_film';
  adj[current].forEach(j=>{const e=E[j];if(!allow(e[1]))return;const other=e[0]===current?e[2]:e[0];const arr=groups[N[other][2]];if(arr&&!arr.includes(other))arr.push(other)});
  const caps={Song:10,Person:10,Character:10,Genre:6,Place:12,Heritage:8};Object.entries(groups).forEach(([k,v])=>v.slice(0,caps[k]).forEach(i=>selected.add(i)));
@@ -426,8 +432,8 @@ if(clearBtn){clearBtn.onclick=()=>{$('search').value='';clearBtn.style.display='
 $('filter').onchange=render;
 // Remove loading message and initialize
 const loadMsg=$('loadingMsg');if(loadMsg)loadMsg.remove();
-listFilms();render();details(current);
-try{window.spatialExplorer=initSpatialExplorer({data:DATA,openFilm:i=>{current=i;$('filter').value='all';render();listFilms();details(i);$('explore').scrollIntoView({behavior:'smooth'});}});}catch(mapError){$('spatialError').hidden=false;$('spatialError').textContent='Map search could not initialise: '+mapError.message;console.error(mapError);}
+listFilms();render();if(current===undefined){const panel=$('details');panel.replaceChildren();add(panel,'h3','Choose a film');add(panel,'p','Search for or select a film to view its graph and evidence.');}else details(current);
+try{window.spatialExplorer=initSpatialExplorer({data:DATA,openFilm:i=>{location.href='?page=graph&film='+encodeURIComponent(N[i][0]);}});const params=new URLSearchParams(location.search),requestedFilm=params.get('film');let savedFilm=null,pendingMapAnswer=null;try{savedFilm=localStorage.getItem(selectedFilmKey)||sessionStorage.getItem(selectedFilmKey);if(params.get('atlas')==='1'){pendingMapAnswer=JSON.parse(localStorage.getItem('places-stories-pending-map-answer')||'null');localStorage.removeItem('places-stories-pending-map-answer');}}catch{}const resumeFilm=requestedFilm||savedFilm;const resumeIndex=resumeFilm?N.findIndex(n=>n[0]===resumeFilm):-1;if(resumeIndex>=0&&!pendingMapAnswer)selectFilm(resumeIndex);if(pendingMapAnswer){const restore=pendingMapAnswer.kind==='place_info'?window.spatialExplorer.focusPlace(pendingMapAnswer.place?.node):window.spatialExplorer.applyChatAnswer(pendingMapAnswer);restore?.catch(mapError=>{ $('spatialError').hidden=false;$('spatialError').textContent='Ask Atlas map analysis could not load: '+mapError.message;console.error(mapError);});}}catch(mapError){$('spatialError').hidden=false;$('spatialError').textContent='Map search could not initialise: '+mapError.message;console.error(mapError);}
 }catch(err){
   // Show error visibly so user knows something went wrong
   const msg=document.createElement('div');

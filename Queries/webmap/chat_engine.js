@@ -116,6 +116,8 @@ function createAssistant(data,{engine=Spatial.createEngine(data),getRegions=asyn
  const songIndex=SongTools.createIndex(data);
  edges.forEach((e,i)=>{for(const n of [e[0],e[2]]){if(!adj.has(n))adj.set(n,[]);adj.get(n).push(i);}});
  const films=nodes.map((n,i)=>({node:i,name:n[1],year:n[3]})).filter(f=>nodes[f.node][2]==='Film');
+ const filmGenres=new Map();
+ edges.forEach(e=>{if(e[1]==='genre'&&nodes[e[0]][2]==='Film'){if(!filmGenres.has(e[0]))filmGenres.set(e[0],new Set());filmGenres.get(e[0]).add(nodes[e[2]][1]);}});
  const title=s=>normalize(s.replace(/\s*\(.*?\)\s*/g,' '));
 
  function film(text){
@@ -126,20 +128,28 @@ function createAssistant(data,{engine=Spatial.createEngine(data),getRegions=asyn
   return found[0];
  }
 
- function decadeCount(text){
-  if(!/\b(?:how many|count|number of)\b/i.test(text)||!/\b(?:movies|films)\b/i.test(text)||
-     /\b(?:filmed|shot|shoot|location|place|near|around|within|route|distance|set in|story setting)\b/i.test(text))return null;
-  const tokens=[...text.matchAll(/\b(?:(?:19|20)\d0s|\d0s)\b/gi)].map(m=>m[0]);
-  if(!tokens.length)return null;
-  const decades=[...new Set(tokens.map(token=>{
-   const digits=token.match(/\d+/)[0],start=digits.length===4?Number(digits):(Number(digits)>=70?1900:2000)+Number(digits);
-   return Math.floor(start/10)*10;
-  }))];
-  const ranges=decades.map(start=>({start,end:start+9,label:(start%100).toString().padStart(2,'0')+'s'}));
-  const counts=ranges.map(range=>({range,count:films.filter(f=>{const y=Number(f.year);return Number.isFinite(y)&&y>=range.start&&y<=range.end;}).length}));
-  const total=counts.reduce((sum,item)=>sum+item.count,0);
-  const lines=counts.map(({range,count})=>range.start+'s ('+range.start+'–'+range.end+'): '+count).join(' · ');
-  return {kind:'text',summary:lines+' · Combined: '+total+' recorded film records. Counts use each film’s recorded release year.',plan:null,clearPrevious:true};
+ function countMoviesQuestion(text){
+  if(!/\b(?:how many|count|number of)\b/i.test(text)||! /\b(?:movies|films)\b/i.test(text)||
+     /\b(?:filmed|shot|shoot|location|place|near|around|within|route|distance|set in|story setting|district|state|buffer)\b/i.test(text))return null;
+  const genre=engine.genres.find(name=>normalize(text).includes(normalize(name)))||'';
+  const exactYears=[...text.matchAll(/\b(?:19|20)\d{2}\b(?!s)/gi)].map(m=>Number(m[0]));
+  const decadeTokens=[...text.matchAll(/\b(?:(?:19|20)\d0s|\d0s)\b/gi)].map(m=>m[0]);
+  let ranges=[],description='';
+  if(exactYears.length>=2){const start=Math.min(exactYears[0],exactYears[1]),end=Math.max(exactYears[0],exactYears[1]);ranges=[{start,end}];description='released '+start+'–'+end+' (inclusive)';}
+  else if(exactYears.length===1){ranges=[{start:exactYears[0],end:exactYears[0]}];description='with recorded release year '+exactYears[0];}
+  else if(decadeTokens.length){
+   const decades=[...new Set(decadeTokens.map(token=>{const digits=token.slice(0,-1),value=Number(digits),start=digits.length===4?value:(value>=70?1900:2000)+value;return Math.floor(start/10)*10;}))];
+   ranges=decades.map(start=>({start,end:start+9}));description=ranges.map(r=>r.start+'s').join(' and ');
+  }
+  const matches=films.filter(f=>{
+   if(genre&&!filmGenres.get(f.node)?.has(genre))return false;
+   if(!ranges.length)return true;
+   const year=Number(f.year);return Number.isFinite(year)&&ranges.some(r=>year>=r.start&&year<=r.end);
+  });
+  const label=genre?genre+' film records':'recorded film records';
+  if(ranges.length===1&&ranges[0].start!==ranges[0].end)return {kind:'text',summary:'The graph contains '+matches.length+' '+label+' released '+ranges[0].start+'–'+ranges[0].end+' (inclusive). This uses each film’s recorded release year and explicit genre links.',plan:null,clearPrevious:true};
+  if(ranges.length>1){const detail=ranges.map(r=>{const count=films.filter(f=>{const y=Number(f.year);return (!genre||filmGenres.get(f.node)?.has(genre))&&Number.isFinite(y)&&y>=r.start&&y<=r.end;}).length;return r.start+'s: '+count;}).join(' · ');return {kind:'text',summary:detail+' · Combined: '+matches.length+' '+label+'. Counts use recorded release years and explicit genre links.',plan:null,clearPrevious:true};}
+  return {kind:'text',summary:'The graph contains '+matches.length+' '+label+(description?' for '+description:'')+'. Counts use recorded release years and explicit genre links.',plan:null,clearPrevious:true};
  }
 
  function resolveSinglePlace(placeText,selectedNode,label='place'){
@@ -171,7 +181,7 @@ async function answer(text,previous=null,selection={},history=[],lastAnswer=null
   const q=String(text||'').trim();
   if(!q||q.length>1000)throw Error('Enter a question between 1 and 1000 characters.');
 
-  const countAnswer=decadeCount(q);
+  const countAnswer=countMoviesQuestion(q);
   if(countAnswer)return countAnswer;
 
   // Relationship-label questions explain the visible result; they must not launch its search again.
@@ -193,6 +203,10 @@ async function answer(text,previous=null,selection={},history=[],lastAnswer=null
    llmResponse=await askLLM({message:q,history,previous,genres:engine.genres,years});
    if(!llmResponse.toolCall){
     return {kind:'text',plan:previous,summary:llmResponse.reply||help};
+   }
+   if(llmResponse.toolCall.name==='search_movies_in_region'){
+    const requestedRegion=normalize(llmResponse.toolCall.args?.regionText||''),asked=normalize(q);
+    if(!requestedRegion||requestedRegion==='india'||!asked.includes(requestedRegion))return {kind:'text',plan:null,clearPrevious:true,summary:'I couldn’t identify a specific state or district in that question, so I haven’t run a region search. For graph-wide totals, ask “How many [genre] films were released between [year] and [year]?” For a map search, name a state or district.'};
    }
    plan=planFromToolCall(llmResponse.toolCall,{previous,genres:engine.genres,years});
   }

@@ -38,6 +38,7 @@ function initCinemaChat({data,engine,getRegions,syncSpatial,syncCatalog,syncSong
   for(const url of [...new Set([edge[5],...(edge[7]||[])])].filter(url=>/^https?:\/\//i.test(url||''))){const a=el('a','Open recorded source ↗',details);a.href=url;a.target='_blank';a.rel='noopener';}
   el('small','Showing the first supporting record. claims.csv retains the source assertions.',details);
  }
+ function mapLink(text,answer,parent){const a=el('a',text,parent);a.href='?page=map&atlas=1';a.onclick=()=>{try{localStorage.setItem('places-stories-pending-map-answer',JSON.stringify({kind:answer.kind,plan:answer.plan,place:answer.place?{node:answer.place.node}:undefined,summary:answer.summary,note:answer.note,resultCount:answer.results?.length}))}catch{}};return a;}
  function render(answer){
   const article=message('assistant',answer.summary);
   if(answer.interpretation)el('p',answer.interpretation,article).className='chat-interpretation';
@@ -61,16 +62,17 @@ function initCinemaChat({data,engine,getRegions,syncSpatial,syncCatalog,syncSong
    const exportButton=el('button','Download heritage references · GeoJSON',article);exportButton.type='button';exportButton.onclick=()=>{const payload={type:'FeatureCollection',features:answer.items.map(p=>({type:'Feature',geometry:{type:'Point',coordinates:[p.lon,p.lat]},properties:{role:'heritage_reference',place_id:data.nodes[p.node][0],name:p.name,place_type:p.kind,location_precision:p.precision,identity_source:p.identitySource,distance_km:p.distanceKm,direct_film_count:p.directFilmCount}}))};const url=URL.createObjectURL(new Blob([JSON.stringify(payload)],{type:'application/geo+json'})),a=el('a');a.href=url;a.download='heritage-reference-sites.geojson';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
   }else if(answer.kind==='place_info'){
    const b=el('button','Open '+answer.place.name+' in Place Panel ↗',article);b.type='button';b.onclick=()=>openPlace(answer.place);
+   mapLink('View this place on Map tools ↗',answer,article);
    if(answer.mapsUrl){const gm=el('a','Open in Google Maps ↗',article);gm.href=answer.mapsUrl;gm.target='_blank';gm.rel='noopener';}
   }else if(['route','isochrone','polygon'].includes(answer.kind)){
-   const a=el('a','View map analysis and results ↗',article);a.href='?page=map';
+   mapLink('View map analysis and results ↗',answer,article);
   }else if(answer.kind==='spatial'){
    const list=el('ul',null,article);
    let shown=0;const more=el('button','Show more films',article);more.type='button';const append=()=>{for(const row of answer.results.slice(shown,shown+6)){
     const film=data.nodes[row.film],li=el('li',null,list),go=el('button',film[1]+' · '+film[3],li);go.type='button';go.onclick=()=>openFilm(row.film);
     const match=row.matches[0];el('span',' · '+match.place.name+(match.distanceKm==null?'':' · '+match.distanceKm.toFixed(3)+' km'),li);el('small',SpatialSearch.placeLabel(match.place)+' · '+SpatialSearch.precisionNote(match.place),li);source(li,match.edgeIndex);
    }shown+=6;more.hidden=shown>=answer.results.length;};more.onclick=append;append();
-   const a=el('a',answer.results.length?'View all results, map and exports ↗':'Inspect the search area on the map ↗',article);a.href='?page=map';
+   mapLink(answer.results.length?'View all results, map and exports ↗':'Inspect the search area on the map ↗',answer,article);
   }
   log.scrollTo({top:log.scrollHeight,behavior:'auto'});
  }

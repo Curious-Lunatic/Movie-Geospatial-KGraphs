@@ -12,8 +12,9 @@ function initSpatialExplorer({data,openFilm}){
   time:['Road network + reachable area','Within travel time','Choose a starting point and travel time to explore a modelled reachable area.','Travel-time exploration']
  };
  let mode='nearby',center=null,centerName='',end=null,endName='',target='start';
- let map,markers,referenceLayer,analysisLayer,contextLayer,drawingLayer,pointLayer,drawPoints=[],drawn=null,drawing=false,referenceFrame;
- let results=[],shown=0,last=null,revision=0,controller=null,regions=null,regionPromise=null;
+ let map,markers,referenceLayer,analysisLayer,contextLayer,drawingLayer,pointLayer,filmMapLayer,drawPoints=[],drawn=null,drawing=false,referenceFrame;
+ let selectedFilm=null,filmMapView='india';try{const savedExtent=localStorage.getItem('places-stories-map-extent');if(savedExtent==='world')filmMapView='world';}catch{}
+ let results=[],shown=0,last=null,revision=0,controller=null,regions=null,regionPromise=null,applyChatAnswer;
  let analysisFeatures=[];
  const el=(tag,text,parent)=>{const e=document.createElement(tag);if(text!=null)e.textContent=text;if(parent)parent.append(e);return e;};
  const link=(parent,text,url)=>{const a=el('a',text,parent);a.href=url;a.target='_blank';a.rel='noopener';return a;};
@@ -36,7 +37,7 @@ function initSpatialExplorer({data,openFilm}){
   if(map)return;
   map=L.map('cinemaMap',{preferCanvas:true,scrollWheelZoom:false}).setView([22.5,79],5);
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).on('tileerror',()=>{$('mapStatus').textContent='Background tiles unavailable. Stored locations and spatial searches still work.';}).addTo(map);
-  contextLayer=L.featureGroup().addTo(map);analysisLayer=L.featureGroup().addTo(map);drawingLayer=L.featureGroup().addTo(map);referenceLayer=L.layerGroup().addTo(map);markers=L.layerGroup().addTo(map);pointLayer=L.layerGroup().addTo(map);
+  contextLayer=L.featureGroup().addTo(map);analysisLayer=L.featureGroup().addTo(map);drawingLayer=L.featureGroup().addTo(map);referenceLayer=L.layerGroup().addTo(map);markers=L.layerGroup().addTo(map);pointLayer=L.layerGroup().addTo(map);filmMapLayer=L.layerGroup().addTo(map);
   map.on('moveend',()=>{cancelAnimationFrame(referenceFrame);referenceFrame=requestAnimationFrame(drawReferences);});
   map.on('click',e=>{
    const p=[e.latlng.lat,((e.latlng.lng+180)%360+360)%360-180];
@@ -46,8 +47,43 @@ function initSpatialExplorer({data,openFilm}){
    choose(p,'Selected map point');if(mode==='nearby')run(false);
   });
   map.getContainer().addEventListener('keydown',e=>{if(e.key==='Escape'&&drawing){drawing=false;map.getContainer().classList.remove('drawing-map');$('drawStatus').textContent='Drawing paused. Finish your area or start again.';}});
-  drawMarkers(engine.visiblePlaces(controls()));$('mapStatus').textContent='Choose a place or click the map to begin.';
+  drawMarkers(engine.visiblePlaces(controls()));document.querySelectorAll('[data-film-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filmView===filmMapView)));if(filmMapView==='india')map.fitBounds([[6,68],[38,98]],{padding:[18,18]});else map.setView([20,0],2);$('mapStatus').textContent='Choose a place or click the map to begin.';
  }
+ function renderSelectedFilmLocations(){
+  if(!map||!filmMapLayer)return;filmMapLayer.clearLayers();markers.clearLayers();analysisLayer.clearLayers();contextLayer.clearLayers();referenceLayer.clearLayers();
+  const title=$('filmMapTitle'),summary=$('filmMapSummary'),groups=new Map();
+  document.querySelectorAll('[data-film-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filmView===filmMapView)));
+  if(selectedFilm==null){title.textContent='Choose a movie in the graph';summary.textContent='Its recorded locations will appear here.';return;}
+  title.textContent=nodes[selectedFilm][1]+(nodes[selectedFilm][3]?' · '+nodes[selectedFilm][3]:'');
+  let unmapped=0;
+  edges.forEach((edge,index)=>{
+   if(edge[0]!==selectedFilm||!['filming','narrative'].includes(edge[1]))return;
+   const p=engine.byNode.get(edge[2]);if(!p){unmapped++;return;}
+   if(!groups.has(edge[2]))groups.set(edge[2],{place:p,relations:new Set(),evidence:[]});
+   const row=groups.get(edge[2]);row.relations.add(edge[1]);row.evidence.push({edge,index});
+  });
+  const all=[...groups.values()],counts={filming:all.filter(x=>x.relations.has('filming')).length,narrative:all.filter(x=>x.relations.has('narrative')).length};
+  const visible=all;
+  summary.textContent='Filming '+counts.filming+' · Story setting '+counts.narrative+' · '+visible.length+' mapped worldwide'+(unmapped?' · '+unmapped+' without coordinates':'');
+  for(const row of visible){
+   const p=row.place,coords=point(p),both=row.relations.size===2;
+   const popup=el('div');el('strong',p.name,popup);
+   el('p',both?'Filming location and story setting':row.relations.has('filming')?'Filming location':'Story setting',popup);
+   if(p.locality)el('p',p.locality,popup);el('p',SpatialSearch.precisionNote(p),popup);
+   for(const item of row.evidence){const e=item.edge;const source=el('p',e[1]==='filming'?'Filming source':'Story-setting source',popup);if(/^https?:\/\//.test(e[5])){const a=el('a','Open evidence ↗',source);a.href=e[5];a.target='_blank';a.rel='noopener';}else source.textContent+=' · '+e[4];if(e[6])el('small',e[6],popup);}
+   let marker;
+   if(both)marker=L.circleMarker(coords,{radius:8,color:'#9b78bd',fillColor:'#258674',fillOpacity:.95,weight:3,bubblingMouseEvents:false}).addTo(filmMapLayer);
+   else {const story=row.relations.has('narrative');marker=L.circleMarker(coords,{radius:8,color:story?'#9b78bd':'#258674',fillColor:story?'#b99dca':'#63a797',fillOpacity:.9,weight:2,bubblingMouseEvents:false}).addTo(filmMapLayer);}
+   marker.bindPopup(popup).bindTooltip(p.name);
+  }
+  if(filmMapView==='india')map.fitBounds([[6,68],[38,98]],{padding:[18,18]});
+  else if(visible.length>1)map.fitBounds(L.latLngBounds(visible.map(r=>point(r.place))),{padding:[30,30],maxZoom:5});
+  else if(visible.length===1)map.setView(point(visible[0].place),5);
+  else map.setView([18,0],2);
+  $('mapStatus').textContent=visible.length?(filmMapView==='india'?'India extent · select World to zoom out to all recorded locations.':'World extent · all geocoded filming and story references.'):'No geocoded locations are recorded for this film.';
+ }
+ function showFilmLocations(filmIndex){initializeMap();selectedFilm=filmIndex;renderSelectedFilmLocations();}
+ function setMapExtent(view){filmMapView=view;try{localStorage.setItem('places-stories-map-extent',view)}catch{}document.querySelectorAll('[data-film-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filmView===filmMapView)));initializeMap();if(selectedFilm!=null){renderSelectedFilmLocations();return;}if(filmMapView==='india'){map.fitBounds([[6,68],[38,98]],{padding:[18,18]});$('mapStatus').textContent='India extent · choose World to zoom out.';}else{map.setView([20,0],2);$('mapStatus').textContent='World extent · choose India to focus on India.';}}
  function drawMarkers(places){
   markers.clearLayers();for(const p of places){
    const story=$('spatialRelation').value==='narrative';
@@ -268,6 +304,7 @@ function initSpatialExplorer({data,openFilm}){
  document.querySelectorAll('[data-radius]').forEach(b=>b.onclick=()=>{$('radiusKm').value=$('radiusSlider').value=b.dataset.radius;invalidate();});
  $('radiusSlider').oninput=()=>{$('radiusKm').value=$('radiusSlider').value;};$('radiusSlider').onchange=()=>invalidate();
  $('showHeritageReferences').onchange=drawReferences;
+ document.querySelectorAll('[data-film-view]').forEach(button=>button.onclick=()=>setMapExtent(button.dataset.filmView));
  for(const id of ['radiusKm','spatialRelation','spatialGenre','yearFrom','yearTo','heritageOnly','excludeBroad','travelMode','travelMinutes'])$(id).addEventListener('change',()=>{invalidate();$('radiusSlider').value=$('radiusKm').value;$('filterSummary').textContent=($('spatialGenre').value||'All genres')+' · '+$('yearFrom').value+'–'+$('yearTo').value;});
  function setTarget(value){target=value;$('pickStart').setAttribute('aria-pressed',String(value==='start'));$('pickEnd').setAttribute('aria-pressed',String(value==='end'));$('placeSearch').value='';$('mapStatus').textContent='Choose '+(value==='start'?'the starting point':'the destination')+' using search or the map.';}
  $('pickStart').onclick=()=>setTarget('start');$('pickEnd').onclick=()=>setTarget('end');
@@ -292,7 +329,8 @@ function initSpatialExplorer({data,openFilm}){
   $('spatialSummary').textContent=answer.summary;$('interpretedQuery').textContent=answer.note;$('spatialResults').replaceChildren();
   for(const p of answer.items.slice(0,30)){const card=el('article',null,$('spatialResults'));card.className='spatial-card';el('h4',p.name,card);el('span',scope(p),card).className='place-badge';el('p',(p.locality||p.country)+' · '+p.distanceKm.toFixed(2)+' km',card);el('p',p.directFilmCount+' direct film connections recorded',card);discover(card,p);if(p.identitySource)link(card,'Site identity source ↗',p.identitySource);}
   $('mapStatus').textContent='Heritage reference catalogue · no filming relationship inferred';
- },syncSpatial:async answer=>{
+ },syncSpatial:applyChatAnswer=async answer=>{
+  initializeMap();
   const p=answer.plan;
   if(p.intent==='route'){
    await switchTool('route');
@@ -333,8 +371,9 @@ function initSpatialExplorer({data,openFilm}){
   }else choose(p.center,p.placeText,true);
   await run(true);
   if(!last)throw Error('The map selection could not be completed. Check the map controls and try again.');
-  if(results.length!==answer.results.length)throw Error('The map filters changed during the question. Please ask again.');
+  const expected=answer.resultCount??answer.results?.length;if(expected!=null&&results.length!==expected)throw Error('The map filters changed during the question. Please ask again.');
+  if(p.intent==='nearby'&&Array.isArray(p.center)){const radius=Number(p.radiusKm)||10,zoom=Math.max(7,Math.min(13,Math.round(14-Math.log2(Math.max(1,radius/2)))));map.setView(p.center,zoom);}
  }});
  if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){initializeMap();observer.disconnect();}},{rootMargin:'100px'});observer.observe($('cinemaMap'));}else initializeMap();
- return {engine,focusPlace(node){const p=engine.byNode.get(node);if(!p)return;switchTool('nearby');choose(point(p),p.name);$('spatial').scrollIntoView({behavior:'smooth'});run(true);}};
+ return {engine,async focusPlace(node){const p=engine.byNode.get(node);if(!p)return;await switchTool('nearby');choose(point(p),p.name);$('spatial').scrollIntoView({behavior:'smooth'});await run(true);map.setView(point(p),12);},showFilmLocations,applyChatAnswer,setMapExtent};
 }
