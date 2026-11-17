@@ -432,7 +432,11 @@ class Integration:
                            "https://www.themoviedb.org/movie/" + row["tmdb_id"])
 
     def build_songs(self):
-        for source in sorted(p.name for p in self.data.glob("songs_[0-9]*_[0-9]*.csv")):
+        song_sources = sorted(p.name for p in self.data.glob("songs_[0-9]*_[0-9]*.csv"))
+        for supplemental in ("songs_soundtrack_additions.csv", "songs_musicbrainz.csv"):
+            if (self.data / supplemental).exists():
+                song_sources.append(supplemental)
+        for source in song_sources:
             for number, row in enumerate(self.read(source), 2):
                 sy = year(row.get("year", ""))
                 fid = self.lookup("wikidata", row.get("wikidata_id", ""))
@@ -451,14 +455,19 @@ class Integration:
                 has_credit = any(norm(row.get(k, '')) not in {'', 'n a', 'none', 'unknown'}
                                  for k in ('singers', 'music', 'lyrics'))
                 has_duration = bool(re.fullmatch(r'\d{1,2}:\d{2}', row.get('length', '').strip()))
-                if re.fullmatch(r'\d+(?::\d+)*', title.strip()) or norm(title) in {'total length', 'total', 'title', 'track listing'} or not (has_credit or has_duration):
+                source_evidence = row.get('source_evidence', '')
+                explicit_tracklist = source_evidence.startswith(('wikipedia_soundtrack_tracklist;', 'musicbrainz_soundtrack_tracklist;'))
+                if re.fullmatch(r'\d+(?::\d+)*', title.strip()) or norm(title) in {'total length', 'total', 'title', 'track listing'} or not (has_credit or has_duration or explicit_tracklist):
                     self.issue('song_row_needs_review', source, number,
                                title + ': lacks track metadata or resembles a table header/total')
                     continue
                 sid = key("song", fid, norm(title))
                 self.songs.setdefault(sid, dict(song_id=sid, title=title, film_id=fid, singers=row.get("singers", ""),
                                                 music=row.get("music", ""), lyrics=row.get("lyrics", "")))
-                self.claim(sid, "in_film", fid, source, number, "wikipedia_song_table_snapshot", row.get("source_url", ""))
+                method = ("musicbrainz_soundtrack_tracklist" if source_evidence.startswith('musicbrainz_soundtrack_tracklist;')
+                          else "wikipedia_soundtrack_tracklist" if explicit_tracklist else "wikipedia_song_table_snapshot")
+                self.claim(sid, "in_film", fid, source, number, method, row.get("source_url", ""),
+                           evidence=source_evidence)
                 for column, relation in [("singers", "performed_by"), ("music", "composed_by"), ("lyrics", "lyrics_by")]:
                     for name in filter(None, map(str.strip, re.split(r"[,;]", row.get(column, "")))):
                         # Name-only credits stay scoped to this source and film;

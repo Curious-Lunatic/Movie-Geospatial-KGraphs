@@ -1,5 +1,50 @@
 # More song-location evidence without interrupting the existing scraper
 
+## Add film soundtrack tracks to the graph
+
+To supplement the existing film-linked song batches, run:
+
+```sh
+python Queries/enrich_movie_soundtracks.py
+python Queries/build_integrated_graph.py --start-year 1970 --end-year 2025
+```
+
+The collector resolves the English Wikipedia page for each film through its
+recorded page URL or Wikidata sitelink, then reads only track-title tables inside
+an explicitly named soundtrack/music section. It writes
+`Dataset/songs_soundtrack_additions.csv`; the normal graph builder imports those
+rows as `in_film` links with the article URL, revision ID, and response hash.
+Credits are included only when the track table supplies them. It does not copy
+film-level filming places onto individual songs. Pages without a suitable
+tracklist remain without added songs; the method does not invent tracks to force
+every film to have a soundtrack.
+
+Use `--plan` to inspect page coverage without requests, `--limit N` for a small
+initial collection, and `--offline` to process only saved page responses. API
+responses are cached under `outputs/movie-soundtrack-enrichment/` so a run can
+resume without replacing the original song batches.
+
+## Add soundtrack releases from MusicBrainz
+
+Run the MusicBrainz supplement with:
+
+```sh
+python Queries/enrich_musicbrainz_soundtracks.py --plan
+python -u Queries/enrich_musicbrainz_soundtracks.py
+python Queries/build_integrated_graph.py --start-year 1970 --end-year 2025
+```
+
+The collector searches films that still have no song links. It imports tracks
+only when a single MusicBrainz release group has an exact normalized film title,
+an exact first-release year, and the `Soundtrack` release-group type. Each row
+keeps the MusicBrainz release URL, release-group/release/recording IDs, and match
+rule. Ambiguous matches are written to
+`outputs/musicbrainz-enrichment/ambiguous_release_groups.json`. Successful rows
+are written to `Dataset/songs_musicbrainz.csv` and loaded by the normal graph
+builder. API responses and per-film progress are cached so interrupted runs can
+resume. MusicBrainz requires a meaningful User-Agent and a limit of at most one
+request per second; collection can take hours for the full unmatched film set.
+
 ## Global discovery in both directions (current command)
 
 ```powershell
